@@ -1,14 +1,17 @@
 const SalesProductsModel = (sequelize, DataTypes) => {
   const SalesProducts = sequelize.define('SaleProduct', {
     saleId:{
+      allowNull: false,
       type: DataTypes.INTEGER,
       primaryKey: true,
     },
     productId: {
+      allowNull: false,
       type: DataTypes.INTEGER,
       primaryKey: true,
     },
     quantity: {
+      allowNull: false,
       type: DataTypes.INTEGER
     },
   }, {
