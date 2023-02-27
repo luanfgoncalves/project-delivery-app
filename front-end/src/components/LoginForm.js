@@ -1,8 +1,47 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-// NOta: criar handlechange para validação de dados de login
+function LoginForm() {
+  const [disabledButton, setDisabledButton] = useState(true);
+  const [isEmailValid, setIsEmailValid] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-function loginForm() {
+  const validateEmail = () => {
+    const check = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]/i;
+    if (check.test(email)) {
+      setIsEmailValid(true);
+    } else {
+      setIsEmailValid(false);
+    }
+  };
+
+  const validateLogin = () => {
+    const minNumber = 6;
+    if (password.length >= minNumber && isEmailValid === true) {
+      setDisabledButton(false);
+    } else {
+      setDisabledButton(true);
+    }
+  };
+
+  useEffect(() => {
+    validateEmail();
+    validateLogin();
+  }, [email, password]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    if (name === 'email') {
+      setEmail(value);
+    } else {
+      setPassword(value);
+    }
+  };
+
+  const handleClick = () => {
+    console.log('botão de login foi clicado');
+  };
+
   return (
     <div className="login-screen">
       <form className="login-form">
@@ -32,11 +71,23 @@ function loginForm() {
           disabled={ disabledButton }
           onClick={ handleClick }
         >
-          Enter
+          Login
+        </button>
+
+        {!isEmailValid
+        && <h4 data-testid="common_login__element-invalid-email"> E-mail Inválido </h4>}
+
+        <button
+          class-name="register-button"
+          type="submit"
+          data-testid="common_login__button-register"
+          onClick={ handleClick }
+        >
+          Register
         </button>
       </form>
     </div>
   );
 }
 
-export default loginForm;
+export default LoginForm;
