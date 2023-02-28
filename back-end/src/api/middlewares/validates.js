@@ -1,7 +1,6 @@
 const md5 = require('md5');
 const { User } = require('../../database/models/index');
 
-
 const validateLogin = async (req, res, next) => {
   console.log('fui chamado :3');
   const { email, password } = req.body;
@@ -17,5 +16,5 @@ const validateLogin = async (req, res, next) => {
 }; 
 
 module.exports = {
-  validateLogin
+  validateLogin,
 };
