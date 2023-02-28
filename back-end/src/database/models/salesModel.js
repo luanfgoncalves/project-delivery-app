@@ -30,7 +30,7 @@ const SalesModel = (sequelize, DataTypes) => {
     }, 
     saleDate: {
       allowNull: false,
-      type: DataTypes.DATETIME
+      type: DataTypes.DATE
     }, 
     status: {
       type: DataTypes.STRING(50)
