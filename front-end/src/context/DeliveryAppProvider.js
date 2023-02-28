@@ -5,13 +5,19 @@ import DeliveryAppContext from './DeliveryAppContext';
 function DeliveryAppProvider({ children }) {
   const [email, setEmail] = useState([]);
   const [password, setPassword] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   const valueContext = useMemo(() => ({
     email,
     setEmail,
     password,
     setPassword,
-  }), [email, password]);
+    products,
+    setProducts,
+    totalPrice,
+    setTotalPrice,
+  }), [email, password, products, totalPrice]);
 
   return (
     <DeliveryAppContext.Provider value={ valueContext }>
