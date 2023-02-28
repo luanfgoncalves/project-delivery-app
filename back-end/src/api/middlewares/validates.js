@@ -1,5 +1,5 @@
 const md5 = require('md5');
-const { User } = require('../models/index');
+const { User } = require('../../database/models/index');
 
 
 const validateLogin = async (req, res, next) => {
