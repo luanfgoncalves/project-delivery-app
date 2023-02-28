@@ -3,15 +3,13 @@ import PropTypes from 'prop-types';
 import DeliveryAppContext from './DeliveryAppContext';
 
 function DeliveryAppProvider({ children }) {
-  const [email, setEmail] = useState([]);
-  const [password, setPassword] = useState([]);
+  const [userRole, setUserRole] = useState('');
 
   const valueContext = useMemo(() => ({
-    email,
-    setEmail,
-    password,
-    setPassword,
-  }), [email, password]);
+    userRole,
+    setUserRole,
+
+  }), [userRole]);
 
   return (
     <DeliveryAppContext.Provider value={ valueContext }>
