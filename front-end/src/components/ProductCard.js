@@ -1,14 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function ProductCard({ urlImage, name, price, id }) {
+function ProductCard({ id, urlImage, name, price }) {
   return (
     <>
       <div>
         <img
-          data-testid={ `customer_products__img-card-bg-image-${id}` }
           src={ urlImage }
-          alt=""
+          data-testid={ `customer_products__img-card-bg-image-${id}` }
+          alt={ name }
+          width="120px"
         />
       </div>
 

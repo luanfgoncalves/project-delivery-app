@@ -17,23 +17,19 @@ function Products() {
   };
 
   useEffect(() => {
-    (async () => {
-      setProducts(await getProducts('/customer/products'));
-    })();
+    getProducts('/customer/products');
   }, []);
 
-  // if (products.length === 0) return <Loading />;
   if (!products) return (<Loading />);
   return (
     <section>
       <ul>
-        { console.log(products) }
         {
           products.map((item, index) => (
             <li key={ index }>
               <ProductCard
                 id={ item.id }
-                image={ item.urImage }
+                urlImage={ item.urlImage }
                 name={ item.name }
                 price={ item.price.replace('.', ',') }
               />
