@@ -1,4 +1,4 @@
-const ser = require('../services/loginService');
+const ser = require('../../database/services/loginService');
 
 const login = async (req, res) => {
   const { email } = req.body
