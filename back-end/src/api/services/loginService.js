@@ -1,5 +1,5 @@
-const { User } = require('../models/index');
 const jwt = require('jsonwebtoken');
+const { User } = require('../../database/models/index');
 
 const serviceLogin = async (email) => {
   const user = await User.findOne({ where: { email } });
@@ -13,5 +13,5 @@ const serviceLogin = async (email) => {
   };
 
   module.exports = {
-    serviceLogin
+    serviceLogin,
   };
