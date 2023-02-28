@@ -8,7 +8,7 @@ function LoginForm() {
   const [password, setPassword] = useState('');
 
   const validateEmail = () => {
-    const check = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]/i;
+    const check = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/gi;
     if (check.test(email)) {
       setIsEmailValid(true);
     } else {
@@ -39,16 +39,18 @@ function LoginForm() {
     }
   };
   // funcao p conectar ao back
+  // O teste espera o seguinte formato: {"email":"alessandro10@yahoo.com","password":"9UMt12"}
   const loginPost = async () => {
-    await axios.post('http://localhost:3001/login',{email, password})
-  }
+    postData = { email, password };
+    login = JSON.parse(postData);
+    await axios.post('http://localhost:3001/login', { login });
+  };
 
   const handleClick = (e) => {
-   
-    if(e.target.name === "login-button"){
-      loginPost()
+    if (e.target.name === 'login-button') {
+      loginPost();
     }
-    if(e.target.name === "register-button" ){
+    if (e.target.name === 'register-button') {
       console.log('botão de login foi clicado');
     }
   };
@@ -76,12 +78,12 @@ function LoginForm() {
           onChange={ handleChange }
         />
         <button
-          name ="login-button"
+          name="login-button"
           class-name="login-button"
           type="submit"
           data-testid="common_login__button-login"
           disabled={ disabledButton }
-          onClick={ (e) => handleClick(e)}
+          onClick={ handleClick }
         >
           Login
         </button>
@@ -90,11 +92,11 @@ function LoginForm() {
         && <h4 data-testid="common_login__element-invalid-email"> E-mail Inválido </h4>}
 
         <button
-          name = "register-button"
+          name="register-button"
           class-name="register-button"
           type="submit"
           data-testid="common_login__button-register"
-          onClick={ (e) => handleClick(e) }
+          onClick={ handleClick }
         >
           Register
         </button>
