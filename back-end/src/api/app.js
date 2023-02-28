@@ -1,12 +1,15 @@
 const express = require('express');
+require('express-async-errors');
+const loginRoute = require('./routes/loginRoute');
+const errorHandler = require('./middlewares/errorHandler');
 
 const app = express();
+// requisito 4 login
 
-app.get('/coffee', (_req, res) => res.status(418).end());
+app.use(express.json());
 
-const loginControll = require('../database/controllers/loginController');
-const { validateLogin } = require('../database/middlewares/validates');
-// requiosito 4 login
-app.post('/login', validateLogin, loginControll.login);
+app.use('/login', loginRoute);
+
+app.use(errorHandler);
 
 module.exports = app;
