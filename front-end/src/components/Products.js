@@ -1,39 +1,46 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import ProductCard from './ProductCard';
+import Loading from './Loading';
 import { requestData } from '../services/axios';
 
 function Products() {
   const [products, setProducts] = useState([]);
 
-  const getProducts = (endpoint) => {
+  const getProducts = async (endpoint) => {
     try {
-      const product = requestData(endpoint);
-      setProducts(product);
-    } catch (err) {
-      console.log(err);
+      const response = await requestData(endpoint);
+      setProducts(response);
+    } catch (error) {
+      console.log(error);
     }
   };
 
   useEffect(() => {
-    getProducts('/customer/products');
-  }, [products]);
+    (async () => {
+      setProducts(await getProducts('/customer/products'));
+    })();
+  }, []);
 
+  // if (products.length === 0) return <Loading />;
+  if (!products) return (<Loading />);
   return (
     <section>
       <ul>
+        { console.log(products) }
         {
           products.map((item, index) => (
             <li key={ index }>
               <ProductCard
                 id={ item.id }
-                image={ item.url_image }
+                image={ item.urImage }
                 name={ item.name }
                 price={ item.price.replace('.', ',') }
               />
             </li>
           ))
         }
+
       </ul>
     </section>
   );

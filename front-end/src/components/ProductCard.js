@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function ProductCard({ image, name, price }) {
+function ProductCard({ urlImage, name, price, id }) {
   return (
     <>
       <div>
         <img
           data-testid={ `customer_products__img-card-bg-image-${id}` }
-          src={ image }
+          src={ urlImage }
           alt=""
         />
       </div>
@@ -30,7 +30,8 @@ function ProductCard({ image, name, price }) {
 }
 
 ProductCard.propTypes = {
-  image: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
+  urlImage: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
 };
