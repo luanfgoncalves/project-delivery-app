@@ -41,12 +41,16 @@ function LoginForm() {
   // funcao p conectar ao back
   // O teste espera o seguinte formato: {"email":"alessandro10@yahoo.com","password":"9UMt12"}
   const loginPost = async () => {
-    postData = { email, password };
-    login = JSON.parse(postData);
-    await axios.post('http://localhost:3001/login', { login });
+    try {
+      const { data } = await axios.post('http://localhost:3001/login', { email, password });
+      console.log(data);
+    } catch (error) {
+      setIsEmailValid(false);
+    }
   };
 
   const handleClick = (e) => {
+    e.preventDefault();
     if (e.target.name === 'login-button') {
       loginPost();
     }

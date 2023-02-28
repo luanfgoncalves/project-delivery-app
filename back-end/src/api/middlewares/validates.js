@@ -3,6 +3,7 @@ const { User } = require('../../database/models/index');
 
 
 const validateLogin = async (req, res, next) => {
+  console.log('fui chamado :3');
   const { email, password } = req.body;
   if (!email || !password) {
     return res.status(400).json({ message: 'Some required fields are missing' });
