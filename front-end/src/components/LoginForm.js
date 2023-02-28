@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function LoginForm() {
   const [disabledButton, setDisabledButton] = useState(true);
@@ -37,9 +38,19 @@ function LoginForm() {
       setPassword(value);
     }
   };
+  // funcao p conectar ao back
+  const loginPost = async () => {
+    await axios.post('http://localhost:3001/login',{email, password})
+  }
 
-  const handleClick = () => {
-    console.log('botão de login foi clicado');
+  const handleClick = (e) => {
+   
+    if(e.target.name === "login-button"){
+      loginPost()
+    }
+    if(e.target.name === "register-button" ){
+      console.log('botão de login foi clicado');
+    }
   };
 
   return (
@@ -65,11 +76,12 @@ function LoginForm() {
           onChange={ handleChange }
         />
         <button
+          name ="login-button"
           class-name="login-button"
           type="submit"
           data-testid="common_login__button-login"
           disabled={ disabledButton }
-          onClick={ handleClick }
+          onClick={ (e) => handleClick(e)}
         >
           Login
         </button>
@@ -78,10 +90,11 @@ function LoginForm() {
         && <h4 data-testid="common_login__element-invalid-email"> E-mail Inválido </h4>}
 
         <button
+          name = "register-button"
           class-name="register-button"
           type="submit"
           data-testid="common_login__button-register"
-          onClick={ handleClick }
+          onClick={ (e) => handleClick(e) }
         >
           Register
         </button>
