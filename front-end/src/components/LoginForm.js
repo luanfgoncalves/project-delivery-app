@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import DeliveryAppContext from '../context/DeliveryAppContext';
 
 function LoginForm() {
+  const { setUserRole } = useContext(DeliveryAppContext);
   const [disabledButton, setDisabledButton] = useState(true);
   const [isEmailValid, setIsEmailValid] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const history = useHistory;
+  const navigate = useNavigate();
 
   const validateEmail = () => {
     const check = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/gi;
@@ -40,12 +42,24 @@ function LoginForm() {
       setPassword(value);
     }
   };
-  // funcao p conectar ao back
-  // O teste espera o seguinte formato: {"email":"alessandro10@yahoo.com","password":"9UMt12"}
+
   const loginPost = async () => {
     try {
+      console.log('loginPost foi chamada');
       const { data } = await axios.post('http://localhost:3001/login', { email, password });
       console.log(data);
+      if (data.UserRole === 'customer') {
+        setUserRole('customer');
+        navigate('/customer/products');
+      }
+      if (data.UserRole === 'seller') {
+        setUserRole('seller');
+        navigate('/seller/orders');
+      }
+      if (data.UserRole === 'admin') {
+        setUserRole('admin');
+        navigate('/admin/manage');
+      }
     } catch (error) {
       setIsEmailValid(false);
     }
@@ -54,10 +68,12 @@ function LoginForm() {
   const handleClick = (e) => {
     e.preventDefault();
     if (e.target.name === 'login-button') {
+      console.log('botão de login foi clicado');
       loginPost();
     }
     if (e.target.name === 'register-button') {
-      history.push('/register');
+      console.log('botão de registro foi clicado');
+      navigate('/register');
     }
   };
 
