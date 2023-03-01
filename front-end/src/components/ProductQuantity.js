@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 function ProductQuantity({
@@ -8,47 +8,56 @@ function ProductQuantity({
   handleCard,
   setIsActive,
 }) {
-  const [quantity, setQuantity] = useState(0);
+  const [cart, setCart] = useState([]);
 
-  const updateLocalStorage = (newQuantity) => {
-    const cart = JSON.parse(localStorage.getItem('carrinho'));
-    const arrCartPrepared = cart.filter((item) => item.id !== id);
-    const newItem = {
-      id,
-      name,
-      quantity: newQuantity,
-      unitPrice: price,
-    };
-    localStorage.setItem(
-      'carrinho',
-      JSON.stringify([...arrCartPrepared, newItem]),
-    );
-  };
+  useEffect(() => {
+    const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
+    setCart(storedCart);
+  }, []);
+
+  const itemIndex = cart.findIndex((item) => item.id === id);
+  const { quantity: initialQuantity } = cart[itemIndex] || { quantity: 0 };
 
   const adicionaQuantity = () => {
-    const newQuantity = quantity + 1;
-    setQuantity(newQuantity);
-    updateLocalStorage(newQuantity);
+    const newQuantity = initialQuantity + 1;
+    const updatedCart = [...cart];
+    if (itemIndex >= 0) {
+      updatedCart[itemIndex] = { ...updatedCart[itemIndex], quantity: newQuantity };
+    } else {
+      updatedCart.push({ id, name, quantity: newQuantity, unitPrice: price });
+    }
+    setCart(updatedCart);
     setIsActive(false);
-    handleCard(JSON.parse(localStorage.getItem('carrinho')));
+    handleCard(updatedCart);
   };
 
   const removeQuantity = () => {
-    const newQuantity = quantity - 1;
-    if (newQuantity < 0) return setQuantity(0);
-    setQuantity(newQuantity);
-    updateLocalStorage(newQuantity);
-
-    handleCard(JSON.parse(localStorage.getItem('carrinho')));
+    const newQuantity = initialQuantity - 1;
+    if (newQuantity < 0) return;
+    const updatedCart = [...cart];
+    if (itemIndex >= 0) {
+      updatedCart[itemIndex] = { ...updatedCart[itemIndex], quantity: newQuantity };
+      setCart(updatedCart);
+      handleCard(updatedCart);
+    }
   };
 
   const handleChangeQty = ({ target: { value } }) => {
-    setQuantity(Number(value));
+    const newQuantity = Number(value);
+    const updatedCart = [...cart];
+    if (newQuantity >= 0) {
+      if (itemIndex >= 0) {
+        updatedCart[itemIndex] = { ...updatedCart[itemIndex], quantity: newQuantity };
+        setCart(updatedCart);
+        handleCard(updatedCart);
+      } else {
+        updatedCart.push({ id, name, quantity: newQuantity, unitPrice: price });
+        setCart(updatedCart);
+        setIsActive(false);
+        handleCard(updatedCart);
+      }
+    }
   };
-
-  useEffect(() => {
-    localStorage.setItem('carrinho', JSON.stringify([]));
-  }, []);
 
   return (
     <section>
@@ -56,7 +65,7 @@ function ProductQuantity({
         type="button"
         data-testid={ `customer_products__button-card-rm-item-${id}` }
         title="remove"
-        onClick={ () => removeQuantity }
+        onClick={ removeQuantity }
       >
         -
       </button>
@@ -64,7 +73,7 @@ function ProductQuantity({
       <input
         type="number"
         min="0"
-        value={ quantity }
+        value={ initialQuantity }
         name="quantity"
         onChange={ handleChangeQty }
         data-testid={ `customer_products__input-card-quantity-${id}` }
@@ -74,10 +83,11 @@ function ProductQuantity({
         type="button"
         data-testid={ `customer_products__button-card-add-item-${id}` }
         title="add"
-        onClick={ () => adicionaQuantity }
+        onClick={ adicionaQuantity }
       >
         +
       </button>
+
     </section>
   );
 }
