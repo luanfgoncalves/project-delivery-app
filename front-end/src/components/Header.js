@@ -5,6 +5,7 @@ import DeliveryAppContext from '../context/DeliveryAppContext';
 function Header() {
   const { user, setUser } = useContext(DeliveryAppContext);
   const navigate = useNavigate();
+  // const [username, setUsername] = useState('');
 
   // Renderiza link para a tela de produtos a venda pro cliente
   function customerOrders() {
@@ -32,17 +33,23 @@ function Header() {
     );
   }
 
+  function getUserName() {
+    const { name } = JSON.parse(localStorage.getItem('user'));
+    return name;
+  }
+
   // renderiza o nome do usuário
   function userName() {
     return (
       <div data-testid="customer_products__element-navbar-user-full-name">
-        <h1>User</h1>
+        <h1>{getUserName()}</h1>
       </div>
     );
   }
 
   function logout() {
     setUser({});
+    localStorage.clear();
     navigate('/');
   }
 
