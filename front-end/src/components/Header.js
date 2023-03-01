@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import DeliveryAppContext from '../context/DeliveryAppContext';
 
 function Header() {
-  const { userRole, setUserRole } = useContext(DeliveryAppContext);
+  const { user, setUser } = useContext(DeliveryAppContext);
   const navigate = useNavigate();
 
   // Renderiza link para a tela de produtos a venda pro cliente
@@ -11,7 +11,7 @@ function Header() {
     return (
       <Link
         to="/customer/orders/"
-        datatest-id="customer_products__element-navbar-link-products"
+        data-testid="customer_products__element-navbar-link-products"
       >
         Produtos
       </Link>
@@ -21,13 +21,12 @@ function Header() {
   // renderiza as opções(Pedidos do cliente, pedididos do comprador e tela de gerenciamento pro adm)
   function userOptions() {
     return (
-      <div datatest-id="customer_products__element-navbar-link-orders">
+      <div data-testid="customer_products__element-navbar-link-orders">
+        { user.role === 'customer' && <Link to="/customer/products">Meus Pedidos</Link> }
 
-        { userRole === 'customer' && <Link to="/customer/products">Meus Pedidos</Link> }
+        { user.role === 'seller' && <Link to="/seller/orders">Pedidos</Link> }
 
-        { userRole === 'seller' && <Link to="/seller/orders">Pedidos</Link> }
-
-        { userRole === 'admin' && <Link to="/admin/manage">Gerenciar Usuários</Link> }
+        { user.role === 'admin' && <Link to="/admin/manage">Gerenciar Usuários</Link> }
 
       </div>
     );
@@ -36,14 +35,14 @@ function Header() {
   // renderiza o nome do usuário
   function userName() {
     return (
-      <div datatest-id="customer_products__element-navbar-user-full-name">
+      <div data-testid="customer_products__element-navbar-user-full-name">
         <h1>User</h1>
       </div>
     );
   }
 
   function logout() {
-    setUserRole('');
+    setUser({});
     navigate('/');
   }
 
@@ -70,7 +69,7 @@ function Header() {
   return (
     <header>
 
-      { userRole === 'customer' && customerOrders() }
+      { user.role === 'customer' && customerOrders() }
 
       { userOptions() }
 

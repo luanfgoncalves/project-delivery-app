@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import DeliveryAppContext from '../context/DeliveryAppContext';
 
 function RegisterForm() {
-  const { setUserRole } = useContext(DeliveryAppContext);
+  const { setUser } = useContext(DeliveryAppContext);
   const [disabledButton, setDisabledButton] = useState(true);
   const [IsUserDataValid, setIsUserDataValid] = useState(false);
   const [userName, setUserName] = useState('');
@@ -54,12 +54,14 @@ function RegisterForm() {
 
   const RegisterPost = async () => {
     try {
-      setUserRole('customer');
-      await axios.post('http://localhost:3001/register', { userName, email, password, role: 'customer' });
+      const { data } = await axios.post('http://localhost:3001/register', { userName, email, password, role: 'customer' });
+
+      setUser({ ...data, role: 'customer' });
+
       navigate('/customer/products');
     } catch (error) {
       setIsUserDataValid(false);
-      setUserRole('');
+      setUser({});
     }
   };
 
@@ -72,7 +74,7 @@ function RegisterForm() {
 
   function renderInvalidDataMsg() {
     return (
-      <h7 data-testid="common_register__element-invalid_register">Dados Inválidos</h7>
+      <h4 data-testid="common_register__element-invalid_register">Dados Inválidos</h4>
     );
   }
 

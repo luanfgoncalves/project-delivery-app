@@ -19,9 +19,11 @@ const validateRegister = async (req, res, next) => {
   const { name, email, password } = req.body; 
 
   const userByEmail = await User.findOne({ where: { email } });
-  if (userByEmail.name === name || userByEmail.email === email 
+  if (userByEmail) {
+    if (userByEmail.name === name || userByEmail.email === email 
       || userByEmail.password === md5(password)) {
-  return res.status(409).json({ message: 'Conflict' });
+        return res.status(409).json({ message: 'Conflict' });
+    }
   }
   next();
 }; 
