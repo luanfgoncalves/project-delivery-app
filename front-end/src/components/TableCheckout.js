@@ -27,7 +27,7 @@ function TableCheckout() {
     const filter = products.filter((product) => product.id !== Number(index));
     setProducts(filter);
     setTotalPrice(0);
-    localStorage.setItem('products', JSON.stringify(filter));
+    localStorage.setItem('products', JSON.stringify(filter)); // Alterar nome da chave
   };
 
   return (

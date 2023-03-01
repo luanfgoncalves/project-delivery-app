@@ -2,7 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import DeliveryAppProvider from './context/DeliveryAppProvider';
 import Checkout from './pages/Checkout';
-
+import Details from './pages/Details';
 import Home from './pages/Home';
 import Login from './pages/Login';
 
@@ -14,6 +14,7 @@ function App() {
           <Route path="/" element={ <Home /> } />
           <Route exact path="/login" element={ <Login /> } />
           <Route exact path="/customer/checkout" element={ <Checkout /> } />
+          <Route exact path="/customer/checkout/:id" element={ <Details /> } />
         </Routes>
       </div>
     </DeliveryAppProvider>
