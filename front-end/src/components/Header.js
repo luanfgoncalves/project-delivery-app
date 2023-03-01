@@ -11,7 +11,7 @@ function Header() {
     return (
       <Link
         to="/customer/orders/"
-        datatest-id="customer_products__element-navbar-link-products"
+        data-testid="customer_products__element-navbar-link-products"
       >
         Produtos
       </Link>
@@ -21,7 +21,7 @@ function Header() {
   // renderiza as opções(Pedidos do cliente, pedididos do comprador e tela de gerenciamento pro adm)
   function userOptions() {
     return (
-      <div datatest-id="customer_products__element-navbar-link-orders">
+      <div data-testid="customer_products__element-navbar-link-orders">
 
         { userRole === 'customer' && <Link to="/customer/products">Meus Pedidos</Link> }
 
@@ -36,7 +36,7 @@ function Header() {
   // renderiza o nome do usuário
   function userName() {
     return (
-      <div datatest-id="customer_products__element-navbar-user-full-name">
+      <div data-testid="customer_products__element-navbar-user-full-name">
         <h1>User</h1>
       </div>
     );
