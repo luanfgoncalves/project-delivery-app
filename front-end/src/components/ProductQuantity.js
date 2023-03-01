@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 function ProductQuantity({
   id,
@@ -41,6 +42,10 @@ function ProductQuantity({
     handleCard(JSON.parse(localStorage.getItem('carrinho')));
   };
 
+  const handleChangeQty = ({ target: { value } }) => {
+    setQuantity(Number(value));
+  };
+
   useEffect(() => {
     localStorage.setItem('carrinho', JSON.stringify([]));
   }, []);
@@ -56,11 +61,14 @@ function ProductQuantity({
         -
       </button>
 
-      <p
+      <input
+        type="number"
+        min="0"
+        value={ quantity }
+        name="quantity"
+        onChange={ handleChangeQty }
         data-testid={ `customer_products__input-card-quantity-${id}` }
-      >
-        quantidade
-      </p>
+      />
 
       <button
         type="button"
@@ -77,9 +85,9 @@ function ProductQuantity({
 export default ProductQuantity;
 
 ProductQuantity.propTypes = {
-  id: number.isRequired,
-  name: string.isRequired,
-  price: string.isRequired,
+  id: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  price: PropTypes.string.isRequired,
   handleCard: PropTypes.func.isRequired,
   setIsActive: PropTypes.func.isRequired,
 };
