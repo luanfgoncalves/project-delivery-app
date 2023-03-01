@@ -10,8 +10,16 @@ const serviceLogin = async (email) => {
  };
   const token = jwt.sign({ data: { userId: user.id } }, secret, jwtConfig);
   return { name: user.name, email: user.email, role: user.role, token };
-  };
+};
+
+const serviceRegister = async (name, email, password, role) => {
+  const hasMD5 = md5(password);
+  await User.create({ name, email, password: hasMD5, role });
+}
 
   module.exports = {
     serviceLogin,
+    serviceRegister,
   };
+
+  
