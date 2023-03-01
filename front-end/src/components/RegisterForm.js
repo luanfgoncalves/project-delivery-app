@@ -74,7 +74,7 @@ function RegisterForm() {
 
   function renderInvalidDataMsg() {
     return (
-      <h7 data-testid="common_register__element-invalid_register">Dados Inválidos</h7>
+      <h4 data-testid="common_register__element-invalid_register">Dados Inválidos</h4>
     );
   }
 

@@ -1,8 +1,8 @@
 const ser = require('../services/loginService');
 
 const register = async (req, res) => {
-  const { name, email, password, role } = req.body;
-  await ser.serviceRegister(name, email, password, role);   
+  const { name, email, password } = req.body;
+  await ser.serviceRegister(name, email, password);
   return res.status(201).json({ message: 'Created' });
 };
 
