@@ -9,7 +9,7 @@ const serviceLogin = async (email) => {
    algorithm: 'HS256',
  };
   const token = jwt.sign({ data: { userId: user.id } }, secret, jwtConfig);
-  return { token, UserRole: user.role };
+  return { name: user.name, email: user.email, role: user.role, token };
   };
 
   module.exports = {

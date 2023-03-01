@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import DeliveryAppContext from '../context/DeliveryAppContext';
 
 function Header() {
-  const { userRole, setUserRole } = useContext(DeliveryAppContext);
+  const { user, setUser } = useContext(DeliveryAppContext);
   const navigate = useNavigate();
 
   // Renderiza link para a tela de produtos a venda pro cliente
@@ -22,12 +22,11 @@ function Header() {
   function userOptions() {
     return (
       <div data-testid="customer_products__element-navbar-link-orders">
+        { user.role === 'customer' && <Link to="/customer/products">Meus Pedidos</Link> }
 
-        { userRole === 'customer' && <Link to="/customer/products">Meus Pedidos</Link> }
+        { user.role === 'seller' && <Link to="/seller/orders">Pedidos</Link> }
 
-        { userRole === 'seller' && <Link to="/seller/orders">Pedidos</Link> }
-
-        { userRole === 'admin' && <Link to="/admin/manage">Gerenciar Usuários</Link> }
+        { user.role === 'admin' && <Link to="/admin/manage">Gerenciar Usuários</Link> }
 
       </div>
     );
@@ -43,7 +42,7 @@ function Header() {
   }
 
   function logout() {
-    setUserRole('');
+    setUser({});
     navigate('/');
   }
 
@@ -70,7 +69,7 @@ function Header() {
   return (
     <header>
 
-      { userRole === 'customer' && customerOrders() }
+      { user.role === 'customer' && customerOrders() }
 
       { userOptions() }
 

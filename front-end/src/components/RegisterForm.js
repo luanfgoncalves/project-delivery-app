@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import DeliveryAppContext from '../context/DeliveryAppContext';
 
 function RegisterForm() {
-  const { setUserRole } = useContext(DeliveryAppContext);
+  const { setUser } = useContext(DeliveryAppContext);
   const [disabledButton, setDisabledButton] = useState(true);
   const [IsUserDataValid, setIsUserDataValid] = useState(false);
   const [userName, setUserName] = useState('');
@@ -55,16 +55,17 @@ function RegisterForm() {
   const RegisterPost = async () => {
     try {
       const { data } = await axios.post('http://localhost:3001/register', { userName, email, password });
+
+      setUser(data);
+      localStorage.setItem('user', JSON.stringify(data));
+
       if (data.role === 'customer') {
-        setUserRole('customer');
         navigate('/customer/products');
       }
       if (data.role === 'seller') {
-        setUserRole('seller');
         navigate('/seller/orders');
       }
       if (data.role === 'admin') {
-        setUserRole('admin');
         navigate('/admin/manage');
       }
     } catch (error) {

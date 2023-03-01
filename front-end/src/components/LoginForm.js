@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import DeliveryAppContext from '../context/DeliveryAppContext';
 
 function LoginForm() {
-  const { setUserRole } = useContext(DeliveryAppContext);
+  const { setUser } = useContext(DeliveryAppContext);
   const [disabledButton, setDisabledButton] = useState(true);
   const [isEmailValid, setIsEmailValid] = useState(false);
   const [email, setEmail] = useState('');
@@ -47,17 +47,17 @@ function LoginForm() {
     try {
       console.log('loginPost foi chamada');
       const { data } = await axios.post('http://localhost:3001/login', { email, password });
-      console.log(data);
-      if (data.UserRole === 'customer') {
-        setUserRole('customer');
+
+      setUser(data);
+      localStorage.setItem('user', JSON.stringify(data));
+
+      if (data.role === 'customer') {
         navigate('/customer/products');
       }
-      if (data.UserRole === 'seller') {
-        setUserRole('seller');
+      if (data.role === 'seller') {
         navigate('/seller/orders');
       }
-      if (data.UserRole === 'admin') {
-        setUserRole('admin');
+      if (data.role === 'admin') {
         navigate('/admin/manage');
       }
     } catch (error) {
