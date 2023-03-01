@@ -54,8 +54,8 @@ function RegisterForm() {
 
   const RegisterPost = async () => {
     try {
-      const { data } = await axios.post('http://localhost:3001/register', { userName, email, password, role: 'customer' });
-
+      const { data } = await axios.post('http://localhost:3001/register', { name: userName, email, password, role: 'customer' });
+      // console.log(data);
       setUser({ ...data, role: 'customer' });
 
       navigate('/customer/products');
