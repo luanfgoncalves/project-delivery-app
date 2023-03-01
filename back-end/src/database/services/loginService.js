@@ -12,6 +12,13 @@ const serviceLogin = async (email) => {
   return { token, UserRole: user.role };
   };
 
+  const serviceRegister = async (name, email, password, role) => {
+    const hasMD5 = md5(password)
+   await User.create({name, email, password: hasMD5, role })
+ };
+
   module.exports = {
-    serviceLogin
+    serviceLogin,
+    serviceRegister,
   };
+  

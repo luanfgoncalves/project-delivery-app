@@ -12,7 +12,7 @@ function RegisterForm() {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  //  estas variaveis servem para a valçidação de senha e nome de usuário
+  //  estas variaveis servem para a validação de senha e nome de usuário
   const minNumber = 6;
   const minUserName = 12;
 
@@ -54,21 +54,12 @@ function RegisterForm() {
 
   const RegisterPost = async () => {
     try {
-      const { data } = await axios.post('http://localhost:3001/register', { userName, email, password });
-      if (data.role === 'customer') {
-        setUserRole('customer');
-        navigate('/customer/products');
-      }
-      if (data.role === 'seller') {
-        setUserRole('seller');
-        navigate('/seller/orders');
-      }
-      if (data.role === 'admin') {
-        setUserRole('admin');
-        navigate('/admin/manage');
-      }
+      setUserRole('customer');
+      await axios.post('http://localhost:3001/register', { userName, email, password, role: 'customer' });
+      navigate('/customer/products');
     } catch (error) {
       setIsUserDataValid(false);
+      setUserRole('');
     }
   };
 
