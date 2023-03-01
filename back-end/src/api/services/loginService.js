@@ -16,7 +16,7 @@ const serviceLogin = async (email) => {
 const serviceRegister = async (name, email, password) => {
   const hasMD5 = md5(password);
   await User.create({ name, email, password: hasMD5, role: 'customer' });
-}
+}/
 
   module.exports = {
     serviceLogin,
