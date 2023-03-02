@@ -14,9 +14,6 @@ const serviceLogin = async (email) => {
   const token = jwt.sign({ data: { userId: user.id } }, jwtKey, jwtConfig);
   
   return { name: user.name, email: user.email, role: user.role, token };
-
-
-  // tem q ver uma forma de como salvar esse localStorage "user" de maneira que não quebre a tela de login
 };
 
 const serviceRegister = async (name, email, password) => {

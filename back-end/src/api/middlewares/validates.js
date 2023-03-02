@@ -1,6 +1,6 @@
 const md5 = require('md5');
-const { User } = require('../../database/models/index');
 const jwt = require('jsonwebtoken');
+const { User } = require('../../database/models/index');
 const jwtKey = require('../utils/jwtKey');
 
 const validateLogin = async (req, res, next) => {
