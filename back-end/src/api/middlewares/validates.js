@@ -1,5 +1,7 @@
 const md5 = require('md5');
 const { User } = require('../../database/models/index');
+const jwt = require('jsonwebtoken');
+const jwtKey = require('../utils/jwtKey');
 
 const validateLogin = async (req, res, next) => {
   console.log('fui chamado :3');
@@ -26,7 +28,17 @@ const userByEmail = await User.findOne({ where: { email } });
   next();
 }; 
 
+const validateToken = (req, res, next) => {
+  const token = req.headers.authorization;
+
+  if (!token) return res.status(401).json({ message: 'Token not found' });
+
+  jwt.verify(token, jwtKey);
+  next();
+};
+
 module.exports = {
   validateLogin,
   validateRegister,
+  validateToken,
 };

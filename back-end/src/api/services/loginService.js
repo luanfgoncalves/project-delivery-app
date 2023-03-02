@@ -1,16 +1,22 @@
 const jwt = require('jsonwebtoken');
 const md5 = require('md5');
 const { User } = require('../../database/models/index');
+const jwtKey = require('../utils/jwtKey');
 
 const serviceLogin = async (email) => {
   const user = await User.findOne({ where: { email } });
-  const secret = process.env.JWT_SECRET || 'secretJWT';
+
   const jwtConfig = {
    expiresIn: '7d',
    algorithm: 'HS256',
  };
-  const token = jwt.sign({ data: { userId: user.id } }, secret, jwtConfig);
+
+  const token = jwt.sign({ data: { userId: user.id } }, jwtKey, jwtConfig);
+  
   return { name: user.name, email: user.email, role: user.role, token };
+
+
+  // tem q ver uma forma de como salvar esse localStorage "user" de maneira que não quebre a tela de login
 };
 
 const serviceRegister = async (name, email, password) => {
