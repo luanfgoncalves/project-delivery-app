@@ -1,9 +1,10 @@
 const express = require('express');
 
+const customerController = require('../controllers/customerController');
+const { validateToken } = require('../middlewares/validates');
+
 const router = express.Router();
 
-const customerController = require('../controllers/customerController');
-
-router.get('/products', customerController.getProducts);
+router.get('/products', validateToken, customerController.getProducts);
 
 module.exports = router;

@@ -3,8 +3,9 @@ import { useNavigate, Link } from 'react-router-dom';
 import DeliveryAppContext from '../context/DeliveryAppContext';
 
 function Header() {
-  const { userRole, setUserRole } = useContext(DeliveryAppContext);
+  const { user, setUser } = useContext(DeliveryAppContext);
   const navigate = useNavigate();
+  // const [username, setUsername] = useState('');
 
   // Renderiza link para a tela de produtos a venda pro cliente
   function customerOrders() {
@@ -22,28 +23,33 @@ function Header() {
   function userOptions() {
     return (
       <div data-testid="customer_products__element-navbar-link-orders">
+        { user.role === 'customer' && <Link to="/customer/products">Meus Pedidos</Link> }
 
-        { userRole === 'customer' && <Link to="/customer/products">Meus Pedidos</Link> }
+        { user.role === 'seller' && <Link to="/seller/orders">Pedidos</Link> }
 
-        { userRole === 'seller' && <Link to="/seller/orders">Pedidos</Link> }
-
-        { userRole === 'admin' && <Link to="/admin/manage">Gerenciar Usuários</Link> }
+        { user.role === 'admin' && <Link to="/admin/manage">Gerenciar Usuários</Link> }
 
       </div>
     );
+  }
+
+  function getUserName() {
+    const { name } = JSON.parse(localStorage.getItem('user'));
+    return name;
   }
 
   // renderiza o nome do usuário
   function userName() {
     return (
       <div data-testid="customer_products__element-navbar-user-full-name">
-        <h1>User</h1>
+        <h1>{getUserName()}</h1>
       </div>
     );
   }
 
   function logout() {
-    setUserRole('');
+    setUser({});
+    localStorage.clear();
     navigate('/');
   }
 
@@ -70,7 +76,7 @@ function Header() {
   return (
     <header>
 
-      { userRole === 'customer' && customerOrders() }
+      { user.role === 'customer' && customerOrders() }
 
       { userOptions() }
 
