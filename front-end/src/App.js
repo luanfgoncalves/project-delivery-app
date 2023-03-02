@@ -1,7 +1,8 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import DeliveryAppProvider from './context/DeliveryAppProvider';
-
+import Checkout from './pages/Checkout';
+import Details from './pages/Details';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Customer from './pages/Customer';
@@ -20,6 +21,8 @@ function App() {
           <Route exact path="/seller/orders" element={ <Orders /> } />
           <Route exact path="/admin/manage" element={ <Manage /> } />
           <Route exact path="/customer/products" element={ <Customer /> } />
+          <Route exact path="/customer/checkout" element={ <Checkout /> } />
+          <Route exact path="/customer/checkout/:id" element={ <Details /> } />
         </Routes>
       </div>
     </DeliveryAppProvider>
