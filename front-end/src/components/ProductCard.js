@@ -1,47 +1,79 @@
-import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ProductQuantity from './ProductQuantity';
+import { requestData } from '../services/axios';
 
-function ProductCard({ id, urlImage, name, price }) {
+function CustomerProducts() {
+  const navigate = useNavigate();
+  const [products, setProducts] = useState([]);
+  const [total, setTotal] = useState();
+  const [isActive, setIsActive] = useState(true);
+
+  const getProducts = async (endpoint) => {
+    try {
+      const response = await requestData(endpoint);
+      setProducts(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getTotal = (storage) => {
+    if (storage) {
+      const totalPrice = storage.reduce((acc, curr) => acc + curr.subTotal, 0);
+      setTotal(totalPrice);
+    }
+    return 0;
+  };
+
+  const handleCard = (storage) => {
+    getTotal(storage);
+  };
+
+  useEffect(() => {
+    getProducts('/customer/products');
+  }, []);
+
+  useEffect(() => {
+    handleCard(JSON.parse(localStorage.getItem('carrinho')));
+  }, []);
+
   return (
-    <>
+    <main>
       <div>
-        <img
-          src={ urlImage }
-          data-testid={ `customer_products__img-card-bg-image-${id}` }
-          alt={ name }
-          width="120px"
-        />
+
+        <button
+          type="button"
+          data-testid="customer_products__button-cart"
+          disabled={ isActive }
+          onClick={ () => navigate('/customer/checkout') }
+        >
+          <p
+            data-testid="customer_products__checkout-bottom-value"
+
+          >
+            {total ? total.toFixed(2).replace('.', ',') : 0}
+
+          </p>
+        </button>
       </div>
 
       <div>
-        <h5
-          data-testid={ `customer_products__element-card-title-${id}` }
-        >
-          {name}
-        </h5>
-
-        <p
-          data-testid={ `customer_products__element-card-price-${id}` }
-        >
-          {`R$ ${price}`}
-        </p>
-
-        <ProductQuantity
-          id={ id }
-          name={ name }
-          price={ price }
-
-        />
+        {products.map((item, index) => (
+          <div key={ index }>
+            <ProductQuantity
+              id={ item.id }
+              urlImage={ item.urlImage }
+              name={ item.name }
+              price={ item.price.replace('.', ',') }
+              handleCard={ (e) => handleCard(e) }
+              setIsActive={ () => setIsActive() }
+            />
+          </div>
+        ))}
       </div>
-    </>
+
+    </main>
   );
 }
-
-ProductCard.propTypes = {
-  id: PropTypes.number.isRequired,
-  urlImage: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  price: PropTypes.string.isRequired,
-};
-
-export default ProductCard;
+export default CustomerProducts;
