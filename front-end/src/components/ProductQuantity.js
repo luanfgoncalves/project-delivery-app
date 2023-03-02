@@ -1,9 +1,10 @@
+import PropTypes, { string, number } from 'prop-types';
 import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 
-function ProductQuantity({
+export default function ProductCard({
   id,
   name,
+  urlImage,
   price,
   handleCard,
   setIsActive,
@@ -18,6 +19,7 @@ function ProductQuantity({
       name,
       quantity: newQuantity,
       unitPrice: price,
+      subTotal: parseFloat(price.replace(',', '.')) * newQuantity,
     };
     localStorage.setItem(
       'carrinho',
@@ -42,8 +44,12 @@ function ProductQuantity({
     handleCard(JSON.parse(localStorage.getItem('carrinho')));
   };
 
-  const handleChangeQty = ({ target: { value } }) => {
-    setQuantity(Number(value));
+  const inputQuantity = ({ value }) => {
+    if (value < 0) return setQuantity(0);
+    setQuantity(value);
+    updateLocalStorage(value);
+
+    handleCard(JSON.parse(localStorage.getItem('carrinho')));
   };
 
   useEffect(() => {
@@ -51,43 +57,69 @@ function ProductQuantity({
   }, []);
 
   return (
-    <section>
-      <button
-        type="button"
-        data-testid={ `customer_products__button-card-rm-item-${id}` }
-        title="remove"
-        onClick={ () => removeQuantity }
-      >
-        -
-      </button>
 
-      <input
-        type="number"
-        min="0"
-        value={ quantity }
-        name="quantity"
-        onChange={ handleChangeQty }
-        data-testid={ `customer_products__input-card-quantity-${id}` }
-      />
+    <div>
+      <div>
+        <img
+          data-testid={ `customer_products__img-card-bg-image-${id}` }
+          src={ urlImage }
+          alt=""
+        />
+      </div>
 
-      <button
-        type="button"
-        data-testid={ `customer_products__button-card-add-item-${id}` }
-        title="add"
-        onClick={ () => adicionaQuantity }
-      >
-        +
-      </button>
-    </section>
+      <div>
+        <h5
+          data-testid={ `customer_products__element-card-title-${id}` }
+        >
+          {name}
+        </h5>
+
+        <p
+          data-testid={ `customer_products__element-card-price-${id}` }
+        >
+          {`R$ ${price}`}
+        </p>
+
+        <div>
+          <button
+            type="button"
+            data-testid={ `customer_products__button-card-rm-item-${id}` }
+            title="remove"
+            onClick={ () => removeQuantity() }
+          >
+            -
+          </button>
+
+          <input
+            type="text"
+            data-testid={ `customer_products__input-card-quantity-${id}` }
+            value={ quantity }
+            title="inputQuantity"
+            onChange={ (e) => inputQuantity(e.target) }
+          />
+
+          <button
+            type="button"
+            data-testid={ `customer_products__button-card-add-item-${id}` }
+            title="add"
+            onClick={ () => adicionaQuantity() }
+          >
+            +
+          </button>
+
+        </div>
+
+      </div>
+    </div>
+
   );
 }
 
-export default ProductQuantity;
-
-ProductQuantity.propTypes = {
-  id: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
-  price: PropTypes.string.isRequired,
+ProductCard.propTypes = {
+  id: number.isRequired,
+  name: string.isRequired,
+  urlImage: string.isRequired,
+  price: string.isRequired,
   handleCard: PropTypes.func.isRequired,
   setIsActive: PropTypes.func.isRequired,
 };
