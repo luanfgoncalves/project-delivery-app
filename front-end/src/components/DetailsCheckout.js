@@ -23,7 +23,7 @@ function DetailsCheckout() {
     e.preventDefault();
 
     const checkout = {
-      userId, // ver como esta buscando no header
+      userId: 1, // ver como esta buscando no header
       sellerId: currentSeller,
       totalPrice,
       deliveryAddress: address,

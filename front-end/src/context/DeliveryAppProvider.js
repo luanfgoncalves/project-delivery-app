@@ -1,44 +1,37 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import DeliveryAppContext from './DeliveryAppContext';
 
 function DeliveryAppProvider({ children }) {
   const [user, setUser] = useState({});
-  const [email, setEmail] = useState([]);
-  const [password, setPassword] = useState([]);
   const [products, setProducts] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [sellers, setSellers] = useState([]);
   const [sellerID, setSellerID] = useState('');
 
-  useEffect(() => {
-    const arrayTeste = [
-      { id: 1, name: 'Carla' },
-      { id: 2, name: 'Julia' },
-      { id: 3, name: 'Tauri' },
-    ];
+  const getSellers = async () => {
+    const { data } = await axios.get('http://localhost:3001/sellers');
+    setSellers(data);
+    setSellerID(data[0].id);
+  };
 
-    // Mudar pelos dados que vem do Back
-    setSellers(arrayTeste);
-    setSellerID(arrayTeste[0].id);
+  useEffect(() => {
+    getSellers();
   }, [setSellers]);
 
   const valueContext = useMemo(() => ({
     user,
-    setUser,
-    email,
-    setEmail,
-    password,
-    setPassword,
     products,
     setProducts,
+    setUser,
     totalPrice,
     setTotalPrice,
     sellers,
     setSellers,
     sellerID,
     setSellerID,
-  }), [user, email, password, products, totalPrice, sellers, sellerID]);
+  }), [user, products, totalPrice, sellers, sellerID]);
 
   return (
     <DeliveryAppContext.Provider value={ valueContext }>

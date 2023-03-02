@@ -10,13 +10,13 @@ function TableCheckout() {
   } = useContext(DeliveryAppContext);
 
   useEffect(() => {
-    const productsLocalStorage = JSON.parse(localStorage.getItem('products')); // Alterar nome da chave
+    const productsLocalStorage = JSON.parse(localStorage.getItem('carrinho'));
     setProducts(productsLocalStorage);
 
     let subTotal = 0;
     if (totalPrice === subTotal) {
       productsLocalStorage.forEach((product) => {
-        subTotal += totalPrice + (product.qtd * product.price);
+        subTotal += totalPrice + product.subTotal;
       });
       setTotalPrice(subTotal);
     }
@@ -27,7 +27,7 @@ function TableCheckout() {
     const filter = products.filter((product) => product.id !== Number(index));
     setProducts(filter);
     setTotalPrice(0);
-    localStorage.setItem('products', JSON.stringify(filter)); // Alterar nome da chave
+    localStorage.setItem('carrinho', JSON.stringify(filter));
   };
 
   return (
@@ -68,7 +68,7 @@ function TableCheckout() {
                   `customer_checkout__element-order-table-quantity-${index + 1}`
                 }
               >
-                {product.qtd}
+                {product.quantity}
 
               </td>
               <td
@@ -76,7 +76,7 @@ function TableCheckout() {
                   `customer_checkout__element-order-table-unit-price-${index + 1}`
                 }
               >
-                {product.price}
+                {product.unitPrice}
 
               </td>
               <td
@@ -84,7 +84,7 @@ function TableCheckout() {
                   `customer_checkout__element-order-table-sub-total-${index + 1}`
                 }
               >
-                {product.qtd * product.price}
+                {product.subTotal.toFixed(2).replace('.', ',')}
 
               </td>
               <td>
@@ -108,7 +108,7 @@ function TableCheckout() {
         Total: R$
         {' '}
         <span data-testid="customer_checkout__element-order-total-price">
-          {totalPrice}
+          {(totalPrice.toFixed(2)).replace('.', ',')}
         </span>
       </div>
     </div>
