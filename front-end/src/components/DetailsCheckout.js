@@ -4,7 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import DeliveryAppContext from '../context/DeliveryAppContext';
 
 function DetailsCheckout() {
-  const { sellers, sellerID, totalPrice, products } = useContext(DeliveryAppContext);
+  const {
+    sellers,
+    sellerID,
+    totalPrice,
+    // products,
+    user,
+  } = useContext(DeliveryAppContext);
   const [currentSeller, setCurrentSeller] = useState('');
   const [address, setAdress] = useState('');
   const [number, setNumber] = useState(0);
@@ -23,7 +29,7 @@ function DetailsCheckout() {
     e.preventDefault();
 
     const checkout = {
-      userId: 1, // ver como esta buscando no header
+      userId: user.id, // ver como esta buscando no header
       sellerId: currentSeller,
       totalPrice,
       deliveryAddress: address,
@@ -32,10 +38,9 @@ function DetailsCheckout() {
     };
 
     // Enviar os dados para o banco
-    await axios.post('http://localhost:3001/login', checkout, products);
-    // Recuperar o novo id
-    const { data } = await axios.get('http://localhost:3001/login');
-    navigate(`/customer/checkout/${data.id}`);
+    await axios.post('http://localhost:3001/order', checkout);
+
+    navigate('/customer/order');
   };
 
   return (

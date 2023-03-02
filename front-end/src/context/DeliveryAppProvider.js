@@ -11,7 +11,7 @@ function DeliveryAppProvider({ children }) {
   const [sellerID, setSellerID] = useState('');
 
   const getSellers = async () => {
-    const { data } = await axios.get('http://localhost:3001/sellers');
+    const { data } = await axios.get('http://localhost:3001/seller');
     setSellers(data);
     setSellerID(data[0].id);
   };
