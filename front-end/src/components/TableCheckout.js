@@ -52,7 +52,7 @@ function TableCheckout() {
                   `customer_checkout__element-order-table-item-number-${index}`
                 }
               >
-                {product.id}
+                {index + 1}
 
               </td>
               <td
