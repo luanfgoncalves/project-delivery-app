@@ -11,4 +11,20 @@ const requestData = async (endpoint) => {
   return data;
 };
 
-module.exports = { requestData };
+const postData = async (endpoint, dataObj) => {
+  try {
+    const { token } = JSON.parse(localStorage.getItem('user'));
+
+    const { data } = await axios.post(
+      `${localhost}${endpoint}`,
+      dataObj,
+      { headers: { Authorization: token } },
+    );
+
+    return data;
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+module.exports = { requestData, postData };

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
-import axios from 'axios';
 import DeliveryAppContext from '../context/DeliveryAppContext';
+import { postData } from '../services/axios';
 
 function AdminForm() {
   const { setUser } = useContext(DeliveryAppContext);
@@ -51,22 +51,24 @@ function AdminForm() {
     }
   };
 
+  // add novo user no DB
   const addNewUser = async () => {
     try {
-      const { data } = await axios.post('http://localhost:3001/admin/manage', { name: userName, email, password, role });
-
+      const endpoint = '/admin/manage';
+      const data = { name: userName, email, password, role };
+      await postData(endpoint, data);
       setUser({ ...data });
     } catch (error) {
+      console.error(error);
       setIsUserDataValid(false);
       setUser({});
     }
   };
 
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
     e.preventDefault();
-    if (e.target.name === 'Register-button') {
-      addNewUser();
-    }
+
+    await addNewUser();
   };
 
   function renderInvalidDataMsg() {
@@ -78,7 +80,7 @@ function AdminForm() {
   return (
     <div className="Register-screen">
       <form className="Register-form">
-        <h1>Register</h1>
+        <h1>Cadastrar novo usuário</h1>
         <input
           className="Register-input"
           type="text"
