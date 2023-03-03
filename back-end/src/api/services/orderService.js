@@ -14,9 +14,8 @@ const postOrder = async (data, sales) => {
   });
 
   await Promise.all(
-    saleOrder.map((product) => {
-      return SaleProduct.create(product);
-    }));
+    saleOrder.map((product) => SaleProduct.create(product)),
+  );
   
   return dataValues;
  };
