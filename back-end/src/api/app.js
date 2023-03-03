@@ -21,9 +21,9 @@ app.use('/register', registerRoute);
 
 app.use('/customer', customerRoute);
 
-app.use('/seller', sellerRoute)
+app.use('/seller', sellerRoute);
 
-app.use('/order', orderRoute)
+app.use('/order', orderRoute);
 
 app.use(errorHandler);
 
