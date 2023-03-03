@@ -14,17 +14,22 @@ export default function ProductCard({
   const updateLocalStorage = (newQuantity) => {
     const cart = JSON.parse(localStorage.getItem('carrinho'));
     const arrCartPrepared = cart.filter((item) => item.id !== id);
-    const newItem = {
-      id,
-      name,
-      quantity: newQuantity,
-      unitPrice: price,
-      subTotal: parseFloat(price.replace(',', '.')) * newQuantity,
-    };
-    localStorage.setItem(
-      'carrinho',
-      JSON.stringify([...arrCartPrepared, newItem]),
-    );
+    // Se der problema em algo, foi aqui que eu mexi (coloquei o if) <<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    if (newQuantity > 0) {
+      const newItem = {
+        id,
+        name,
+        quantity: newQuantity,
+        unitPrice: price,
+        subTotal: parseFloat(price.replace(',', '.')) * newQuantity,
+      };
+      localStorage.setItem(
+        'carrinho',
+        JSON.stringify([...arrCartPrepared, newItem]),
+      );
+    } else {
+      localStorage.setItem('carrinho', JSON.stringify(arrCartPrepared));
+    }
   };
 
   const adicionaQuantity = () => {

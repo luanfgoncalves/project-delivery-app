@@ -8,7 +8,7 @@ function DetailsCheckout() {
     sellers,
     sellerID,
     totalPrice,
-    // products,
+    products,
     user,
   } = useContext(DeliveryAppContext);
   const [currentSeller, setCurrentSeller] = useState('');
@@ -29,7 +29,7 @@ function DetailsCheckout() {
     e.preventDefault();
 
     const checkout = {
-      userId: user.id, // ver como esta buscando no header
+      userId: user.id,
       sellerId: currentSeller,
       totalPrice,
       deliveryAddress: address,
@@ -37,10 +37,12 @@ function DetailsCheckout() {
       status: 'Pendente',
     };
 
-    // Enviar os dados para o banco
-    await axios.post('http://localhost:3001/order', checkout);
+    const { token } = JSON.parse(localStorage.getItem('user'));
+    const { data } = await axios.post('http://localhost:3001/order', { data: checkout, sales: products }, {
+      headers: { Authorization: token },
+    });
 
-    navigate('/customer/order');
+    navigate(`/customer/orders/${data.id}`);
   };
 
   return (
