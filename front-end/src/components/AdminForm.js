@@ -73,7 +73,7 @@ function AdminForm() {
 
   function renderInvalidDataMsg() {
     return (
-      <h4 data-testid="common_register__element-invalid_register">Dados Inválidos</h4>
+      <h4 data-testid="admin_manage__element-invalid-register">Dados Inválidos</h4>
     );
   }
 
