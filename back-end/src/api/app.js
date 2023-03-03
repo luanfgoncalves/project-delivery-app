@@ -4,6 +4,9 @@ require('express-async-errors');
 const loginRoute = require('./routes/loginRoute');
 const registerRoute = require('./routes/registerRoute');
 const customerRoute = require('./routes/customerRoute');
+const sellerRoute = require('./routes/sellerRoute');
+const adminRoute = require('./routes/adminRoute');
+const orderRoute = require('./routes/orderRoute');
 const errorHandler = require('./middlewares/errorHandler');
 
 const app = express();
@@ -18,6 +21,12 @@ app.use('/login', loginRoute);
 app.use('/register', registerRoute);
 
 app.use('/customer', customerRoute);
+
+app.use('/seller', sellerRoute);
+
+app.use('/order', orderRoute);
+
+app.use('/admin', adminRoute);
 
 app.use(errorHandler);
 

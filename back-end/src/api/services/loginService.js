@@ -13,7 +13,7 @@ const serviceLogin = async (email) => {
 
   const token = jwt.sign({ data: { userId: user.id } }, jwtKey, jwtConfig);
   
-  return { name: user.name, email: user.email, role: user.role, token };
+  return { name: user.name, email: user.email, id: user.id, role: user.role, token };
 };
 
 const serviceRegister = async (name, email, password) => {
