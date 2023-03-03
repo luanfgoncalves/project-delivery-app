@@ -5,6 +5,7 @@ const loginRoute = require('./routes/loginRoute');
 const registerRoute = require('./routes/registerRoute');
 const customerRoute = require('./routes/customerRoute');
 const sellerRoute = require('./routes/sellerRoute');
+const adminRoute = require('./routes/adminRoute');
 const orderRoute = require('./routes/orderRoute');
 const errorHandler = require('./middlewares/errorHandler');
 
@@ -24,6 +25,8 @@ app.use('/customer', customerRoute);
 app.use('/seller', sellerRoute);
 
 app.use('/order', orderRoute);
+
+app.use('/admin', adminRoute);
 
 app.use(errorHandler);
 

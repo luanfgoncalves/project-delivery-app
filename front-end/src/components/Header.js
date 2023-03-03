@@ -5,7 +5,6 @@ import DeliveryAppContext from '../context/DeliveryAppContext';
 function Header() {
   const { user, setUser } = useContext(DeliveryAppContext);
   const navigate = useNavigate();
-  // const [username, setUsername] = useState('');
 
   // Renderiza link para a tela de produtos a venda pro cliente
   function customerOrders() {
@@ -23,11 +22,14 @@ function Header() {
   function userOptions() {
     return (
       <div data-testid="customer_products__element-navbar-link-orders">
-        { user.role === 'customer' && <Link to="/customer/products">Meus Pedidos</Link> }
+        { user.role === 'customer'
+        && <Link to="/customer/products">Meus Pedidos</Link> }
 
-        { user.role === 'seller' && <Link to="/seller/orders">Pedidos</Link> }
+        { user.role === 'seller'
+        && <Link to="/seller/orders">Pedidos</Link> }
 
-        { user.role === 'admin' && <Link to="/admin/manage">Gerenciar Usuários</Link> }
+        { user.role === 'administrator'
+        && <Link to="/admin/manage">Gerenciar Usuários</Link> }
 
       </div>
     );
@@ -75,7 +77,6 @@ function Header() {
 
   return (
     <header>
-
       { user.role === 'customer' && customerOrders() }
 
       { userOptions() }
