@@ -20,6 +20,7 @@ app.use('/login', loginRoute);
 
 app.use('/register', registerRoute);
 
+
 app.use('/customer', customerRoute);
 
 app.use('/seller', sellerRoute);

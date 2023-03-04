@@ -21,7 +21,21 @@ const serviceRegister = async (name, email, password) => {
   await User.create({ name, email, password: hasMD5, role: 'customer' });
 };
 
+const getUsers = async () => {
+  const users = await User.findAll({ attributes: { exclude: 'password' } });
+  return users;
+};
+
+const deleteUser = async (id) => {
+  await User.destroy({
+    where: { id },
+  });
+};
+
+
   module.exports = {
     serviceLogin,
     serviceRegister,
+    getUsers,
+    deleteUser,
   };
