@@ -16,8 +16,14 @@ const invalidEmailLogin = {
   password: '$#zebirita#$',
 };
 
+const validRegisterInput = {
+  ...validLogin,
+  name: 'Cliente Zé Birita',
+};
+
 module.exports = {
   customerInfo,
   validLogin,
   invalidEmailLogin,
+  validRegisterInput,
 };
