@@ -4,7 +4,7 @@ const chaiHttp = require('chai-http');
 
 const app = require('../api/app');
 const { User } = require('../database/models/index');
-const { validLogin, customerInfo, invalidEmailLogin } = require('./mocks');
+const { validLogin, customerInfo, invalidEmailLogin } = require('./mocks/user.mock');
 
 chai.use(chaiHttp);
 
