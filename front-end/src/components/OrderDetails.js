@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
+import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import DeliveryAppContext from '../context/DeliveryAppContext';
 
@@ -45,12 +46,12 @@ function OrdersDetails() {
       console.log(`O id da venda é ${id}`);
       try {
         console.log('getOrders foi chamada com id:', id);
-        const { data } = await axios.get('http://localhost:3001/orders/id', { id });
-        console.log(`A venda retornadas foi ${data}`);
-        setOrderData(data);
+        const { data } = await axios.get(`http://localhost:3001/customer/orders/${id}`);
+
+        setOrderData([...orderData, data]);
         getSeller();
       } catch (error) {
-        console.log('erro na chamada: Requisição da venda por ID');
+        console.log(error);
       }
     };
 
