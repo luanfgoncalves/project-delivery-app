@@ -25,11 +25,11 @@ function OrdersDetails() {
   const ID05 = `${USR}_order_details__element-order-details-label-order-${id}`;
   const ID06 = `${USR}_order_details__element-order-details-label-order-date`;
   const ID07 = `${USR}_order_details__element-order-details-label-delivery-status-0`;
-  const ID08 = `${USR}_checkout__element-order-table-item-number-`;
-  const ID09 = `${USR}_checkout__element-order-table-name-`;
-  const ID10 = `${USR}_checkout__element-order-table-quantity-`;
-  const ID11 = `${USR}_checkout__element-order-table-unit-price-`;
-  const ID12 = `${USR}_checkout__element-order-table-sub-total-`;
+  const ID08 = `${USR}_order_details__element-order-table-item-number-`;
+  const ID09 = `${USR}_order_details__element-order-table-name-`;
+  const ID10 = `${USR}_order_details__element-order-table-quantity-`;
+  const ID11 = `${USR}_order_details__element-order-table-unit-price-`;
+  const ID12 = `${USR}_order_details__element-order-table-sub-total-`;
 
   useEffect(() => {
     // add a venda no array orderData
@@ -127,7 +127,7 @@ function OrdersDetails() {
     );
   }
 
-  function finnishButton() {
+  function finishButton() {
     return (
       <button
         name="finnish-button"
@@ -183,14 +183,14 @@ function OrdersDetails() {
           {/* Estado do pedido */}
           { orderData.status }
         </div>
-        {USR === 'customer' && finnishButton()}
+        {USR === 'customer' && finishButton()}
         {USR === 'seller' && prepareButton()}
         {USR === 'seller' && dispatchButton()}
       </div>
     );
   }
 
-  // função que rendiza itens do pedido
+  // função que renderiza itens do pedido
   function orderInfo() {
     return (
       <>
