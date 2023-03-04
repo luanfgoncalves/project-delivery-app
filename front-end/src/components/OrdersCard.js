@@ -1,66 +1,107 @@
-// import React, { useContext } from 'react';
-// import { Link } from 'react-router-dom';
-// import DeliveryAppContext from '../context/DeliveryAppContext';
+import React, { useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import DeliveryAppContext from '../context/DeliveryAppContext';
 
-// function OrdersCard() {
-//   //  context será usado para renderização condicional, conforme o card
-//   const { user } = useContext(DeliveryAppContext);
+function OrdersCard() {
+  //  context será usado para renderização condicional, conforme o card
+  const {
+    user,
+    userOrders,
+    setUserOrders,
+  } = useContext(DeliveryAppContext);
 
-//   // função que recupera pedidos realizados do banco de dados
-//   const getOrders = async () => {
-//     try {
-//       console.log('getOrders foi chamada');
-//       const { data } = await axios.get('http://localhost:3001/', { email, password });
-//     } catch (error) {
-//       console.log('erro na chamada');
-//     }
-//   };
-//   // função que rendiza o campo de endereço nos cards do vendedor
-//   function orderAdress() {
-//     return (
-//       <div datatest-id={ `seller_orders__element-card-address-${ID}` }>
-//         Endereço de entrega
-//       </div>
-//     );
-//   }
+  useEffect(() => {
+    // função que recupera pedidos realizados do banco de dados
+    const getOrders = async () => {
+      const { id } = user;
+      try {
+        console.log('getOrders foi chamada com id:', id);
+        if (user.role === 'customer') {
+          console.log('foram requisitadas vendas pelo id do comprador');
+          const { data } = await axios.get('http://localhost:3001/order/user_id', { user_id: id });
+          console.log('data');
+          setUserOrders(data);
+          console.log(`As vendas retornadas foram ${data}`);
+        }
+        if (user.role === 'seller') {
+          console.log('Foram requisitadas vendas pelo id do vendedor');
+          const { data } = await axios.get('http://localhost:3001/order/seller_id', { seller_id: id });
+          setUserOrders(data);
+          console.log(`As vendas retornadas foram ${data}`);
+        }
+      } catch (error) {
+        console.log('erro na chamada');
+      }
+    };
 
-//   // função que renderiza o card do produto
-//   function customerCard() {
-//     return (
-//       // div que engloba o car
-//       <Link to={ `${user.role}/orders` }>
-//         <div>
-//           <div datatest-id={ `customer_orders__element-order-id-${ID}` }>
-//             numero do pedido
-//           </div>
-//           {/* div que engloba estado, data, valor e endereço */}
-//           <div>
-//             <div datatest-id={ `customer_orders__element-delivery-status-${ID}` }>
-//               estado do pedido
-//             </div>
-//             {/* div que engloba data e valor */}
-//             <div>
-//               <div datatest-id={ `customer_orders__element-order-date-${ID}` }>
-//                 data de entrega
-//               </div>
-//               <div datatest-id={ `customer_orders__element-card-price-${ID}` }>
-//                 valor do pedido
-//               </div>
-//             </div>
-//             { user.role === 'seller' && orderAdress() }
+    getOrders();
+  }, [setUserOrders, user]);
 
-//           </div>
-//         </div>
-//       </Link>
-//     );
-//   }
+  // função que rendiza o campo de endereço nos cards do vendedor
+  function orderAdress() {
+    return (
+      <div datatest-id={ `seller_orders__element-card-address-${userOrders[i].id}` }>
+        Endereço de entrega:
+        { userOrders[i].delivery_adress }
+      </div>
+    );
+  }
 
-//   return (
-//     <div>
-//       { user.role === 'customer' && customerCard() }
-//       { user.role === 'seller' && sellerCard() }
-//     </div>
-//   );
-// }
+  // função que renderiza o card do produto
+  function customerCard() {
+    return (
+      <>
+        {userOrders.map((e, i) => (
+          <Link
+            to={ `${user.role}/orders/${e[i].id}` }
+            key={ i }
+          >
+            <div>
+              <div datatest-id={ `customer_orders__element-order-id-${e[i].id}` }>
+                Numero do pedido:
+                { e[i].id }
+              </div>
+              <div>
+                <div
+                  datatest-id={ `customer_orders__element-delivery-status-${e[i].id}` }
+                >
+                  Estado do pedido:
+                  { e[i].status }
+                </div>
+                <div>
+                  <div datatest-id={ `customer_orders__element-order-date-${e[i].id}` }>
+                    Data de entrega:
+                    { e[i].sale_date }
+                  </div>
+                  <div datatest-id={ `customer_orders__element-card-price-${e[i].id}` }>
+                    Valor do pedido:
+                    { e[i].total_price }
+                  </div>
+                </div>
+                { user.role === 'seller' && orderAdress() }
+              </div>
+            </div>
+          </Link>
+        ))}
+      </>
+    );
+  }
 
-// export default OrdersCard;
+  // sobre o css
+  // classes:
+  // order-card(engloba todo o card): cinza claro com letras pretas e bordas cinza escuto
+  // order-data(engloba tudo menos id): fundo cinza escuro sem bordas
+  // order-number(engloba id): fundo cinza médio letras pretas
+  // order-state(engloba estado): bordas e letras pretas bold, fundo dinâmico: amarelo(a caminho), azul(entregue) verde(parado)
+  // order-date(engloba data): letras pretas bold, fundo cinza médio letras pretas
+  // order-value(engloba preço): letras pretas bold, fundo cinza médio letras pretas
+  // order-adress(engloba endereço): letras menores, fundo cinza escuro letras pretas
+
+  return (
+    <>
+      { customerCard() }
+    </>
+  );
+}
+
+export default OrdersCard;

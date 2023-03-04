@@ -1,11 +1,13 @@
 import React from 'react';
 import Header from '../components/Header';
+import OrdersCard from '../components/OrdersCard';
 
 function Orders() {
   return (
-    <div>
+    <main>
       <Header />
-    </div>
+      <OrdersCard />
+    </main>
   );
 }
 

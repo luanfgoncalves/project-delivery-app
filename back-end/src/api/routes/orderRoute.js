@@ -7,4 +7,12 @@ const orderController = require('../controllers/orderController');
 
 router.post('/', validateToken, orderController.order);
 
+router.get('/id', orderController.getOrderById);
+
+router.get('/user_id', orderController.getOrderByUser);
+
+router.get('/seller_id', orderController.getOrderBySeller);
+
+router.get('/update', orderController.updateOrderState);
+
 module.exports = router;

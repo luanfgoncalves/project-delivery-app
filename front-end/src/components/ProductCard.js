@@ -1,13 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ProductQuantity from './ProductQuantity';
 import { requestData } from '../services/axios';
+import DeliveryAppContext from '../context/DeliveryAppContext';
 
 function CustomerProducts() {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [total, setTotal] = useState();
   const [isActive, setIsActive] = useState(true);
+  const { setTotalPrice } = useContext(DeliveryAppContext);
 
   const getProducts = async (endpoint) => {
     try {
@@ -30,6 +32,10 @@ function CustomerProducts() {
     getTotal(storage);
   };
 
+  const setCheckout = () => {
+    setTotalPrice(0);
+    navigate('/customer/checkout');
+  };
   useEffect(() => {
     getProducts('/customer/products');
   }, []);
@@ -46,7 +52,7 @@ function CustomerProducts() {
           type="button"
           data-testid="customer_products__button-cart"
           disabled={ isActive }
-          onClick={ () => navigate('/customer/checkout') }
+          onClick={ () => setCheckout() }
         >
           <p
             data-testid="customer_products__checkout-bottom-value"

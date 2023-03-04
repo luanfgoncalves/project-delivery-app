@@ -9,6 +9,7 @@ function DeliveryAppProvider({ children }) {
   const [totalPrice, setTotalPrice] = useState(0);
   const [sellers, setSellers] = useState([]);
   const [sellerID, setSellerID] = useState('');
+  const [userOrders, setUserOrders] = useState([]);
 
   const getSellers = async () => {
     const { data } = await axios.get('http://localhost:3001/seller');
@@ -31,7 +32,9 @@ function DeliveryAppProvider({ children }) {
     setSellers,
     sellerID,
     setSellerID,
-  }), [user, products, totalPrice, sellers, sellerID]);
+    userOrders,
+    setUserOrders,
+  }), [user, products, totalPrice, sellers, sellerID, userOrders]);
 
   return (
     <DeliveryAppContext.Provider value={ valueContext }>
