@@ -36,7 +36,6 @@ function DetailsCheckout() {
       deliveryNumber: Number(number),
       status: 'Pendente',
     };
-    console.log(checkout);
 
     const { token } = JSON.parse(localStorage.getItem('user'));
     const { data } = await axios.post('http://localhost:3001/orders', { data: checkout, sales: products }, {

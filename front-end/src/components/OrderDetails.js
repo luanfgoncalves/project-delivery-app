@@ -2,11 +2,14 @@ import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import DeliveryAppContext from '../context/DeliveryAppContext';
+import Loading from './Loading';
 
 function OrdersDetails() {
   const { id } = useParams();
-  const [orderData, setOrderData] = useState([]);
-  const [orderSeller, setOrderSeller] = useState([]);
+  const [orderData, setOrderData] = useState({});
+  const [orderSeller, setOrderSeller] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+  const [products, setProducts] = useState([]);
   const { user } = useContext(DeliveryAppContext);
 
   const USR = user.role;
@@ -29,34 +32,45 @@ function OrdersDetails() {
   const ID12 = `${USR}_checkout__element-order-table-sub-total-`;
 
   useEffect(() => {
-    const getSeller = async () => {
-      try {
-        console.log('getSeller foi chamada com id:', id);
-        const { data } = await axios.get('http://localhost:3001/seller');
-        console.log(`OS vendedores retornados foram ${data}`);
-        const filteredData = data.find((e) => e.id === orderData.saller_id);
-        setOrderSeller(filteredData.name);
-        console.log(orderSeller);
-      } catch (error) {
-        console.log('erro na chamada: Requisição do vendedor');
-      }
-    };
-
+    // add a venda no array orderData
     const getOrder = async () => {
-      console.log(`O id da venda é ${id}`);
       try {
-        console.log('getOrders foi chamada com id:', id);
         const { data } = await axios.get(`http://localhost:3001/customer/orders/${id}`);
 
-        setOrderData([...orderData, data]);
-        getSeller();
+        setOrderData(data);
       } catch (error) {
         console.log(error);
       }
     };
 
+    const getProducts = JSON.parse(localStorage.getItem('carrinho'));
+    setProducts(getProducts);
+
     getOrder();
-  }, [setOrderData]);
+  }, []);
+
+  useEffect(() => {
+    // retorna o nome da pessoa vendedora
+    (async () => {
+      try {
+        const { data: allSellers } = await axios.get('http://localhost:3001/seller');
+
+        const { sellerId } = orderData;
+
+        const sellerObj = allSellers.find((seller) => seller.id === sellerId);
+
+        setOrderSeller(sellerObj);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, [orderData]);
+
+  useEffect(() => {
+    if (orderSeller && orderData) {
+      setIsLoading(false);
+    }
+  }, [orderSeller, orderData]);
 
   const finnishOrder = async () => {
     try {
@@ -108,7 +122,7 @@ function OrdersDetails() {
     return (
       <div datatestid={ ID01 }>
         P. Vend:
-        {orderSeller}
+        {orderSeller.name}
       </div>
     );
   }
@@ -142,7 +156,7 @@ function OrdersDetails() {
   function dispatchButton() {
     return (
       <button
-        name={ product.id }
+        name={ products.id }
         data-testid={ ID04 }
         type="button"
         onClick={ handleClick }
@@ -153,17 +167,17 @@ function OrdersDetails() {
   }
 
   function tableHeader() {
+    if (isLoading) return <Loading />;
     return (
       <div>
         <div datatest-id={ ID05 }>
           <p>Pedido </p>
-          { orderData.id }
-          <p>;</p>
+          <p>{ orderData.id }</p>
         </div>
         {USR === 'customer' && sellerName() }
         <div datatest-id={ ID06 }>
           {/* Data de entrega */}
-          { orderData.sale_date }
+          { orderData.saleDate }
         </div>
         <div datatest-id={ ID07 }>
           {/* Estado do pedido */}
@@ -194,8 +208,8 @@ function OrdersDetails() {
           </thead>
 
           <tbody>
-            {orderData.map((order, index) => (
-              <tr key={ order.id + index }>
+            {products.map((order, index) => (
+              <tr key={ index }>
                 <td data-testid={ `${ID08}${index}` }>
                   {index + 1}
                 </td>
