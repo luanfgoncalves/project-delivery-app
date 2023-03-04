@@ -10,7 +10,7 @@ function Header() {
   function customerOrders() {
     return (
       <Link
-        to="/customer/orders/"
+        to="/customer/products/"
         data-testid="customer_products__element-navbar-link-products"
       >
         Produtos
@@ -23,7 +23,7 @@ function Header() {
     return (
       <div data-testid="customer_products__element-navbar-link-orders">
         { user.role === 'customer'
-        && <Link to="/customer/products">Meus Pedidos</Link> }
+        && <Link to="/customer/orders">Meus Pedidos</Link> }
 
         { user.role === 'seller'
         && <Link to="/seller/orders">Pedidos</Link> }
