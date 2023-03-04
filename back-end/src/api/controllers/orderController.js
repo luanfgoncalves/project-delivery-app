@@ -7,7 +7,7 @@ const order = async (req, res) => {
 };
 
 const getOrderById = async (req, res) => {
-  const { id } = req.body;
+  const { id } = req.params;
   const result = await ser.getOrderById(id);   
   return res.status(200).json(result);
 };
