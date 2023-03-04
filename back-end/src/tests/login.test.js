@@ -18,10 +18,10 @@ describe('Página de login', () => {
 
   afterEach(sinon.restore);
 
-  it('1 - Deve logar a pessoa com dados válidos com sucesso', async () => {
+  it('1 - Deve logar a pessoa cadastrada com dados válidos com sucesso', async () => {
     sinon
-    .stub(User, 'findOne')
-    .resolves({ dataValues: customerInfo, ...customerInfo });
+      .stub(User, 'findOne')
+      .resolves({ dataValues: customerInfo, ...customerInfo });
 
     response = await chai
       .request(app)
@@ -31,8 +31,10 @@ describe('Página de login', () => {
     expect(response.status).to.be.equal(200);
   });
 
-  it('2 - Deve retornar erro se o email não existir no banco de dados', async () => {
-    sinon.stub(User, 'findOne').resolves();
+  it('2 - Deve retornar um erro se o email não existir no banco de dados', async () => {
+    sinon
+      .stub(User, 'findOne')
+      .resolves();
 
     response = await chai
       .request(app)
@@ -40,5 +42,23 @@ describe('Página de login', () => {
       .send(invalidEmailLogin);
 
     expect(response.status).to.be.equal(404);
+  });
+
+  it('3 - Deve retornar um erro se a pessoa não inserir um email', async () => {
+    response = await chai
+    .request(app)
+    .post(loginRoute)
+    .send({ password: validLogin.password });
+
+    expect(response.status).to.be.equal(400);
+  });
+
+  it('4 - Deve retornar um erro se a pessoa não inserir uma senha', async () => {
+    response = await chai
+    .request(app)
+    .post(loginRoute)
+    .send({ email: validLogin.email });
+
+    expect(response.status).to.be.equal(400);
   });
 });
