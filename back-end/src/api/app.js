@@ -24,7 +24,7 @@ app.use('/customer', customerRoute);
 
 app.use('/seller', sellerRoute);
 
-app.use('/order', orderRoute);
+app.use('/orders', orderRoute);
 
 app.use('/admin', adminRoute);
 

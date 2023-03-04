@@ -9,7 +9,7 @@ function OrdersDetails() {
   const { user } = useContext(DeliveryAppContext);
 
   const USR = user.role;
-  const UPDATEROUTE = 'http://localhost:3001/order';
+  const UPDATEROUTE = 'http://localhost:3001/orders';
   const ENTREGUE = 'Entregue';
   const PREPARANDO = 'Preparando';
   const EM_TRANSITO = 'Em Trânsito';
@@ -45,7 +45,7 @@ function OrdersDetails() {
       console.log(`O id da venda é ${id}`);
       try {
         console.log('getOrders foi chamada com id:', id);
-        const { data } = await axios.get('http://localhost:3001/order/id', { id });
+        const { data } = await axios.get('http://localhost:3001/orders/id', { id });
         console.log(`A venda retornadas foi ${data}`);
         setOrderData(data);
         getSeller();

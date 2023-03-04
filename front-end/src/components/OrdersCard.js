@@ -20,7 +20,7 @@ function OrdersCard() {
         console.log('getOrders foi chamada com id:', id);
         if (USR === 'customer') {
           console.log('foram requisitadas vendas pelo id do comprador');
-          const { data } = await axios.get('http://localhost:3001/order/user_id', { user_id: id });
+          const { data } = await axios.get('http://localhost:3001/orders/user_id', { user_id: id });
           console.log('data');
           setUserOrders(data);
           console.log(`As vendas retornadas foram ${data}`);
