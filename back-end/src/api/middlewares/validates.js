@@ -18,11 +18,10 @@ const validateLogin = async (req, res, next) => {
 }; 
 
 const validateRegister = async (req, res, next) => {
-  const { name, email, password } = req.body; 
+  const { email } = req.body; 
 
 const userByEmail = await User.findOne({ where: { email } });
-  if (userByEmail && (userByEmail.name === name || userByEmail.email === email 
-    || userByEmail.password === md5(password))) {
+  if (userByEmail) {
       return res.status(409).json({ message: 'Conflict' });
   }
   next();
