@@ -1,15 +1,17 @@
 import React, { useEffect, useState, useContext } from 'react';
 import DeliveryAppContext from '../context/DeliveryAppContext';
-import { postData } from '../services/axios';
+import { postData, getAllUsers, deleteData } from '../services/axios';
 
 function AdminForm() {
-  const { setUser } = useContext(DeliveryAppContext);
+  const { user, setUser } = useContext(DeliveryAppContext);
   const [disabledButton, setDisabledButton] = useState(true);
   const [IsUserDataValid, setIsUserDataValid] = useState(false);
+  const [isDeleted, setIsDeleted] = useState(false);
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('');
+  const [users, setUsers] = useState([]);
 
   //  estas variaveis servem para a validação de senha e nome de usuário
   const minNumber = 6;
@@ -71,6 +73,20 @@ function AdminForm() {
     await addNewUser();
   };
 
+  const deleteUser = async (id) => {
+    await deleteData(id);
+    setIsDeleted(!isDeleted);
+  };
+
+  const getUsers = async () => {
+    const allUsers = await getAllUsers();
+    setUsers(allUsers.data);
+  };
+
+  useEffect(() => {
+    getUsers();
+  }, [user, isDeleted]);
+
   function renderInvalidDataMsg() {
     return (
       <h4 data-testid="admin_manage__element-invalid-register">Dados Inválidos</h4>
@@ -78,8 +94,8 @@ function AdminForm() {
   }
 
   return (
-    <div className="Register-screen">
-      <form className="Register-form">
+    <div>
+      <form>
         <h1>Cadastrar novo usuário</h1>
         <input
           className="Register-input"
@@ -130,6 +146,62 @@ function AdminForm() {
         {!IsUserDataValid && renderInvalidDataMsg()}
 
       </form>
+
+      <table className="table">
+        <thead className="text-center">
+          <tr>
+            <th>Item</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody className="text-center">
+          {users.map((elem, index = 1) => (
+            <tr key={ index }>
+              <td
+                data-testid={
+                  `admin_manage__element-user-table-item-number-${index}`
+                }
+              >
+                {index + 1}
+              </td>
+              <td
+                data-testid={ `admin_manage__element-user-table-name-${index}` }
+              >
+                {elem.name}
+              </td>
+              <td
+                data-testid={
+                  `admin_manage__element-user-table-email-${index}`
+                }
+              >
+                {elem.email}
+              </td>
+              <td
+                data-testid={
+                  `admin_manage__element-user-table-role-${index}`
+                }
+              >
+                {elem.role}
+              </td>
+              <td>
+                <button
+                  className="btn btn-danger"
+                  data-testid={
+                    `admin_manage__element-user-table-remove-${index}`
+                  }
+                  type="button"
+                  onClick={ () => deleteUser(elem.id) }
+                >
+                  REMOVE
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }

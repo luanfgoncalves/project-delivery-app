@@ -19,4 +19,17 @@ const postData = async (endpoint, dataObj) => {
   return data;
 };
 
-module.exports = { requestData, postData };
+const getAllUsers = async () => {
+  const response = await axios.get(`${localhost}/register`);
+  return response;
+};
+
+const deleteData = async (id) => {
+  const { token } = JSON.parse(localStorage.getItem('user'));
+  const { data } = await axios.delete(`${localhost}/register/admin/${id}`, {
+    headers: { Authorization: token },
+  });
+  return data;
+};
+
+module.exports = { requestData, postData, getAllUsers, deleteData };
