@@ -32,7 +32,6 @@ const deleteUser = async (id) => {
   });
 };
 
-
   module.exports = {
     serviceLogin,
     serviceRegister,
