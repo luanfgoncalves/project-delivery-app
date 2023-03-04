@@ -13,6 +13,6 @@ router.get('/user_id', orderController.getOrderByUser);
 
 router.get('/seller_id', orderController.getOrderBySeller);
 
-router.get('/update', orderController.updateOrderState);
+router.update('/update', orderController.updateOrderState);
 
 module.exports = router;

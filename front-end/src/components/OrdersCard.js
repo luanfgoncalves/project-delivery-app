@@ -10,20 +10,22 @@ function OrdersCard() {
     setUserOrders,
   } = useContext(DeliveryAppContext);
 
+  const USR = user.role;
+
   useEffect(() => {
     // função que recupera pedidos realizados do banco de dados
     const getOrders = async () => {
       const { id } = user;
       try {
         console.log('getOrders foi chamada com id:', id);
-        if (user.role === 'customer') {
+        if (USR === 'customer') {
           console.log('foram requisitadas vendas pelo id do comprador');
           const { data } = await axios.get('http://localhost:3001/order/user_id', { user_id: id });
           console.log('data');
           setUserOrders(data);
           console.log(`As vendas retornadas foram ${data}`);
         }
-        if (user.role === 'seller') {
+        if (USR === 'seller') {
           console.log('Foram requisitadas vendas pelo id do vendedor');
           const { data } = await axios.get('http://localhost:3001/order/seller_id', { seller_id: id });
           setUserOrders(data);
@@ -48,37 +50,37 @@ function OrdersCard() {
   }
 
   // função que renderiza o card do produto
-  function customerCard() {
+  function saleCard() {
     return (
       <>
         {userOrders.map((e, i) => (
           <Link
-            to={ `${user.role}/orders/${e[i].id}` }
+            to={ `${USR}/orders/${e[i].id}` }
             key={ i }
           >
             <div>
-              <div datatest-id={ `customer_orders__element-order-id-${e[i].id}` }>
+              <div datatest-id={ `${USR}_orders__element-order-id-${e[i].id}` }>
                 Numero do pedido:
                 { e[i].id }
               </div>
               <div>
                 <div
-                  datatest-id={ `customer_orders__element-delivery-status-${e[i].id}` }
+                  datatest-id={ `${USR}_orders__element-delivery-status-${e[i].id}` }
                 >
                   Estado do pedido:
                   { e[i].status }
                 </div>
                 <div>
-                  <div datatest-id={ `customer_orders__element-order-date-${e[i].id}` }>
+                  <div datatest-id={ `${USR}_orders__element-order-date-${e[i].id}` }>
                     Data de entrega:
                     { e[i].sale_date }
                   </div>
-                  <div datatest-id={ `customer_orders__element-card-price-${e[i].id}` }>
+                  <div datatest-id={ `${USR}_orders__element-card-price-${e[i].id}` }>
                     Valor do pedido:
                     { e[i].total_price }
                   </div>
                 </div>
-                { user.role === 'seller' && orderAdress() }
+                { USR === 'seller' && orderAdress() }
               </div>
             </div>
           </Link>
@@ -99,7 +101,7 @@ function OrdersCard() {
 
   return (
     <>
-      { customerCard() }
+      { saleCard() }
     </>
   );
 }
