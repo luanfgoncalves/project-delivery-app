@@ -29,10 +29,24 @@ function LoginForm() {
     }
   };
 
+  const loginRoute = {
+    administrator: '/admin/manage',
+    seller: '/seller/orders',
+    customer: '/customer/products',
+  };
+
   useEffect(() => {
     validateEmail();
     validateLogin();
   }, [email, password]);
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    if (user && user.role) {
+      navigate(`${loginRoute[user.role]}`);
+    }
+  }, [navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -51,15 +65,7 @@ function LoginForm() {
       setUser(data);
       localStorage.setItem('user', JSON.stringify(data));
 
-      if (data.role === 'customer') {
-        navigate('/customer/products');
-      }
-      if (data.role === 'seller') {
-        navigate('/seller/orders');
-      }
-      if (data.role === 'administrator') {
-        navigate('/admin/manage');
-      }
+      navigate(`${loginRoute[data.role]}`);
     } catch (error) {
       setIsEmailValid(false);
     }
