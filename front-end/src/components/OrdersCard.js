@@ -35,7 +35,7 @@ function OrdersCard() {
 
     getOrders();
     if (userOrders && user) setIsLoading(false);
-  }, [user]);
+  }, []);
 
   // função que rendiza o campo de endereço nos cards do vendedor
   function orderAdress() {
