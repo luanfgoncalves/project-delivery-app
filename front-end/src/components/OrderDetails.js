@@ -122,7 +122,7 @@ function OrdersDetails() {
 
   function sellerName() {
     return (
-      <div datatestid={ ID01 }>
+      <div data-testid={ ID01 }>
         P. Vend:
         {orderSeller.name}
       </div>
@@ -171,16 +171,16 @@ function OrdersDetails() {
   function tableHeader() {
     return (
       <div>
-        <div datatest-id={ ID05 }>
+        <div data-testid={ ID05 }>
           <p>Pedido </p>
           <p>{ orderData.id }</p>
         </div>
         {USR === 'customer' && sellerName() }
-        <div datatest-id={ ID06 }>
+        <div data-testid={ ID06 }>
           {/* Data de entrega */}
           { orderData.saleDate }
         </div>
-        <div datatest-id={ ID07 }>
+        <div data-testid={ ID07 }>
           {/* Estado do pedido */}
           { orderData.status }
         </div>

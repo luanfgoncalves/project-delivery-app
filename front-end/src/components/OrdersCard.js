@@ -42,7 +42,7 @@ function OrdersCard() {
   // função que rendiza o campo de endereço nos cards do vendedor
   function orderAdress() {
     return (
-      <div datatest-id={ `seller_orders__element-card-address-${userOrders[i].id}` }>
+      <div data-testid={ `seller_orders__element-card-address-${userOrders[i].id}` }>
         Endereço de entrega:
         { userOrders[i].delivery_adress }
       </div>
@@ -59,23 +59,23 @@ function OrdersCard() {
             key={ i }
           >
             <div>
-              <div datatest-id={ `${USR}_orders__element-order-id-${e[i].id}` }>
+              <div data-testid={ `${USR}_orders__element-order-id-${e[i].id}` }>
                 Numero do pedido:
                 { e[i].id }
               </div>
               <div>
                 <div
-                  datatest-id={ `${USR}_orders__element-delivery-status-${e[i].id}` }
+                  data-testid={ `${USR}_orders__element-delivery-status-${e[i].id}` }
                 >
                   Estado do pedido:
                   { e[i].status }
                 </div>
                 <div>
-                  <div datatest-id={ `${USR}_orders__element-order-date-${e[i].id}` }>
+                  <div data-testid={ `${USR}_orders__element-order-date-${e[i].id}` }>
                     Data de entrega:
                     { e[i].sale_date }
                   </div>
-                  <div datatest-id={ `${USR}_orders__element-card-price-${e[i].id}` }>
+                  <div data-testid={ `${USR}_orders__element-card-price-${e[i].id}` }>
                     Valor do pedido:
                     { e[i].total_price }
                   </div>
