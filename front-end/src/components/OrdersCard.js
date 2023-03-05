@@ -27,6 +27,7 @@ function OrdersCard() {
             setUserOrders(data);
             console.log(`As vendas retornadas foram ${data}`);
           }
+          setIsLoading(false);
         }
       } catch (error) {
         console.log(error);
@@ -34,8 +35,12 @@ function OrdersCard() {
     };
 
     getOrders();
-    if (userOrders && user) setIsLoading(false);
   }, []);
+
+  function formatDate(isoDate) {
+    const date = new Date(isoDate);
+    return date.toLocaleDateString('pt-br');
+  }
 
   // função que rendiza o campo de endereço nos cards do vendedor
   function orderAdress() {
@@ -70,12 +75,14 @@ function OrdersCard() {
                   { order.status }
                 </div>
                 <div>
+                  Data de entrega:
                   <div data-testid={ `${USR}_orders__element-order-date-${order.id}` }>
-                    Data de entrega:
-                    { order.saleDate }
+                    { formatDate(order.saleDate) }
                   </div>
+                </div>
+                <div>
+                  Valor do pedido:
                   <div data-testid={ `${USR}_orders__element-card-price-${order.id}` }>
-                    Valor do pedido:
                     { order.totalPrice }
                   </div>
                 </div>
