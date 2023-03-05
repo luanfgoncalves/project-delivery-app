@@ -23,7 +23,7 @@ function OrdersCard() {
           }
           if (USR === 'seller') {
             console.log('Foram requisitadas vendas pelo id do vendedor');
-            const { data } = await axios.get('http://localhost:3001/order/seller_id', { seller_id: id });
+            const { data } = await axios.get('http://localhost:3001/seller/orders', { params: { seller_id: id } });
             setUserOrders(data);
             console.log(`As vendas retornadas foram ${data}`);
           }

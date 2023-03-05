@@ -7,6 +7,8 @@ const router = express.Router();
 
 router.get('/', sellerController.getSeller);
 
-router.get('/:id', orderController.getOrderById);
+router.get('/orders/:id', orderController.getOrderById);
+
+router.get('/orders', orderController.getOrdersBySeller);
 
 module.exports = router;

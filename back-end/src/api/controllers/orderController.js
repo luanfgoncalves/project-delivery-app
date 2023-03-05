@@ -20,9 +20,9 @@ const getOrdersByUser = async (req, res) => {
   return res.status(200).json(result);
 };
 
-const getOrderBySeller = async (req, res) => {
-  const { seller_id } = req.params;
-  const result = await ser.getOrderBySeller(seller_id);   
+const getOrdersBySeller = async (req, res) => {
+  const { seller_id } = req.query;
+  const result = await ser.getOrdersBySeller(seller_id);
   return res.status(200).json(result);
 };
 
@@ -36,6 +36,6 @@ module.exports = {
   order,
   getOrderById,
   getOrdersByUser,
-  getOrderBySeller,
+  getOrdersBySeller,
   updateOrderState,
 };

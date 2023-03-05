@@ -41,8 +41,8 @@ const getOrdersByUser = async (id) => {
  };
 
 // deve receber sales.seller_id
-const getOrderBySeller = async (id) => {
-  const order = await Sale.findOne({ where: { sellerId: id } });
+const getOrdersBySeller = async (id) => {
+  const order = await Sale.findAll({ where: { sellerId: id } });
   return order;
  };
 
@@ -57,6 +57,6 @@ module.exports = {
   postOrder,
   getOrderById,
   getOrdersByUser,
-  getOrderBySeller,
+  getOrdersBySeller,
   updateOrderState,
 };
