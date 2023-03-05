@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import DeliveryAppContext from '../context/DeliveryAppContext';
+import { requestData } from '../services/axios';
 import Loading from './Loading';
 
 function OrdersDetails() {
@@ -35,25 +36,21 @@ function OrdersDetails() {
     // add a venda no array orderData
     const getOrder = async () => {
       try {
-        const { data } = await axios.get(`http://localhost:3001/customer/orders/${id}`);
-
+        const data = await requestData(`/customer/orders/${id}?displayProducts=true`);
         setOrderData(data);
       } catch (error) {
         console.log(error);
       }
     };
 
-    const getProducts = JSON.parse(localStorage.getItem('carrinho'));
-    setProducts(getProducts);
-
     getOrder();
   }, []);
 
   useEffect(() => {
     // retorna o nome da pessoa vendedora
-    (async () => {
+    const getSeller = async () => {
       try {
-        const { data: allSellers } = await axios.get('http://localhost:3001/seller');
+        const allSellers = await requestData('/seller');
 
         const { sellerId } = orderData;
 
@@ -63,16 +60,21 @@ function OrdersDetails() {
       } catch (error) {
         console.log(error);
       }
-    })();
+    };
+
+    getSeller();
+    setProducts(orderData.products);
   }, [orderData]);
 
   useEffect(() => {
-    if (orderSeller && orderData) {
+    if (orderSeller && products) {
       setIsLoading(false);
     }
-  }, [orderSeller, orderData]);
+  }, [orderSeller, products]);
 
-  const finnishOrder = async () => {
+  const calcProductPrice = (qty, value) => qty * Number(value);
+
+  const finishOrder = async () => {
     try {
       console.log(`ordersUpdate foi chamada com status: 'Entregue' e id: '${id}'`);
       const { data } = await axios.update(UPDATEROUTE, { id, status: ENTREGUE });
@@ -106,7 +108,7 @@ function OrdersDetails() {
     e.preventDefault();
     if (e.target.name === 'finnish-button') {
       console.log('botão de login foi clicado');
-      finnishOrder();
+      finishOrder();
     }
     if (e.target.name === 'prepare-button') {
       console.log('prepareButton foi clicado');
@@ -167,7 +169,6 @@ function OrdersDetails() {
   }
 
   function tableHeader() {
-    if (isLoading) return <Loading />;
     return (
       <div>
         <div datatest-id={ ID05 }>
@@ -208,22 +209,22 @@ function OrdersDetails() {
           </thead>
 
           <tbody>
-            {products.map((order, index) => (
+            {products.map(({ name, price, SaleProduct: { quantity } }, index) => (
               <tr key={ index }>
                 <td data-testid={ `${ID08}${index}` }>
                   {index + 1}
                 </td>
                 <td data-testid={ `${ID09}${index}` }>
-                  {order.name}
+                  {name}
                 </td>
                 <td data-testid={ `${ID10}${index}` }>
-                  {order.quantity}
+                  {quantity}
                 </td>
                 <td data-testid={ `${ID11}${index}` }>
-                  {order.unitPrice}
+                  {price}
                 </td>
                 <td data-testid={ `${ID12}${index}` }>
-                  {parseFloat(order.subTotal).toFixed(2).replace('.', ',')}
+                  {(calcProductPrice(quantity, price)).toFixed(2).replace('.', ',')}
                 </td>
               </tr>
             ))}
@@ -233,6 +234,7 @@ function OrdersDetails() {
     );
   }
 
+  if (isLoading) return <Loading />;
   return (
     <>
       { orderInfo() }
