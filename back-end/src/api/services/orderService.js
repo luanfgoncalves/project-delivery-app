@@ -1,5 +1,4 @@
-const { Sale } = require('../../database/models/index');
-const { SaleProduct } = require('../../database/models/index');
+const { Sale, SaleProduct, Product } = require('../../database/models/index');
 
 const postOrder = async (data, sales) => {
   const { dataValues } = await Sale.create(data);
@@ -21,8 +20,17 @@ const postOrder = async (data, sales) => {
  };
 
 //  deve receber sales.id
-const getOrderById = async (id) => {
-  const order = await Sale.findOne({ where: { id } });
+const getOrderById = async (id, displayProducts) => {
+  let order;
+
+  if (displayProducts === 'true') {
+    order = await Sale.findByPk(id, {
+      include: 
+        { model: Product, as: 'products', through: { attributes: ['quantity'] } },
+    });
+  } else {
+    order = await Sale.findByPk(id);
+  }
   return order;
  };
 
