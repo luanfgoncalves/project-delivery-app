@@ -1,17 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import DeliveryAppContext from '../context/DeliveryAppContext';
 import Loading from './Loading';
 
 function OrdersCard() {
-  //  context será usado para renderização condicional, conforme o card
-  const {
-    user,
-    userOrders,
-    setUserOrders,
-  } = useContext(DeliveryAppContext);
   const [isLoading, setIsLoading] = useState(true);
+  const [userOrders, setUserOrders] = useState([]);
+
+  const user = JSON.parse(localStorage.getItem('user'));
 
   const USR = user.role;
 
