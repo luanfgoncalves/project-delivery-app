@@ -8,6 +8,19 @@ const register = async (req, res) => {
   return res.status(201).json({ message: 'Created' });
 };
 
+const getUsers = async (req, res, _next) => {
+  const users = await ser.getUsers();
+  return res.status(200).json(users);
+};
+
+const deleteUser = async (req, res, _next) => {
+  const { id } = req.params;
+  await ser.deleteUser(Number(id));
+  return res.status(204).end();
+};
+
 module.exports = {
   register,
+  getUsers,
+  deleteUser,
 };
