@@ -10,4 +10,6 @@ router.get('/products', validateToken, customerController.getProducts);
 
 router.get('/orders/:id', orderController.getOrderById);
 
+router.get('/orders', orderController.getOrdersByUser);
+
 module.exports = router;

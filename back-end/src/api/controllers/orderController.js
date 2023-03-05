@@ -14,28 +14,28 @@ const getOrderById = async (req, res) => {
   return res.status(200).json(result);
 };
 
-const getOrderByUser = async (req, res) => {
-  const { user_id } = req.body;
-  const result = await ser.getOrderByUser(user_id);   
+const getOrdersByUser = async (req, res) => {
+  const { user_id } = req.query;
+  const result = await ser.getOrdersByUser(user_id);   
   return res.status(200).json(result);
 };
 
 const getOrderBySeller = async (req, res) => {
-  const { seller_id } = req.body;
+  const { seller_id } = req.params;
   const result = await ser.getOrderBySeller(seller_id);   
   return res.status(200).json(result);
 };
 
 const updateOrderState = async (req, res) => {
   const { id, status } = req.body;
-  const result = await ser.updateOrderState( id, status );
+  const result = await ser.updateOrderState(id, status);
   return res.status(200).json(result);
  };
 
 module.exports = {
   order,
   getOrderById,
-  getOrderByUser,
+  getOrdersByUser,
   getOrderBySeller,
   updateOrderState,
 };
