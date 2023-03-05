@@ -81,7 +81,7 @@ function OrdersCard() {
                 <div>
                   Valor do pedido:
                   <div data-testid={ `${USR}_orders__element-card-price-${order.id}` }>
-                    { order.totalPrice }
+                    { order.totalPrice.replace('.', ',') }
                   </div>
                 </div>
                 { USR === 'seller' && orderAddress(i) }
