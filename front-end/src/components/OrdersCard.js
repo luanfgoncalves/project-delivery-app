@@ -59,9 +59,10 @@ function OrdersCard() {
           <Link
             to={ `${USR}/orders/${order.id}` }
             key={ i }
+            data-testid={ `${USR}_orders__element-order-id-${order.id}` }
           >
             <div>
-              <div data-testid={ `${USR}_orders__element-order-id-${order.id}` }>
+              <div>
                 Numero do pedido:
                 { order.id }
               </div>

@@ -132,7 +132,7 @@ function OrdersDetails() {
   function finishButton() {
     return (
       <button
-        name="finnish-button"
+        name="finish-button"
         data-testid={ ID02 }
         type="button"
         onClick={ handleClick }
@@ -170,8 +170,8 @@ function OrdersDetails() {
 
   function tableHeader() {
     return (
-      <div>
-        <div data-testid={ ID05 }>
+      <div data-testid={ ID05 }>
+        <div>
           <p>Pedido </p>
           <p>{ orderData.id }</p>
         </div>
