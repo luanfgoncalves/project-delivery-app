@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import DeliveryAppContext from '../context/DeliveryAppContext';
 import { requestData } from '../services/axios';
 import Loading from './Loading';
 
@@ -11,7 +10,8 @@ function OrdersDetails() {
   const [orderSeller, setOrderSeller] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [products, setProducts] = useState([]);
-  const { user } = useContext(DeliveryAppContext);
+
+  const user = JSON.parse(localStorage.getItem('user'));
 
   const USR = user.role;
   const UPDATEROUTE = 'http://localhost:3001/orders';
