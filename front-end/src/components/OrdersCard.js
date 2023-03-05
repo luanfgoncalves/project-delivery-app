@@ -22,10 +22,8 @@ function OrdersCard() {
             setUserOrders(data);
           }
           if (USR === 'seller') {
-            console.log('Foram requisitadas vendas pelo id do vendedor');
             const { data } = await axios.get('http://localhost:3001/seller/orders', { params: { seller_id: id } });
             setUserOrders(data);
-            console.log(`As vendas retornadas foram ${data}`);
           }
           setIsLoading(false);
         }
@@ -43,11 +41,11 @@ function OrdersCard() {
   }
 
   // função que rendiza o campo de endereço nos cards do vendedor
-  function orderAdress() {
+  function orderAddress(i) {
     return (
       <div data-testid={ `seller_orders__element-card-address-${userOrders[i].id}` }>
         Endereço de entrega:
-        { userOrders[i].delivery_adress }
+        { userOrders[i].deliveryAddress }
       </div>
     );
   }
@@ -86,7 +84,7 @@ function OrdersCard() {
                     { order.totalPrice }
                   </div>
                 </div>
-                { USR === 'seller' && orderAdress() }
+                { USR === 'seller' && orderAddress(i) }
               </div>
             </div>
           </Link>
