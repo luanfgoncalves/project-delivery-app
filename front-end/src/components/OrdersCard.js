@@ -53,7 +53,7 @@ function OrdersCard() {
       <>
         {userOrders.map((order, i) => (
           <Link
-            to={ `${USR}/orders/${order.id}` }
+            to={ `./${order.id}` }
             key={ i }
             data-testid={ `${USR}_orders__element-order-id-${order.id}` }
           >
