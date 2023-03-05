@@ -1,6 +1,8 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import DeliveryAppContext from '../context/DeliveryAppContext';
+import Loading from './Loading';
 
 function OrdersCard() {
   //  context será usado para renderização condicional, conforme o card
@@ -9,6 +11,7 @@ function OrdersCard() {
     userOrders,
     setUserOrders,
   } = useContext(DeliveryAppContext);
+  const [isLoading, setIsLoading] = useState(true);
 
   const USR = user.role;
 
@@ -17,27 +20,26 @@ function OrdersCard() {
     const getOrders = async () => {
       const { id } = user;
       try {
-        console.log('getOrders foi chamada com id:', id);
-        if (USR === 'customer') {
-          console.log('foram requisitadas vendas pelo id do comprador');
-          const { data } = await axios.get('http://localhost:3001/orders/user_id', { user_id: id });
-          console.log('data');
-          setUserOrders(data);
-          console.log(`As vendas retornadas foram ${data}`);
-        }
-        if (USR === 'seller') {
-          console.log('Foram requisitadas vendas pelo id do vendedor');
-          const { data } = await axios.get('http://localhost:3001/order/seller_id', { seller_id: id });
-          setUserOrders(data);
-          console.log(`As vendas retornadas foram ${data}`);
+        if (user) {
+          if (USR === 'customer') {
+            const { data } = await axios.get('http://localhost:3001/customer/orders', { params: { user_id: id } });
+            setUserOrders(data);
+          }
+          if (USR === 'seller') {
+            console.log('Foram requisitadas vendas pelo id do vendedor');
+            const { data } = await axios.get('http://localhost:3001/order/seller_id', { seller_id: id });
+            setUserOrders(data);
+            console.log(`As vendas retornadas foram ${data}`);
+          }
         }
       } catch (error) {
-        console.log('erro na chamada');
+        console.log(error);
       }
     };
 
     getOrders();
-  }, [setUserOrders, user]);
+    if (userOrders && user) setIsLoading(false);
+  }, [user]);
 
   // função que rendiza o campo de endereço nos cards do vendedor
   function orderAdress() {
@@ -53,31 +55,31 @@ function OrdersCard() {
   function saleCard() {
     return (
       <>
-        {userOrders.map((e, i) => (
+        {userOrders.map((order, i) => (
           <Link
-            to={ `${USR}/orders/${e[i].id}` }
+            to={ `${USR}/orders/${order.id}` }
             key={ i }
           >
             <div>
-              <div data-testid={ `${USR}_orders__element-order-id-${e[i].id}` }>
+              <div data-testid={ `${USR}_orders__element-order-id-${order.id}` }>
                 Numero do pedido:
-                { e[i].id }
+                { order.id }
               </div>
               <div>
                 <div
-                  data-testid={ `${USR}_orders__element-delivery-status-${e[i].id}` }
+                  data-testid={ `${USR}_orders__element-delivery-status-${order.id}` }
                 >
                   Estado do pedido:
-                  { e[i].status }
+                  { order.status }
                 </div>
                 <div>
-                  <div data-testid={ `${USR}_orders__element-order-date-${e[i].id}` }>
+                  <div data-testid={ `${USR}_orders__element-order-date-${order.id}` }>
                     Data de entrega:
-                    { e[i].sale_date }
+                    { order.saleDate }
                   </div>
-                  <div data-testid={ `${USR}_orders__element-card-price-${e[i].id}` }>
+                  <div data-testid={ `${USR}_orders__element-card-price-${order.id}` }>
                     Valor do pedido:
-                    { e[i].total_price }
+                    { order.totalPrice }
                   </div>
                 </div>
                 { USR === 'seller' && orderAdress() }
@@ -99,6 +101,7 @@ function OrdersCard() {
   // order-value(engloba preço): letras pretas bold, fundo cinza médio letras pretas
   // order-adress(engloba endereço): letras menores, fundo cinza escuro letras pretas
 
+  if (isLoading) return <Loading />;
   return (
     <>
       { saleCard() }
