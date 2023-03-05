@@ -9,13 +9,14 @@ function DetailsCheckout() {
     sellerID,
     totalPrice,
     products,
-    user,
   } = useContext(DeliveryAppContext);
   const [currentSeller, setCurrentSeller] = useState('');
   const [address, setAdress] = useState('');
   const [number, setNumber] = useState(0);
 
   const navigate = useNavigate();
+
+  const user = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
     setCurrentSeller(sellerID);
@@ -37,9 +38,8 @@ function DetailsCheckout() {
       status: 'Pendente',
     };
 
-    const { token } = JSON.parse(localStorage.getItem('user'));
     const { data } = await axios.post('http://localhost:3001/orders', { data: checkout, sales: products }, {
-      headers: { Authorization: token },
+      headers: { Authorization: user.token },
     });
 
     navigate(`/customer/orders/${data.id}`);
