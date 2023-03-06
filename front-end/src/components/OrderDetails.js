@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { requestData } from '../services/axios';
 import Loading from './Loading';
+import formatDate from '../utils/formatDate';
 
 function OrdersDetails() {
   const { id } = useParams();
@@ -123,7 +124,7 @@ function OrdersDetails() {
     .reduce((
       acc,
       { SaleProduct: { quantity }, price },
-    ) => calcProductPrice(quantity, price) + acc, 0);
+    ) => calcProductPrice(quantity, price) + acc, 0).toFixed(2).replace('.', ',');
 
   function sellerName() {
     return (
@@ -140,6 +141,7 @@ function OrdersDetails() {
         name="finish-button"
         data-testid={ ID02 }
         type="button"
+        disabled
         onClick={ handleClick }
       >
         Marcar como entregue
@@ -182,7 +184,7 @@ function OrdersDetails() {
         </div>
         {USR === 'customer' && sellerName() }
         <div data-testid={ ID06 }>
-          { orderData.saleDate }
+          { formatDate(orderData.saleDate) }
         </div>
         <div data-testid={ ID07 }>
           { orderData.status }
