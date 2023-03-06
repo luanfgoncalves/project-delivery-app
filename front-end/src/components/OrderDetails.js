@@ -32,14 +32,6 @@ function OrdersDetails() {
   };
 
   useEffect(() => {
-    // const getOrder = async () => {
-    //   try {
-    //     const data = await requestData(`/customer/orders/${id}?displayProducts=true`);
-    //     setOrderData(data);
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // };
     const callGetOrder = () => { getOrder(); };
 
     callGetOrder();
