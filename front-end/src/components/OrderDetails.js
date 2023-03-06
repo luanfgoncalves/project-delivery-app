@@ -4,6 +4,8 @@ import { useParams } from 'react-router-dom';
 import { requestData } from '../services/axios';
 import Loading from './Loading';
 import formatDate from '../utils/formatDate';
+import { ID01, ID02, ID03, ID04, ID05, ID06, ID07, ID08,
+  ID09, ID10, ID11, ID12, ID13 } from '../utils/orderDeatilsIds';
 
 function OrdersDetails() {
   const { id } = useParams();
@@ -15,41 +17,27 @@ function OrdersDetails() {
   const user = JSON.parse(localStorage.getItem('user'));
 
   const USR = user.role;
-  const UPDATEROUTE = 'http://localhost:3001/orders';
-  const ENTREGUE = 'Entregue';
+  const UPDATEROUTE = 'http://localhost:3001/orders/update';
   const PREPARANDO = 'Preparando';
   const EM_TRANSITO = 'Em Trânsito';
+  const ENTREGUE = 'Entregue';
 
-  const ID01 = `${USR}_order_details__element-order-details-label-seller-name`;
-  const ID02 = `${USR}_order_details__button-delivery-check`;
-  const ID03 = `${USR}_order_details__button-preparing-check`;
-  const ID04 = `${USR}_order_details__button-dispatch-check`;
-  const ID05 = `${USR}_order_details__element-order-details-label-order-id`;
-  const ID06 = `${USR}_order_details__element-order-details-label-order-date`;
-  const ID07 = `${USR}_order_details__element-order-details-label-delivery-status-0`;
-  const ID08 = `${USR}_order_details__element-order-table-item-number-`;
-  const ID09 = `${USR}_order_details__element-order-table-name-`;
-  const ID10 = `${USR}_order_details__element-order-table-quantity-`;
-  const ID11 = `${USR}_order_details__element-order-table-unit-price-`;
-  const ID12 = `${USR}_order_details__element-order-table-sub-total-`;
-  const ID13 = `${USR}_order_details__element-order-total-price`;
+  const getOrder = async () => {
+    try {
+      const data = await requestData(`/customer/orders/${id}?displayProducts=true`);
+      setOrderData(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    // add a venda no array orderData
-    const getOrder = async () => {
-      try {
-        const data = await requestData(`/customer/orders/${id}?displayProducts=true`);
-        setOrderData(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+    const callGetOrder = () => { getOrder(); };
 
-    getOrder();
+    callGetOrder();
   }, []);
 
   useEffect(() => {
-    // retorna o nome da pessoa vendedora
     const getSeller = async () => {
       try {
         const allSellers = await requestData('/seller');
@@ -74,40 +62,44 @@ function OrdersDetails() {
 
   const calcProductPrice = (qty, value) => (qty * Number(value));
 
-  const finishOrder = async () => {
-    try {
-      console.log(`ordersUpdate foi chamada com status: 'Entregue' e id: '${id}'`);
-      const { data } = await axios.update(UPDATEROUTE, { id, status: ENTREGUE });
-      console.log(data);
-    } catch (error) {
-      console.log('erro na chamada: Status Update para Entregue');
-    }
-  };
-
   const prepareOrder = async () => {
     try {
       console.log(`ordersUpdate foi chamada com status: 'Preparando' e id: '${id}'`);
-      const { data } = await axios.update(UPDATEROUTE, { id, status: PREPARANDO });
+      const { data } = await axios.put(UPDATEROUTE, { id, status: PREPARANDO });
       console.log(data);
+      getOrder();
     } catch (error) {
       console.log('erro na chamada: Status Update para Preparando');
+      console.log(error);
     }
   };
 
   const dispatchOrder = async () => {
     try {
       console.log(`ordersUpdate foi chamada com status: 'Em Trânsito' e id: '${id}'`);
-      const { data } = await axios.update(UPDATEROUTE, { id, status: EM_TRANSITO });
+      const { data } = await axios.put(UPDATEROUTE, { id, status: EM_TRANSITO });
       console.log(data);
+      getOrder();
     } catch (error) {
       console.log('erro na chamada: Status Update para Em Trânsito');
+    }
+  };
+
+  const finishOrder = async () => {
+    try {
+      console.log(`ordersUpdate foi chamada com status: 'Entregue' e id: '${id}'`);
+      const { data } = await axios.put(UPDATEROUTE, { id, status: ENTREGUE });
+      console.log(data);
+      getOrder();
+    } catch (error) {
+      console.log('erro na chamada: Status Update para Entregue');
     }
   };
 
   const handleClick = (e) => {
     e.preventDefault();
     if (e.target.name === 'finish-button') {
-      console.log('botão de login foi clicado');
+      console.log('finnishButton foi clicado');
       finishOrder();
     }
     if (e.target.name === 'prepare-button') {
@@ -128,7 +120,7 @@ function OrdersDetails() {
 
   function sellerName() {
     return (
-      <div data-testid={ ID01 }>
+      <div data-testid={ USR + ID01 }>
         P. Vend:
         {orderSeller.name}
       </div>
@@ -139,9 +131,9 @@ function OrdersDetails() {
     return (
       <button
         name="finish-button"
-        data-testid={ ID02 }
+        data-testid={ USR + ID02 }
         type="button"
-        disabled
+        disabled={ orderData.status !== EM_TRANSITO }
         onClick={ handleClick }
       >
         Marcar como entregue
@@ -152,9 +144,10 @@ function OrdersDetails() {
   function prepareButton() {
     return (
       <button
-        name="prepareButton"
-        data-testid={ ID03 }
+        name="prepare-button"
+        data-testid={ USR + ID03 }
         type="button"
+        disabled={ orderData.status !== 'Pendente' }
         onClick={ handleClick }
       >
         Preparar pedido
@@ -165,13 +158,14 @@ function OrdersDetails() {
   function dispatchButton() {
     return (
       <button
-        name={ products.id }
-        data-testid={ ID04 }
+        // name={ products.id }
+        name="dispatch-button"
+        data-testid={ USR + ID04 }
         type="button"
-        disabled // fazer lógica pra mudar conforme status
+        disabled={ orderData.status !== PREPARANDO }
         onClick={ handleClick }
       >
-        Marcar como entregue
+        Saiu para entrega
       </button>
     );
   }
@@ -181,13 +175,13 @@ function OrdersDetails() {
       <div>
         <div>
           <p>Pedido </p>
-          <p data-testid={ ID05 }>{ orderData.id }</p>
+          <p data-testid={ USR + ID05 }>{ orderData.id }</p>
         </div>
         {USR === 'customer' && sellerName() }
-        <div data-testid={ ID06 }>
+        <div data-testid={ USR + ID06 }>
           { formatDate(orderData.saleDate) }
         </div>
-        <div data-testid={ ID07 }>
+        <div data-testid={ USR + ID07 }>
           { orderData.status }
         </div>
         {USR === 'customer' && finishButton()}
@@ -209,26 +203,25 @@ function OrdersDetails() {
             <th>Quantidade</th>
             <th>Valor Unitário</th>
             <th>Sub-total</th>
-            <th>Remover Item</th>
           </tr>
         </thead>
 
         <tbody>
           {products.map(({ name, price, SaleProduct: { quantity } }, index) => (
             <tr key={ index }>
-              <td data-testid={ `${ID08}${index}` }>
+              <td data-testid={ `${USR + ID08}${index}` }>
                 {index + 1}
               </td>
-              <td data-testid={ `${ID09}${index}` }>
+              <td data-testid={ `${USR + ID09}${index}` }>
                 {name}
               </td>
-              <td data-testid={ `${ID10}${index}` }>
+              <td data-testid={ `${USR + ID10}${index}` }>
                 {quantity}
               </td>
-              <td data-testid={ `${ID11}${index}` }>
+              <td data-testid={ `${USR + ID11}${index}` }>
                 {price}
               </td>
-              <td data-testid={ `${ID12}${index}` }>
+              <td data-testid={ `${USR + ID12}${index}` }>
                 {(calcProductPrice(quantity, price)).toFixed(2).replace('.', ',')}
               </td>
             </tr>
@@ -237,7 +230,7 @@ function OrdersDetails() {
       </table>
       <div>
         <h2>Total:</h2>
-        <h2 data-testid={ ID13 }>{ calcTotalPrice(products) }</h2>
+        <h2 data-testid={ USR + ID13 }>{ calcTotalPrice(products) }</h2>
       </div>
     </>
   );
