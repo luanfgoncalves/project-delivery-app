@@ -168,6 +168,7 @@ function OrdersDetails() {
         name={ products.id }
         data-testid={ ID04 }
         type="button"
+        disabled // fazer lógica pra mudar conforme status
         onClick={ handleClick }
       >
         Marcar como entregue
