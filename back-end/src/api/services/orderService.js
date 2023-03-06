@@ -48,9 +48,13 @@ const getOrdersBySeller = async (id) => {
 
 //  recebe o id da venda e o novo estado dela
  const updateOrderState = async (id, status) => {
-  const order = await Sale.findByPk({ id });
-  await Sale.update(status);
-  return order;
+  const sale = await Sale.findByPk(id);
+
+  sale.status = status;
+   
+  const updatedSale = await sale.save();
+  
+  return updatedSale;
  };
 
 module.exports = {
