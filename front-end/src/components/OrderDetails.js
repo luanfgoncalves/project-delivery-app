@@ -23,7 +23,7 @@ function OrdersDetails() {
   const ID02 = `${USR}_order_details__button-delivery-check`;
   const ID03 = `${USR}_order_details__button-preparing-check`;
   const ID04 = `${USR}_order_details__button-dispatch-check`;
-  const ID05 = `${USR}_order_details__element-order-details-label-order-${id}`;
+  const ID05 = `${USR}_order_details__element-order-details-label-order-id`;
   const ID06 = `${USR}_order_details__element-order-details-label-order-date`;
   const ID07 = `${USR}_order_details__element-order-details-label-delivery-status-0`;
   const ID08 = `${USR}_order_details__element-order-table-item-number-`;
