@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Loading from './Loading';
+import formatDate from '../utils/formatDate';
 
 function OrdersCard() {
   const [isLoading, setIsLoading] = useState(true);
@@ -34,11 +35,6 @@ function OrdersCard() {
 
     getOrders();
   }, []);
-
-  function formatDate(isoDate) {
-    const date = new Date(isoDate);
-    return date.toLocaleDateString('pt-br');
-  }
 
   // função que rendiza o campo de endereço nos cards do vendedor
   function orderAddress(i) {
