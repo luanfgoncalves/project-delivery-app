@@ -31,6 +31,7 @@ function OrdersDetails() {
   const ID10 = `${USR}_order_details__element-order-table-quantity-`;
   const ID11 = `${USR}_order_details__element-order-table-unit-price-`;
   const ID12 = `${USR}_order_details__element-order-table-sub-total-`;
+  const ID13 = `${USR}_order_details__element-order-total-price`;
 
   useEffect(() => {
     // add a venda no array orderData
@@ -51,9 +52,7 @@ function OrdersDetails() {
     const getSeller = async () => {
       try {
         const allSellers = await requestData('/seller');
-
         const { sellerId } = orderData;
-
         const sellerObj = allSellers.find((seller) => seller.id === sellerId);
 
         setOrderSeller(sellerObj);
@@ -72,7 +71,7 @@ function OrdersDetails() {
     }
   }, [orderSeller, products]);
 
-  const calcProductPrice = (qty, value) => qty * Number(value);
+  const calcProductPrice = (qty, value) => (qty * Number(value));
 
   const finishOrder = async () => {
     try {
@@ -106,7 +105,7 @@ function OrdersDetails() {
 
   const handleClick = (e) => {
     e.preventDefault();
-    if (e.target.name === 'finnish-button') {
+    if (e.target.name === 'finish-button') {
       console.log('botão de login foi clicado');
       finishOrder();
     }
@@ -119,6 +118,12 @@ function OrdersDetails() {
       dispatchOrder();
     }
   };
+
+  const calcTotalPrice = (productsArr) => productsArr
+    .reduce((
+      acc,
+      { SaleProduct: { quantity }, price },
+    ) => calcProductPrice(quantity, price) + acc, 0);
 
   function sellerName() {
     return (
@@ -170,18 +175,16 @@ function OrdersDetails() {
 
   function tableHeader() {
     return (
-      <div data-testid={ ID05 }>
+      <div>
         <div>
           <p>Pedido </p>
-          <p>{ orderData.id }</p>
+          <p data-testid={ ID05 }>{ orderData.id }</p>
         </div>
         {USR === 'customer' && sellerName() }
         <div data-testid={ ID06 }>
-          {/* Data de entrega */}
           { orderData.saleDate }
         </div>
         <div data-testid={ ID07 }>
-          {/* Estado do pedido */}
           { orderData.status }
         </div>
         {USR === 'customer' && finishButton()}
@@ -191,53 +194,48 @@ function OrdersDetails() {
     );
   }
 
-  // função que renderiza itens do pedido
-  function orderInfo() {
-    return (
-      <>
-        { tableHeader() }
-        <table>
-          <thead>
-            <tr>
-              <th>Item</th>
-              <th>Descrição</th>
-              <th>Quantidade</th>
-              <th>Valor Unitário</th>
-              <th>Sub-total</th>
-              <th>Remover Item</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {products.map(({ name, price, SaleProduct: { quantity } }, index) => (
-              <tr key={ index }>
-                <td data-testid={ `${ID08}${index}` }>
-                  {index + 1}
-                </td>
-                <td data-testid={ `${ID09}${index}` }>
-                  {name}
-                </td>
-                <td data-testid={ `${ID10}${index}` }>
-                  {quantity}
-                </td>
-                <td data-testid={ `${ID11}${index}` }>
-                  {price}
-                </td>
-                <td data-testid={ `${ID12}${index}` }>
-                  {(calcProductPrice(quantity, price)).toFixed(2).replace('.', ',')}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </>
-    );
-  }
-
   if (isLoading) return <Loading />;
   return (
     <>
-      { orderInfo() }
+      { tableHeader() }
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Descrição</th>
+            <th>Quantidade</th>
+            <th>Valor Unitário</th>
+            <th>Sub-total</th>
+            <th>Remover Item</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {products.map(({ name, price, SaleProduct: { quantity } }, index) => (
+            <tr key={ index }>
+              <td data-testid={ `${ID08}${index}` }>
+                {index + 1}
+              </td>
+              <td data-testid={ `${ID09}${index}` }>
+                {name}
+              </td>
+              <td data-testid={ `${ID10}${index}` }>
+                {quantity}
+              </td>
+              <td data-testid={ `${ID11}${index}` }>
+                {price}
+              </td>
+              <td data-testid={ `${ID12}${index}` }>
+                {(calcProductPrice(quantity, price)).toFixed(2).replace('.', ',')}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <div>
+        <h2>Total:</h2>
+        <h2 data-testid={ ID13 }>{ calcTotalPrice(products) }</h2>
+      </div>
     </>
   );
 }
