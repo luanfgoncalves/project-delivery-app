@@ -21,8 +21,8 @@ function AboutCard() {
         <img className="creator-img" src={ bianca } alt="Luan Filipe" />
         <figcaption>
           <h1>Bianca Oura</h1>
-          <a className="creator-link" href="https://www.w3schools.com">Linkedin</a>
-          <a className="creator-link" href="https://www.w3schools.com">GitHub</a>
+          <a className="creator-link" href="http://linkedin.com/in/biancaoura">Linkedin</a>
+          <a className="creator-link" href="https://github.com/biancaoura">GitHub</a>
         </figcaption>
       </figure>
 
@@ -30,8 +30,8 @@ function AboutCard() {
         <img className="creator-img" src={ anderson } alt="Luan Filipe" />
         <figcaption>
           <h1>Aderson Silva</h1>
-          <a className="creator-link" href="https://www.w3schools.com">Linkedin</a>
-          <a className="creator-link" href="https://www.w3schools.com">GitHub</a>
+          <a className="creator-link" href="https://www.linkedin.com/in/ap-silva">Linkedin</a>
+          <a className="creator-link" href="https://github.com/Andersonp-Silva25">GitHub</a>
         </figcaption>
       </figure>
 
@@ -39,8 +39,8 @@ function AboutCard() {
         <img className="creator-img" src={ andressa } alt="Luan Filipe" />
         <figcaption>
           <h1>Andressa Ribeiro</h1>
-          <a className="creator-link" href="https://www.w3schools.com">Linkedin</a>
-          <a className="creator-link" href="https://www.w3schools.com">GitHub</a>
+          <a className="creator-link" href="https://www.linkedin.com/in/andressaribeiroo">Linkedin</a>
+          <a className="creator-link" href="https://github.com/andressaribeiroo">GitHub</a>
         </figcaption>
       </figure>
 

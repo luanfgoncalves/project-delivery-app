@@ -95,7 +95,7 @@ function Header() {
     return (
       <button
         name="logout-button"
-        class-name="navbar-button"
+        className="navbar-button"
         type="button"
         data-testid="customer_products__element-navbar-link-logout"
         onClick={ handleClick }

@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Header from '../components/Header';
 import AboutCard from '../components/AboutCard';
+import DeliveryAppContext from '../context/DeliveryAppContext';
 
-function Details() {
+function About() {
+  const { user } = useContext(DeliveryAppContext);
+
   return (
-    <main>
-      <Header />
-      <AboutCard />
-    </main>
+    <>
+      {user.role && <Header /> }
+      <main>
+        <AboutCard />
+      </main>
+    </>
   );
 }
 
-export default Details;
+export default About;

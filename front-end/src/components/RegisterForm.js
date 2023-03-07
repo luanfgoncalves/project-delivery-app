@@ -118,7 +118,7 @@ function RegisterForm() {
         />
         <button
           name="Register-button"
-          class-name="front-button"
+          className="front-button"
           type="submit"
           data-testid="common_register__button-register"
           disabled={ disabledButton }

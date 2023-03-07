@@ -5,11 +5,11 @@ import Products from '../components/ProductCard';
 
 function Customer() {
   return (
-    <div>
+    <>
       <Header />
       <Products />
       <Footer />
-    </div>
+    </>
   );
 }
 

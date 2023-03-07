@@ -32,6 +32,18 @@ footer {
 }
 
 .app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  width: 100vw;
+}
+
+main {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
   height: 100vh;
   width: 100vw;
 }
@@ -40,23 +52,23 @@ figcaption {
   color: white;
 }
 
-/* Página de Login */
+/* Página de Login e registro */
 .form-container {
   align-items: center;
   background: transparent(50%);
   background-color: rgba(255, 255, 255, 0.295);
-  border: rgba(245, 203, 203, 0.918) 10px;
+  border: solid rgba(245, 203, 203, 0.918) 1px;
   border-radius: 10px;
   box-shadow: 7px;
   display: flex;
   flex-direction: column;
-  left: 50%;
+  /* left: 50%; */
   padding: 10px;
-  position: absolute;
+  /* position: absolute;
   top: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
   width: fit-content;
-  z-index: 1;
+  /* z-index: 1; */
 }
 
 .form-input {
@@ -77,10 +89,10 @@ textarea:focus, .form-input:focus {
 }
 
 .front-button {
-  background-color: rgba(226, 202, 202, 0.507);
-  border: rgba(245, 203, 203, 0.918) 10px;
+  background-color: rgba(255, 218, 218, 0.767);
+  border: solid rgba(255, 196, 196, 0.548) 2px;
   border-radius: 10px;
-  color: rgb(252, 210, 210);
+  color: rgba(56, 56, 56, 0.726);
   font-size: 1.4rem;
   font-weight: 500;
   margin: 4px;
@@ -109,7 +121,7 @@ textarea:focus, .form-input:focus {
 .logo {
   animation: shake 1.5s infinite ease;
   border-radius: 100%;
-  margin-top: 5%;
+  margin-top: -10%;
   max-height: 250px;
   max-width: 250px;
 }
@@ -167,23 +179,25 @@ textarea:focus, .form-input:focus {
   border-bottom: solid rgba(245, 203, 203, 0.295) 2px;
   box-shadow: 70px;
   display: flex;
-  height: 70px;
+  height: 60px;
   justify-content: space-between;
+  position: fixed;
+  top: 0%;
   width: 100vw;
   z-index: 1;
-  top: 0%;
-  position: fixed;
 }
 
 .navbar-button-container {
   display: flex;
-  height: 70px;
+  height: 60px;
   justify-content: space-between;
+  margin-left: 6px;
+  margin-right: 6px;
   margin-top: 1px;
   padding-bottom: 1px;
   padding-right: 1px;
   padding-top: 2px;
-  width: 22vw;
+  width: 21vw;
 }
 
 .navbar-button {
@@ -197,7 +211,7 @@ textarea:focus, .form-input:focus {
   display: flex;
   font-size: 1.5rem;
   font-style: bold;
-  height: 60px;
+  height: 50px;
   justify-content: center;
   width: 10vw;
 }
@@ -205,19 +219,10 @@ textarea:focus, .form-input:focus {
 .navbar-button:hover {
   box-shadow: var(--shadow-2);
   filter: brightness(120%);
-  /* padding-left: 4px;
-  padding-right: 4px; */
   transform: scale(1.08);
 }
 
 /* -------------- Products -------------- */
-.products-container {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  width: 100vw;
-}
-
 .product-card-conainer {
   align-items: flex-start;
   display: flex;
@@ -235,8 +240,10 @@ textarea:focus, .form-input:focus {
   border: solid rgba(245, 203, 203, 0.918) 1px;
   border-radius: 10px;
   box-shadow: 7px;
+  color: white;
   display: flex;
   flex-direction: row;
+  font-size: 1.6rem;
   justify-content: space-evenly;
   margin: 15px;
   padding: 5px;
@@ -267,15 +274,79 @@ textarea:focus, .form-input:focus {
 }
 
 .product-total-value {
-  background-color: gray;
-  height: 50px;
-  width: 50px;
+  align-items: center;
+  background: transparent(50%);
+  background-color: rgba(142, 182, 255, 0.445);
+  border: solid rgba(255, 255, 255, 0.15) 2px;
+  border-radius: 10px;
+  box-shadow: solid 7px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.7rem;
+  font-style: bold;
+  height: 75px;
+  justify-content: center;
+  margin-bottom: 5%;
+  margin-top: -5%;
+  width: 9.8vw;
+}
+
+.product-total-value:hover {
+  box-shadow: var(--shadow-2);
+  filter: brightness(120%);
+  transform: scale(1.1);
 }
 
 .product-image {
   border-radius: 10px;
   height: 120px;
   width: 120px;
+}
+
+.plus-button {
+  background-color: rgba(255, 218, 218, 0.767);
+  border: solid rgba(255, 196, 196, 0.548) 1px;
+  border-left: none;
+  border-radius: 0.001px 50px 50px 0.001px;
+  color: rgba(56, 56, 56, 0.726);
+  font-size: 0.9rem;
+  padding: 4px;
+}
+
+.plus-button:hover {
+  box-shadow: var(--shadow-2);
+  filter: brightness(110%);
+  transform: scale(1.03);
+}
+
+.minus-button {
+  background-color: rgba(255, 218, 218, 0.767);
+  border: solid rgba(255, 196, 196, 0.548) 1px;
+  border-radius: 50px 0.001px 0.001px 50px;
+  border-right: none;
+  color: rgba(56, 56, 56, 0.726);
+  font-size: 0.9rem;
+  padding: 4px;
+}
+
+.minus-button:hover {
+  box-shadow: var(--shadow-2);
+  filter: brightness(110%);
+  transform: scale(1.03);
+}
+
+.product-value-input {
+  background: transparent(50%);
+  background-color: rgba(255, 255, 255, 0.185);
+  border-bottom: solid rgba(245, 203, 203, 0.767) 1px;
+  border-top: solid rgba(245, 203, 203, 0.767) 1px;
+  color: white;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 3.5px;
+  text-align: center;
+  width: 140px;
 }
 
 /* figure{}
@@ -304,11 +375,11 @@ figcaption{}
 
 /* -------------- Checkout e Orders Details -------------- */
 .table-container {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   height: 100%;
+  justify-content: center;
 }
 
 table {
@@ -347,9 +418,9 @@ th {
   font-style: bold;
   height: 60px;
   justify-content: space-evenly;
+  margin-bottom: 4px;
   margin-left: 2px;
   margin-right: 2px;
-  margin-bottom: 4px;
   padding-left: 4px;
   padding-right: 4px;
   width: fit-content;
@@ -479,13 +550,13 @@ td {
 
 /* -------------- Loading -------------- */
 .loading-main {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  justify-items: center;
   align-content: center;
   align-items: center;
+  display: flex;
+  flex-direction: column;
   height: 100%;
+  justify-content: center;
+  justify-items: center;
   width: 100%;
 }
 
@@ -494,12 +565,12 @@ td {
   display: flex;
   flex-direction: column;
   justify-self: center;
+  position: absolute;
   size: fit-content;
-  width: min-content;
-  z-index: 1;
   top: 50%;
   transform: translate(-50%, -50%);
-  position: absolute;
+  width: min-content;
+  z-index: 1;
 }
 
 .loading-text {
@@ -507,7 +578,7 @@ td {
   font-size: 3rem;
 }
 
-.loading-msg{
+.loading-msg {
   color: rgba(255, 255, 255, 0.733);
 }
 

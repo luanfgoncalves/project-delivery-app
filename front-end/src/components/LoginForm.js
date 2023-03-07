@@ -111,7 +111,7 @@ function LoginForm() {
         />
         <button
           name="login-button"
-          class-name="front-button"
+          className="front-button"
           type="submit"
           data-testid="common_login__button-login"
           disabled={ disabledButton }
@@ -125,7 +125,7 @@ function LoginForm() {
 
         <button
           name="register-button"
-          class-name="front-button"
+          className="front-button"
           type="submit"
           data-testid="common_login__button-register"
           onClick={ handleClick }
