@@ -41,10 +41,10 @@ footer {
 
 main {
   align-items: center;
-  justify-content: center;
   display: flex;
   flex-direction: column;
   height: 100vh;
+  justify-content: center;
   width: 100vw;
 }
 
@@ -62,13 +62,8 @@ figcaption {
   box-shadow: 7px;
   display: flex;
   flex-direction: column;
-  /* left: 50%; */
   padding: 10px;
-  /* position: absolute;
-  top: 50%;
-  transform: translate(-50%, -50%); */
   width: fit-content;
-  /* z-index: 1; */
 }
 
 .form-input {
@@ -226,8 +221,7 @@ textarea:focus, .form-input:focus {
 .product-card-conainer {
   align-items: flex-start;
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-flow: wrap;
   justify-content: space-evenly;
   padding: 10px;
   width: 90%;
@@ -398,8 +392,7 @@ table {
   width: fit-content;
 }
 
-thead{}
-
+/* thead{} */
 tr {
   display: flex;
   justify-content: space-between;
@@ -584,31 +577,31 @@ td {
 
 .loading-msg:before {
   animation: animate infinite 15s;
-  content: "Destilando destilados...";
+  content: 'Destilando destilados...';
   padding-left: 10px;
 }
 
 @keyframes animate {
 
   0% {
-    content: "Destilando destilados...";
+    content: 'Destilando destilados...';
   }
 
   20% {
-    content: "Espumando espumantes...";
+    content: 'Espumando espumantes...';
   }
 
   40% {
-    content: "Cevando a cevada...";
+    content: 'Cevando a cevada...';
   }
 
   60% {
-    content: "Fermentando fermentados...";
+    content: 'Fermentando fermentados...';
   }
 
   80% {
-    content: "Batendo batidas...";
-    }
+    content: 'Batendo batidas...';
+  }
 }
 
 .lds-circle {
