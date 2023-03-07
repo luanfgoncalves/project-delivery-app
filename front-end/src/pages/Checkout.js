@@ -8,9 +8,8 @@ function Checkout() {
     <>
       <Header />
       <main className="table-container">
-        <h1>Finalizar Pedido</h1>
+        <h1 className="finish-order">Finalizar Pedido</h1>
         <TableCheckout />
-        <p>Detalhes e Endereço para Entrega</p>
         <DetailsCheckout />
       </main>
     </>

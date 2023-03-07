@@ -52,6 +52,10 @@ figcaption {
   color: white;
 }
 
+textarea:focus, input:focus, select:focus {
+  outline: none;
+}
+
 /* Página de Login e registro */
 .form-container {
   align-items: center;
@@ -77,10 +81,6 @@ figcaption {
   margin-bottom: 7px;
   padding: 0.3rem 0.75rem;
   width: 350px;
-}
-
-textarea:focus, .form-input:focus {
-  outline: none;
 }
 
 .front-button {
@@ -401,8 +401,8 @@ tr {
 th {
   align-items: center;
   background: transparent(50%);
-  background-color: rgba(255, 255, 255, 0.15);
-  border: solid rgba(255, 255, 255, 0.15) 2px;
+  background-color: rgba(214, 212, 212, 0.205);
+  border: solid rgba(214, 212, 212, 0.26) 2px;
   border-radius: 10px;
   box-shadow: solid 7px;
   color: white;
@@ -432,11 +432,60 @@ td {
   font-style: bold;
   height: 60px;
   justify-content: space-evenly;
+  margin-bottom: 4px;
   margin-left: 2px;
   margin-right: 2px;
   padding-left: 4px;
   padding-right: 4px;
   width: fit-content;
+}
+
+.td-item {
+  width: 54px;
+}
+
+.td-description {
+  width: 310px;
+}
+
+.td-qtd{
+  width: 56px;
+}
+
+.td-value{
+  width: 74px;
+}
+
+.td-subtotal{
+  width: 119px;
+}
+
+.td-remove-item {
+  width: 172px;
+}
+
+.button-remove-item{
+  width: 170px;
+  color: white;
+  height: 50px;
+  background-color: rgba(255, 0, 0, 0.13);
+  background: transparent(80%);
+  border: solid white 1px;
+  border-radius: 10px;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.button-remove-item:hover{
+  box-shadow: var(--shadow-2);
+  filter: brightness(110%);
+  transform: scale(1.03);
+}
+
+.checkout-total{
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: white;
 }
 
 .checkout-form {
@@ -448,41 +497,75 @@ td {
   box-shadow: 7px;
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
   padding: 10px;
-  width: fit-content;
+  width: 350px;
+  height: 220px;
+  font-size: 1.2rem;
+  color: white;
+  margin-top: 10px;
 }
 
-/* .checkout-seller{}
+.checkout-form h4 {
+  font-size: 1.3rem;
+}
 
-.checkout-adress{}
+.input-address-number{
+  background: transparent(50%);
+  background-color: rgba(255, 255, 255, 0.185);
+  border: rgba(245, 203, 203, 0.767) 5px;
+  border-radius: 10px;
+  color: rgba(235, 222, 222, 0.918);
+  font-size: .9rem;
+  height: 25px;
+  margin-bottom: 7px;
+  margin-left: 5px;
+  padding: 0.3rem 0.75rem;
+  width: 230px;
+}
 
-.checkout-number{}
+.input-address-number:hover{
+  box-shadow: var(--shadow-2);
+  filter: brightness(110%);
+  transform: scale(1.03);
+}
 
-.checkout-finnish-btn{}
+.checkout-button {
+  background-color: rgba(255, 218, 218, 0.767);
+  border: solid rgba(255, 196, 196, 0.548) 2px;
+  border-radius: 10px;
+  color: rgba(56, 56, 56, 0.726);
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin: 4px;
+  width: 345px;
+}
 
-.order-number{}
 
-.seller.name{}
+.checkout-button:hover {
+  box-shadow: var(--shadow-2);
+  cursor: pointer;
+  filter: brightness(110%);
+  transform: scale(1.03);
+}
 
-.order-delivery-date{}
+.finish-order {
+  color: white;
+  font-size: 3rem;
+}
 
-.order-status{}
-
-.finnish-button{}
-
-.table-header{}
-
-.item-number{}
-
-.item-name{}
-
-.item-qty{}
-
-.item-value{}
-
-.sub-total{}
-
-.total-value{} */
+.details-select-checkout {
+  background-color: rgba(255, 218, 218, 0.767);
+  border: solid rgba(255, 196, 196, 0.548) 2px;
+  border-radius: 10px;
+  color: rgba(56, 56, 56, 0.726);
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin: 4px;
+  width: 170px;
+  font-size: .9rem;
+  height: 25px;
+}
 
 /* -------------- Admin -------------- */
 
