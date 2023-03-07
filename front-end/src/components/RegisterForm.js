@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import DeliveryAppContext from '../context/DeliveryAppContext';
+import foodyLogo from '../images/foodyLogo.png';
 
 function RegisterForm() {
   const { setUser } = useContext(DeliveryAppContext);
@@ -74,44 +75,50 @@ function RegisterForm() {
 
   function renderInvalidDataMsg() {
     return (
-      <h4 data-testid="common_register__element-invalid_register">Dados Inválidos</h4>
+      <h4
+        className="invalid"
+        data-testid="common_register__element-invalid_register"
+      >
+        Dados Inválidos
+      </h4>
     );
   }
 
   return (
-    <div className="Register-screen">
-      <form className="Register-form">
-        <h1>Register</h1>
+    <>
+      <img className="logo" src={ foodyLogo } alt="foody fody logo" />
+      <form className="form-container">
+        <h2 className="hello">Registre-se e tenha acesso ás melhores bebidas!</h2>
         <input
-          className="Register-input"
+          className="form-input"
           type="text"
           name="userName"
           value={ userName }
-          placeholder="User Name"
+          placeholder="Nome"
           data-testid="common_register__input-name"
           onChange={ handleChange }
         />
         <input
-          className="Register-input"
+          className="form-input"
           type="email"
           name="email"
           value={ email }
-          placeholder="email"
+          placeholder="Email"
           data-testid="common_register__input-email"
           onChange={ handleChange }
         />
         <input
-          className="Register-input"
+          className="form-input"
           type="password"
           name="password"
           value={ password }
-          placeholder="senha"
+          placeholder="Senha"
           data-testid="common_register__input-password"
           onChange={ handleChange }
         />
         <button
           name="Register-button"
-          class-name="Register-button"
+          class-name="front-button"
           type="submit"
           data-testid="common_register__button-register"
           disabled={ disabledButton }
@@ -123,7 +130,7 @@ function RegisterForm() {
         {!IsUserDataValid && renderInvalidDataMsg()}
 
       </form>
-    </div>
+    </>
   );
 }
 

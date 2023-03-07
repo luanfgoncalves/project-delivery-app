@@ -46,62 +46,60 @@ function DetailsCheckout() {
   };
 
   return (
-    <div>
-      <form>
-        <label htmlFor="select-seller">
-          P. Vendedora Responsável:
-          <select
-            id="select-seller"
-            name="select-seller"
-            data-testid="customer_checkout__select-seller"
-            onChange={ (e) => handleChange(e) }
-          >
-            {sellers.map((seller) => (
-              <option
-                key={ seller.name }
-                value={ seller.id }
-              >
-                {seller.name}
-              </option>
-            ))}
-          </select>
-        </label>
-        <br />
-        <label htmlFor="input-adress">
-          Endereço:
-          <input
-            type="text"
-            name="input-adress"
-            placeholder="Ex: Travessa Terceira da Castanheira, Bairro Muruci"
-            data-testid="customer_checkout__input-address"
-            value={ address }
-            onChange={ ({ target }) => setAdress(target.value) }
-          />
-        </label>
-        <br />
-        <label htmlFor="input-adress-number">
-          Número:
-          <input
-            type="text"
-            name="input-adress-number"
-            placeholder="Ex: 198"
-            data-testid="customer_checkout__input-address-number"
-            value={ number }
-            onChange={ ({ target }) => setNumber(target.value) }
-          />
-        </label>
-        <br />
-        <button
-          name="submit-order-button"
-          class-name="submit-order-button"
-          type="submit"
-          data-testid="customer_checkout__button-submit-order"
-          onClick={ (e) => submitButton(e) }
+    <form className="checkout-form">
+      <label htmlFor="select-seller">
+        P. Vendedora Responsável:
+        <select
+          id="select-seller"
+          name="select-seller"
+          data-testid="customer_checkout__select-seller"
+          onChange={ (e) => handleChange(e) }
         >
-          FINALIZAR PEDIDO
-        </button>
-      </form>
-    </div>
+          {sellers.map((seller) => (
+            <option
+              key={ seller.name }
+              value={ seller.id }
+            >
+              {seller.name}
+            </option>
+          ))}
+        </select>
+      </label>
+      <br />
+      <label htmlFor="input-adress">
+        Endereço:
+        <input
+          type="text"
+          name="input-adress"
+          placeholder="Ex: Travessa Terceira da Castanheira, Bairro Muruci"
+          data-testid="customer_checkout__input-address"
+          value={ address }
+          onChange={ ({ target }) => setAdress(target.value) }
+        />
+      </label>
+      <br />
+      <label htmlFor="input-adress-number">
+        Número:
+        <input
+          type="text"
+          name="input-adress-number"
+          placeholder="Ex: 198"
+          data-testid="customer_checkout__input-address-number"
+          value={ number }
+          onChange={ ({ target }) => setNumber(target.value) }
+        />
+      </label>
+      <br />
+      <button
+        name="submit-order-button"
+        class-name="submit-order-button"
+        type="submit"
+        data-testid="customer_checkout__button-submit-order"
+        onClick={ (e) => submitButton(e) }
+      >
+        FINALIZAR PEDIDO
+      </button>
+    </form>
   );
 }
 

@@ -63,16 +63,17 @@ export default function ProductCard({
 
   return (
 
-    <div>
-      <div>
+    <>
+      <div className="product-image-container">
         <img
+          className="product-image"
           data-testid={ `customer_products__img-card-bg-image-${id}` }
           src={ urlImage }
           alt=""
         />
       </div>
 
-      <div>
+      <div className="product-info">
         <h5
           data-testid={ `customer_products__element-card-title-${id}` }
         >
@@ -115,7 +116,7 @@ export default function ProductCard({
         </div>
 
       </div>
-    </div>
+    </>
 
   );
 }

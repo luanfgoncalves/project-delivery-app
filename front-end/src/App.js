@@ -1,5 +1,5 @@
-import { Route, Routes } from 'react-router-dom';
-import './App.css';
+import { Route, Routes, Navigate } from 'react-router-dom';
+import './style.css';
 import DeliveryAppProvider from './context/DeliveryAppProvider';
 import Checkout from './pages/Checkout';
 import Details from './pages/Details';
@@ -9,6 +9,8 @@ import Customer from './pages/Customer';
 import Manage from './pages/Manage';
 import Orders from './pages/Orders';
 import Register from './pages/Register';
+import NotFound from './pages/NotFound';
+import About from './pages/About';
 
 function App() {
   return (
@@ -25,6 +27,9 @@ function App() {
           <Route exact path="/customer/checkout" element={ <Checkout /> } />
           <Route exact path="/customer/orders/:id" element={ <Details /> } />
           <Route exact path="/seller/orders/:id" element={ <Details /> } />
+          <Route exact path="/about" element={ <About /> } />
+          <Route exact path="/404" element={ <NotFound /> } />
+          <Route path="*" element={ <Navigate to="/404" replace /> } />
         </Routes>
       </div>
     </DeliveryAppProvider>

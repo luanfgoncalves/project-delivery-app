@@ -45,8 +45,8 @@ function CustomerProducts() {
   }, []);
 
   return (
-    <main>
-      <div>
+    <main className="products-container">
+      <div className="product-total-value">
 
         <button
           type="button"
@@ -63,10 +63,9 @@ function CustomerProducts() {
           </p>
         </button>
       </div>
-
-      <div>
+      <div className="product-card-conainer">
         {products.map((item, index) => (
-          <div key={ index }>
+          <div key={ index } className="product-card">
             <ProductQuantity
               id={ item.id }
               urlImage={ item.urlImage }

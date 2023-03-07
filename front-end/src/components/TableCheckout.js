@@ -31,7 +31,7 @@ function TableCheckout() {
   };
 
   return (
-    <div>
+    <>
       <table>
         <thead>
           <tr>
@@ -107,7 +107,7 @@ function TableCheckout() {
       <div data-testid="customer_checkout__element-order-total-price">
         {parseFloat(totalPrice).toFixed(2).replace('.', ',')}
       </div>
-    </div>
+    </>
   );
 }
 
