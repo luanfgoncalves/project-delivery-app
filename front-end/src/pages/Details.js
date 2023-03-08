@@ -5,11 +5,11 @@ import OrderDetails from '../components/OrderDetails';
 
 function Details() {
   return (
-    <div>
+    <main>
       <Header />
       <OrderDetails />
       <Footer />
-    </div>
+    </main>
   );
 }
 

@@ -567,6 +567,203 @@ td {
   height: 25px;
 }
 
+.order-details-header {
+  background: transparent(50%);
+  background-color: rgba(255, 255, 255, 0.295);
+  border: solid rgba(245, 203, 203, 0.918) 1px;
+  border-radius: 10px;
+  box-shadow: 7px;
+  color: white;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  height: fit-content;
+  padding: 4px;
+  justify-content: space-between;
+  width: 700px;
+}
+
+.order-details-id {
+  background: transparent(50%);
+  background-color: rgba(214, 212, 212, 0.205);
+  border: solid rgba(214, 212, 212, 0.26) 2px;
+  border-radius: 10px;
+  box-shadow: solid 7px;
+  color: white;
+  font-size: 1.2rem;
+  font-style: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 66px;
+  height: 64px;
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+.order-details-seller {
+  background: transparent(50%);
+  background-color: rgba(214, 212, 212, 0.205);
+  border: solid rgba(214, 212, 212, 0.26) 2px;
+  border-radius: 10px;
+  box-shadow: solid 7px;
+  color: white;
+  font-size: 1.2rem;
+  font-style: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 180px;
+  height: 64px;
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+.order-details-date {
+  background: transparent(50%);
+  background-color: rgba(214, 212, 212, 0.205);
+  border: solid rgba(214, 212, 212, 0.26) 2px;
+  border-radius: 10px;
+  box-shadow: solid 7px;
+  color: white;
+  font-size: 1.2rem;
+  font-style: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 64px;
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+.order-details-status {
+  background: transparent(50%);
+  background-color: rgba(214, 212, 212, 0.205);
+  border: solid rgba(214, 212, 212, 0.26) 2px;
+  border-radius: 10px;
+  box-shadow: solid 7px;
+  color: white;
+  font-size: 1.2rem;
+  font-style: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 104px;
+  height: 64px;
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+.order-button-customer {
+  background: transparent(50%);
+  background-color: rgba(214, 212, 212, 0.205);
+  border: solid rgba(214, 212, 212, 0.26) 2px;
+  border-radius: 10px;
+  box-shadow: solid 7px;
+  color: white;
+  font-style: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 245px;
+  height: 64px;
+  margin-left: 3px;
+  margin-right: 3px;
+  color: white;
+  background-color: rgba(0, 132, 255, 0.13);
+  background: transparent(80%);
+  border: solid white 1px;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.order-button-customer:disabled {
+  background-color: rgba(255, 179, 179, 0.288);
+  color: rgba(82, 82, 82, 0.726);
+  cursor: wait;
+  opacity: 0.5;
+}
+
+.order-button-customer:hover {
+  box-shadow: var(--shadow-2);
+  filter: brightness(110%);
+  transform: scale(1.03);
+} 
+
+.order-button-seller {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 200px;
+  height: 64px;
+  border-radius: 10px;
+  margin-left: 3px;
+  margin-right: 3px;
+  color: white;
+  background-color: rgba(0, 132, 255, 0.13);
+  background: transparent(80%);
+  border: solid white 1px;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.order-button-seller:hover{
+  box-shadow: var(--shadow-2);
+  filter: brightness(110%);
+  transform: scale(1.03);
+} 
+
+.order-button-seller:disabled {
+  background-color: rgba(255, 179, 179, 0.288);
+  color: rgba(82, 82, 82, 0.726);
+  cursor: wait;
+  opacity: 0.5;
+}
+
+/* .button-remove-item{
+  width: 170px;
+  color: white;
+  height: 50px;
+  background-color: rgba(255, 0, 0, 0.13);
+  background: transparent(80%);
+  border: solid white 1px;
+  border-radius: 10px;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.button-remove-item:hover{
+  box-shadow: var(--shadow-2);
+  filter: brightness(110%);
+  transform: scale(1.03);
+} */
+
+/* 
+.td-description {
+  width: 310px;
+}
+
+.td-qtd{
+  width: 56px;
+}
+
+.td-value{
+  width: 74px;
+}
+
+.td-subtotal{
+  width: 119px;
+}
+
+.td-remove-item {
+  width: 172px;
+} */
+
 /* -------------- Admin -------------- */
 
 /* .adm-form-background{}

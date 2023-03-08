@@ -58,7 +58,7 @@ function RegisterForm() {
       const { data } = await axios.post('http://localhost:3001/register', { name: userName, email, password, role: 'customer' });
       // console.log(data);
       setUser({ ...data, role: 'customer' });
-
+      localStorage.setItem('user', JSON.stringify(data));
       navigate('/customer/products');
     } catch (error) {
       setIsUserDataValid(false);
