@@ -4,7 +4,7 @@ const chaiHttp = require('chai-http');
 
 const app = require('../api/app');
 const { User } = require('../database/models/index');
-const { customerInfo, validRegisterInput } = require('./mocks/user.mock');
+const { customerInfo, validRegisterInput, allUsers } = require('./mocks/user.mock');
 
 chai.use(chaiHttp);
 
@@ -47,5 +47,18 @@ describe('Página de cadastro', () => {
       .send(validRegisterInput);
 
     expect(response.status).to.be.equal(409);
+  });
+
+  it('3 - Deve retornar todos os usuários cadastrados', async () => {
+    sinon
+      .stub(User, 'findAll')
+      .resolves(allUsers);
+
+    response = await chai
+      .request(app)
+      .get(registerRoute);
+
+    expect(response.status).to.be.equal(200);
+    expect(response.body).to.deep.equal(allUsers);
   });
 });

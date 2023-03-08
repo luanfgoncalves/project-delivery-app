@@ -6,6 +6,15 @@ const customerInfo = {
   role: 'customer',
 };
 
+const sellerInfo = {
+  id: 2,
+  name: 'Fulana Pereira',
+  email: 'fulana@deliveryapp.com',
+  role: 'seller'
+};
+
+const allUsers = [ customerInfo, sellerInfo ];
+
 const validLogin = {
   email: 'zebirita@email.com',
   password: '$#zebirita#$',
@@ -28,6 +37,8 @@ const validCustomerRegister = {
 
 module.exports = {
   customerInfo,
+  sellerInfo,
+  allUsers,
   validLogin,
   invalidEmailLogin,
   validRegisterInput,
