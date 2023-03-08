@@ -1,6 +1,7 @@
 const sinon = require('sinon');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
+const jwt = require('jsonwebtoken');
 
 const app = require('../api/app');
 const { User } = require('../database/models/index');
@@ -15,6 +16,8 @@ const registerRoute = ('/register');
 describe('Página de cadastro', () => {
 
   let response;
+
+  const token = 'token';
 
   afterEach(sinon.restore);
 
@@ -60,5 +63,24 @@ describe('Página de cadastro', () => {
 
     expect(response.status).to.be.equal(200);
     expect(response.body).to.deep.equal(allUsers);
+  });
+
+  it('4 - Deve deletar um usuário específico', async () => {
+    const deleteCustomerRoute = `${registerRoute}/admin/3`;
+
+    sinon
+      .stub(jwt, 'verify')
+      .callsFake(() => token);
+
+    sinon
+      .stub(User, 'destroy')
+      .resolves();
+    
+    response = await chai
+      .request(app)
+      .delete(deleteCustomerRoute)
+      .set('Authorization', token);
+
+    expect(response.status).to.be.equal(204);
   });
 });
