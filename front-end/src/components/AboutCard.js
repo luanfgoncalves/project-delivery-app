@@ -12,8 +12,8 @@ function AboutCard() {
         <img className="creator-img" src={ luan } alt="Luan Filipe" />
         <figcaption>
           <h1>Luan Filipe</h1>
-          <a className="creator-link" href="https://www.w3schools.com">Linkedin</a>
-          <a className="creator-link" href="https://www.w3schools.com">GitHub</a>
+          <a className="creator-link" href="http://linkedin.com/in/luanfgoncalves">Linkedin</a>
+          <a className="creator-link" href="https://github.com/luanfgoncalves">GitHub</a>
         </figcaption>
       </figure>
 
@@ -48,8 +48,10 @@ function AboutCard() {
         <img className="creator-img" src={ ana } alt="Luan Filipe" />
         <figcaption>
           <h1>Ana Beatriz</h1>
-          <a className="creator-link" href="https://www.w3schools.com">Linkedin</a>
-          <a className="creator-link" href="https://www.w3schools.com">GitHub</a>
+          <a className="creator-link" href="https://www.linkedin.com/in/ana-beatriz-martins-lima-4009a8147">
+            Linkedin
+          </a>
+          <a className="creator-link" href="https://github.com/Ana-Beatriz-Martins-Lima">GitHub</a>
         </figcaption>
       </figure>
 

@@ -167,14 +167,6 @@ td {
   transform: scale(1);
 }
 
-.logo {
-  animation: shake 1.5s infinite ease;
-  border-radius: 100%;
-  margin-top: -10%;
-  max-height: 250px;
-  max-width: 250px;
-}
-
 .invalid {
   color: white;
   margin-top: 7px;
@@ -185,6 +177,15 @@ td {
   margin-bottom: 30px;
   margin-top: 11px;
   width: 350px;
+}
+
+.logo {
+  animation: shake 1.5s infinite ease;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  margin-top: -10%;
+  max-height: 250px;
+  max-width: 250px;
 }
 
 .logo:hover {
