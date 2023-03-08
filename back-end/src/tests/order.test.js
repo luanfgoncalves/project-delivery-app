@@ -29,19 +29,39 @@ describe('Rota de pedidos /orders', () => {
 
   it('1 - Deve poder criar um novo pedido com sucesso', async () => {
     sinon
-    .stub(Sale, 'create')
-    .resolves({ dataValues: newOrder, ...newOrder });
+      .stub(Sale, 'create')
+      .resolves({ dataValues: newOrder, ...newOrder });
 
     sinon
       .stub(SaleProduct, 'create')
       .resolves({ dataValues: newSaleProduct, ...newSaleProduct })
     
     response = await chai
-    .request(app)
-    .post(orderRoute)
-    .send(postOrder)
-    .set('Authorization', token);
+      .request(app)
+      .post(orderRoute)
+      .send(postOrder)
+      .set('Authorization', token);
     
     expect(response.status).to.be.equal(201);
+  });
+
+  it('2 - Deve atualizar um pedido com sucesso', async () => {
+    const updateRoute = `${orderRoute}/update`;
+
+    sinon
+      .stub(Sale, 'update')
+      .resolves(1);
+
+    sinon
+      .stub(Sale, 'findByPk')
+      .resolves(newOrder);
+
+    response = await chai
+      .request(app)
+      .put(updateRoute)
+      .send(newOrder)
+
+    expect(response.status).to.be.equal(200);
+    expect(response.body).to.deep.equal(newOrder);
   });
 });
