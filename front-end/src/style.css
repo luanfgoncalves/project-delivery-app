@@ -1,4 +1,4 @@
-/* Elementos Universáis */
+/* ---------------------------|    Elementos universáis    |--------------------------- */
 * {
   margin: 0;
   padding: 0;
@@ -56,7 +56,7 @@ textarea:focus, input:focus, select:focus {
   outline: none;
 }
 
-/* Página de Login e registro */
+/* ----------------------------|    Login e Registro    |---------------------------- */
 .form-container {
   align-items: center;
   background: transparent(50%);
@@ -94,7 +94,6 @@ textarea:focus, input:focus, select:focus {
   width: 15vw;
 }
 
-
 .front-button:hover {
   box-shadow: var(--shadow-2);
   cursor: pointer;
@@ -111,6 +110,7 @@ textarea:focus, input:focus, select:focus {
   color: rgba(82, 82, 82, 0.726);
   cursor: wait;
   opacity: 0.5;
+  transform: scale(1);
 }
 
 .logo {
@@ -167,7 +167,7 @@ textarea:focus, input:focus, select:focus {
   }
 }
 
-/* -------------- Header -------------- */
+/* ----------------------------|    Header    |---------------------------- */
 .navbar {
   background: transparent(50%);
   background-color: rgba(255, 255, 255, 0.295);
@@ -217,7 +217,7 @@ textarea:focus, input:focus, select:focus {
   transform: scale(1.08);
 }
 
-/* -------------- Products -------------- */
+/* ----------------------------|    Página de Produtos    |---------------------------- */
 .product-card-conainer {
   align-items: flex-start;
   display: flex;
@@ -343,7 +343,7 @@ textarea:focus, input:focus, select:focus {
   width: 140px;
 }
 
-/* -------------- Orders -------------- */
+/* ----------------------------|    Pedidos realizados    |---------------------------- */
 .order-card-conainer {
   align-items: flex-start;
   display: flex;
@@ -472,23 +472,7 @@ textarea:focus, input:focus, select:focus {
   width: 100%;
 }
 
-/* .card-background {
-}
-
-.card-data{}
-
-.order-id{}
-
-.order-state{}
-
-.order-date{}
-
-.order-value{}
-
-.order-adress{} */
-
-
-/* -------------- Checkout e Orders Details -------------- */
+/* ----------------------------|    Carrinho de compras   |---------------------------- */
 .table-container {
   align-items: center;
   display: flex;
@@ -513,7 +497,6 @@ table {
   width: fit-content;
 }
 
-/* thead{} */
 tr {
   display: flex;
   justify-content: space-between;
@@ -662,7 +645,6 @@ td {
   width: 345px;
 }
 
-
 .checkout-button:hover {
   box-shadow: var(--shadow-2);
   cursor: pointer;
@@ -687,6 +669,7 @@ td {
   width: 170px;
 }
 
+/* ----------------------------|    Detalhes do pedido    |---------------------------- */
 .order-details-header {
   align-items: center;
   background: transparent(50%);
@@ -802,6 +785,7 @@ td {
   color: rgba(82, 82, 82, 0.726);
   cursor: wait;
   opacity: 0.5;
+  transform: scale(1);
 }
 
 .order-button-customer:hover {
@@ -839,72 +823,91 @@ td {
   color: rgba(82, 82, 82, 0.726);
   cursor: wait;
   opacity: 0.5;
+  transform: scale(1);
 }
 
-/* .button-remove-item{
-  width: 170px;
-  color: white;
-  height: 50px;
-  background-color: rgba(255, 0, 0, 0.13);
-  background: transparent(80%);
-  border: solid white 1px;
+/* --------------------------|    Tela do administrador   |-------------------------- */
+.adm-form {
+  align-items: center;
+  background: transparent(50%);
+  background-color: rgba(255, 255, 255, 0.295);
+  border: solid rgba(245, 203, 203, 0.918) 1px;
   border-radius: 10px;
-  font-size: 1.3rem;
-  font-weight: 700;
+  box-shadow: 7px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  width: fit-content;
 }
 
-.button-remove-item:hover{
+.adm-from-input-container {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  padding: 4px;
+}
+
+.adm-form-input {
+  background: transparent(50%);
+  background-color: rgba(255, 255, 255, 0.185);
+  border: rgba(245, 203, 203, 0.767) 5px;
+  border-radius: 10px;
+  color: rgba(235, 222, 222, 0.918);
+  font-size: 1.4rem;
+  height: 25px;
+  margin: 5px;
+  padding: 2px;
+  width: 350px;
+}
+
+.adm-form-select {
+  background: transparent(50%);
+  background-color: rgba(255, 255, 255, 0.466);
+  border: rgba(245, 203, 203, 0.767) 5px;
+  border-radius: 10px;
+  color: rgba(71, 71, 71, 0.918);
+  font-size: 1.1rem;
+  height: 28px;
+  margin: 5px;
+  padding: 2px;
+  width: 100px;
+}
+
+.adm-add-button {
+  background-color: rgba(255, 255, 255, 0.466);
+  border: solid rgba(255, 196, 196, 0.548) 2px;
+  border-radius: 10px;
+  color: rgba(71, 71, 71, 0.918);
+  font-size: 1.1rem;
+  font-weight: 500;
+  height: 28px;
+  margin: 4px;
+  width: 100px;
+}
+
+.adm-add-button:hover {
   box-shadow: var(--shadow-2);
+  cursor: pointer;
   filter: brightness(110%);
-  transform: scale(1.03);
-} */
-
-/*
-.td-description {
-  width: 310px;
+  transform: scale(1.1);
 }
 
-.td-qtd{
-  width: 56px;
+.adm-add-button:disabled {
+  background-color: rgba(255, 179, 179, 0.384);
+  color: rgba(82, 82, 82, 0.726);
+  cursor: wait;
+  opacity: 0.5;
+  transform: scale(1);
 }
 
-.td-value{
-  width: 74px;
-}
-
-.td-subtotal{
-  width: 119px;
-}
-
-.td-remove-item {
-  width: 172px;
-} */
-
-/* -------------- Admin -------------- */
-
-/* .adm-form-background{}
-
-.adm-from-input{}
-
-.adm-form-button{}
-
-.user-number{}
-
-.user-name{}
-
-.user-email{}
-
-.user-type{}
-
-.exclude-button{} */
-
-/* -------------- Footer -------------- */
+/* ----------------------------|    Footer    |---------------------------- */
 .footer-link {
   color: white;
   font-size: 0.9rem;
 }
 
-/* -------------- About -------------- */
+/* ------------------------|    Página dos desenvolvedores    |------------------------ */
 .about-container {
   display: flex;
   justify-content: space-evenly;
@@ -937,7 +940,7 @@ td {
   font-size: 2.1rem;
 }
 
-/* -------------- Loading -------------- */
+/* ----------------------------|    Tela de loading    |---------------------------- */
 .loading-main {
   align-content: center;
   align-items: center;
@@ -1038,7 +1041,7 @@ td {
 /* Referencia do loading: https://loading.io/css/ */
 
 
-/* -------------- NotFound -------------- */
+/* --------------------------|    Página não encontrada    |-------------------------- */
 .notfound-container {
   align-items: center;
   background: transparent(50%);

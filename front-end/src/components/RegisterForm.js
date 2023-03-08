@@ -87,7 +87,7 @@ function RegisterForm() {
   return (
     <>
       <img className="logo" src={ foodyLogo } alt="foody fody logo" />
-      <form className="form-container">
+      <form autoComplete="off" className="form-container">
         <h2 className="hello">Registre-se e tenha acesso ás melhores bebidas!</h2>
         <input
           className="form-input"

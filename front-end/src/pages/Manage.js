@@ -5,11 +5,11 @@ import Footer from '../components/Footer';
 
 function Manage() {
   return (
-    <div>
+    <main>
       <Header />
       <AdminForm />
       <Footer />
-    </div>
+    </main>
   );
 }
 

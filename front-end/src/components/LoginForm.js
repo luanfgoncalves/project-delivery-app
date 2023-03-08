@@ -89,7 +89,7 @@ function LoginForm() {
   return (
     <>
       <img className="logo" src={ foodyLogo } alt="foody fody logo" />
-      <form className="form-container">
+      <form autoComplete="off" className="form-container">
         <h1 className="hello">Entre e peça já!</h1>
         <input
           className="form-input"

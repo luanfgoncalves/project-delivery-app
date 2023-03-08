@@ -94,57 +94,59 @@ function AdminForm() {
   }
 
   return (
-    <div>
-      <form>
+    <>
+      <form autoComplete="off" className="adm-form">
         <h1>Cadastrar novo usuário</h1>
-        <input
-          className="Register-input"
-          type="text"
-          name="userName"
-          value={ userName }
-          placeholder="Nome e sobrenome"
-          data-testid="admin_manage__input-name"
-          onChange={ handleChange }
-        />
-        <input
-          className="Register-input"
-          type="email"
-          name="email"
-          value={ email }
-          placeholder="seu-email@site.com.br"
-          data-testid="admin_manage__input-email"
-          onChange={ handleChange }
-        />
-        <input
-          className="Register-input"
-          type="password"
-          name="password"
-          value={ password }
-          placeholder="********"
-          data-testid="admin_manage__input-password"
-          onChange={ handleChange }
-        />
-        <select
-          name="role"
-          data-testid="admin_manage__select-role"
-          onChange={ ({ target }) => setRole(target.value) }
-        >
-          <option value="seller">Vendedor</option>
-          <option value="customer">Cliente</option>
-        </select>
-        <button
-          name="Register-button"
-          class-name="Register-button"
-          type="submit"
-          data-testid="admin_manage__button-register"
-          disabled={ disabledButton }
-          onClick={ handleClick }
-        >
-          Cadastrar
-        </button>
+        <div className="adm-form-input-container">
+          <input
+            className="adm-form-input"
+            type="text"
+            name="userName"
+            value={ userName }
+            placeholder="Nome e sobrenome"
+            data-testid="admin_manage__input-name"
+            onChange={ handleChange }
+          />
+          <input
+            className="adm-form-input"
+            type="email"
+            name="email"
+            value={ email }
+            placeholder="seu-email@site.com.br"
+            data-testid="admin_manage__input-email"
+            onChange={ handleChange }
+          />
+          <input
+            className="adm-form-input"
+            type="password"
+            name="password"
+            value={ password }
+            placeholder="********"
+            data-testid="admin_manage__input-password"
+            onChange={ handleChange }
+          />
+          <select
+            className="adm-form-select"
+            name="role"
+            data-testid="admin_manage__select-role"
+            onChange={ ({ target }) => setRole(target.value) }
+          >
+            <option value="seller">Vendedor</option>
+            <option value="customer">Cliente</option>
+          </select>
+          <button
+            name="Register-button"
+            className="adm-add-button"
+            type="submit"
+            data-testid="admin_manage__button-register"
+            disabled={ disabledButton }
+            onClick={ handleClick }
+          >
+            Cadastrar
+          </button>
 
-        {!IsUserDataValid && renderInvalidDataMsg()}
-
+          {!IsUserDataValid && renderInvalidDataMsg()}
+        </div>
       </form>
 
       <table className="table">
@@ -202,7 +204,7 @@ function AdminForm() {
           ))}
         </tbody>
       </table>
-    </div>
+    </>
   );
 }
 
