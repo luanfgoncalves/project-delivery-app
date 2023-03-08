@@ -23,6 +23,10 @@ describe('Página de cadastro', () => {
       .stub(User, 'findOne')
       .resolves();
 
+    sinon
+      .stub(User, 'create')
+      .resolves(validRegisterInput);
+
     response = await chai
       .request(app)
       .post(registerRoute)
