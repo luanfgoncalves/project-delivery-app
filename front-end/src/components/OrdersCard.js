@@ -39,45 +39,61 @@ function OrdersCard() {
   // função que rendiza o campo de endereço nos cards do vendedor
   function orderAddress(i) {
     return (
-      <div data-testid={ `seller_orders__element-card-address-${userOrders[i].id}` }>
+      <div
+        data-testid={ `seller_orders__element-card-address-${userOrders[i].id}` }
+        className="order-adress"
+      >
         Endereço de entrega:
         { userOrders[i].deliveryAddress }
       </div>
     );
   }
 
+  function dateAndValue(order) {
+    return (
+      <>
+        <div className="order-date">
+          Data de entrega:
+          <div data-testid={ `${USR}_orders__element-order-date-${order.id}` }>
+            { formatDate(order.saleDate) }
+          </div>
+        </div>
+        <div className="order-total-value">
+          Valor do pedido:
+          <div data-testid={ `${USR}_orders__element-card-price-${order.id}` }>
+            { order.totalPrice.replace('.', ',') }
+          </div>
+        </div>
+      </>
+    );
+  }
+
   // função que renderiza o card do produto
   function saleCard() {
     return (
-      <>
+      <div className="order-card-conainer">
         {userOrders.map((order, i) => (
           <Link
             to={ `./${order.id}` }
             key={ i }
             data-testid={ `${USR}_orders__element-order-id-${order.id}` }
           >
-            <div>
-              <div>
+            <div className="order-card">
+              <div className="order-number">
                 Numero do pedido:
                 { order.id }
               </div>
-              <div>
-                <div
-                  data-testid={ `${USR}_orders__element-delivery-status-${order.id}` }
-                >
-                  Estado do pedido:
-                  { order.status }
-                </div>
-                <div>
-                  Data de entrega:
-                  <div data-testid={ `${USR}_orders__element-order-date-${order.id}` }>
-                    { formatDate(order.saleDate) }
+              <div className="order-info-container">
+                <div className="order-info">
+                  <div
+                    data-testid={ `${USR}_orders__element-delivery-status-${order.id}` }
+                    className="order-status"
+                  >
+                    Estado do pedido:
+                    { order.status }
                   </div>
-                </div>
-                <div>
-                  Valor do pedido:
-                  <div data-testid={ `${USR}_orders__element-card-price-${order.id}` }>
-                    { order.totalPrice.replace('.', ',') }
+                  <div className="date-and-value-container">
+                    { dateAndValue(order) }
                   </div>
                 </div>
                 { USR === 'seller' && orderAddress(i) }
@@ -85,19 +101,9 @@ function OrdersCard() {
             </div>
           </Link>
         ))}
-      </>
+      </div>
     );
   }
-
-  // sobre o css
-  // classes:
-  // order-card(engloba todo o card): cinza claro com letras pretas e bordas cinza escuto
-  // order-data(engloba tudo menos id): fundo cinza escuro sem bordas
-  // order-number(engloba id): fundo cinza médio letras pretas
-  // order-state(engloba estado): bordas e letras pretas bold, fundo dinâmico: amarelo(a caminho), azul(entregue) verde(parado)
-  // order-date(engloba data): letras pretas bold, fundo cinza médio letras pretas
-  // order-value(engloba preço): letras pretas bold, fundo cinza médio letras pretas
-  // order-adress(engloba endereço): letras menores, fundo cinza escuro letras pretas
 
   if (isLoading) return <Loading />;
   return (
