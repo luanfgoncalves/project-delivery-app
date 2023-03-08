@@ -83,4 +83,18 @@ describe('Página de cadastro', () => {
 
     expect(response.status).to.be.equal(204);
   });
+
+  it('5 - Deve lançar um erro interno do servidor', async () => {
+    sinon
+      .stub(User, 'findOne')
+      .throws(Error('Erro forçado'));
+    
+    response = await chai
+      .request(app)
+      .post(registerRoute)
+      .send(validRegisterInput);
+    
+    expect(response.status).to.be.equal(500);
+    expect(response.body).to.deep.equal({ message: 'Erro forçado' });
+  });
 });
