@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const app = require('../api/app');
 const { Product, Sale } = require('../database/models/index');
 const { allProducts, orderWithProducts } = require('./mocks/product.mock');
+const { newOrder } = require('./mocks/order.mock');
 
 chai.use(chaiHttp);
 
@@ -13,9 +14,11 @@ const { expect } = chai;
 
 const customerProductsRoute = '/customer/products';
 
-const customerOrdersRoute = '/customer/orders/1?displayProducts=true';
+const customerOrderProductRoute = '/customer/orders/1?displayProducts=true';
 
-describe('Página de produtos', () => {
+const customerOrdersRoute = '/customer/orders?user_id=3';
+
+describe('Página da pessoa cliente', () => {
 
   let response;
 
@@ -51,10 +54,23 @@ describe('Página de produtos', () => {
 
       response = await chai
         .request(app)
-        .get(customerOrdersRoute);
+        .get(customerOrderProductRoute);
 
       expect(response.status).to.be.equal(200);
       expect(response.body).to.deep.equal(orderWithProducts);
+    });
+
+    it('3 - Deve retornar todos os pedidos da pessoa cliente com o id passado na query', async () => {
+      sinon
+        .stub(Sale, 'findAll')
+        .resolves([newOrder]);
+      
+      response = await chai
+        .request(app)
+        .get(customerOrdersRoute);
+
+      expect(response.status).to.be.equal(200);
+      expect(response.body).to.deep.equal([newOrder]);
     });
   });
 
