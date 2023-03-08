@@ -152,17 +152,18 @@ function AdminForm() {
       <table className="table">
         <thead className="text-center">
           <tr>
-            <th>Item</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Role</th>
-            <th>Delete</th>
+            <th className="adm-td-id">Item</th>
+            <th className="adm-td-name">Name</th>
+            <th className="adm-td-email">Email</th>
+            <th className="adm-td-role">Role</th>
+            <th className="adm-td-delete">Delete</th>
           </tr>
         </thead>
         <tbody className="text-center">
           {users.map((elem, index = 1) => (
             <tr key={ index }>
               <td
+                className="adm-td-id"
                 data-testid={
                   `admin_manage__element-user-table-item-number-${index}`
                 }
@@ -170,11 +171,13 @@ function AdminForm() {
                 {index + 1}
               </td>
               <td
+                className="adm-td-name"
                 data-testid={ `admin_manage__element-user-table-name-${index}` }
               >
                 {elem.name}
               </td>
               <td
+                className="adm-td-email"
                 data-testid={
                   `admin_manage__element-user-table-email-${index}`
                 }
@@ -182,15 +185,16 @@ function AdminForm() {
                 {elem.email}
               </td>
               <td
+                className="adm-td-role"
                 data-testid={
                   `admin_manage__element-user-table-role-${index}`
                 }
               >
                 {elem.role}
               </td>
-              <td>
+              <td className="adm-td-delete">
                 <button
-                  className="btn btn-danger"
+                  className="adm-remove-button"
                   data-testid={
                     `admin_manage__element-user-table-remove-${index}`
                   }
