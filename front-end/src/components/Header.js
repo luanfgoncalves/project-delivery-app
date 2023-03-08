@@ -3,14 +3,16 @@ import { useNavigate, Link } from 'react-router-dom';
 import DeliveryAppContext from '../context/DeliveryAppContext';
 
 function Header() {
-  const { user, setUser } = useContext(DeliveryAppContext);
+  const { setUser } = useContext(DeliveryAppContext);
   const navigate = useNavigate();
+
+  const user = JSON.parse(localStorage.getItem('user'));
 
   // Renderiza link para a tela de produtos a venda pro cliente
   function customerOrders() {
     return (
       <Link
-        to="/customer/orders/"
+        to="/customer/products"
         data-testid="customer_products__element-navbar-link-products"
       >
         Produtos
@@ -21,15 +23,36 @@ function Header() {
   // renderiza as opções(Pedidos do cliente, pedididos do comprador e tela de gerenciamento pro adm)
   function userOptions() {
     return (
-      <div data-testid="customer_products__element-navbar-link-orders">
+      <div>
         { user.role === 'customer'
-        && <Link to="/customer/products">Meus Pedidos</Link> }
+        && (
+          <Link
+            to="/customer/orders"
+            data-testid="customer_products__element-navbar-link-orders"
+          >
+            Meus Pedidos
+
+          </Link>) }
 
         { user.role === 'seller'
-        && <Link to="/seller/orders">Pedidos</Link> }
+        && (
+          <Link
+            to="/seller/orders"
+            data-testid="customer_products__element-navbar-link-orders"
+          >
+            Pedidos
+
+          </Link>) }
 
         { user.role === 'administrator'
-        && <Link to="/admin/manage">Gerenciar Usuários</Link> }
+        && (
+          <Link
+            to="/admin/manage"
+            data-testid="customer_products__element-navbar-link-orders"
+          >
+            Gerenciar Usuários
+
+          </Link>) }
 
       </div>
     );

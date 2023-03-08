@@ -1,9 +1,12 @@
 import React from 'react';
+import Header from '../components/Header';
+import OrderDetails from '../components/OrderDetails';
 
 function Details() {
   return (
     <div>
-      <h1>Detalhes</h1>
+      <Header />
+      <OrderDetails />
     </div>
   );
 }

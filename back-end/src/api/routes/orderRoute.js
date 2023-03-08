@@ -7,4 +7,6 @@ const orderController = require('../controllers/orderController');
 
 router.post('/', validateToken, orderController.order);
 
+router.put('/update', orderController.updateOrderState);
+
 module.exports = router;
