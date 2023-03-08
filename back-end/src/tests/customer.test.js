@@ -4,45 +4,68 @@ const chaiHttp = require('chai-http');
 const jwt = require('jsonwebtoken');
 
 const app = require('../api/app');
-const { Product } = require('../database/models/index');
-const { allProducts } = require('./mocks/product.mock');
+const { Product, Sale } = require('../database/models/index');
+const { allProducts, orderWithProducts } = require('./mocks/product.mock');
 
 chai.use(chaiHttp);
 
 const { expect } = chai;
 
-const customerProductsRoute = ('/customer/products');
+const customerProductsRoute = '/customer/products';
+
+const customerOrdersRoute = '/customer/orders/1?displayProducts=true';
 
 describe('Página de produtos', () => {
 
   let response;
 
+  const token = 'token';
+
   afterEach(sinon.restore);
 
-  it('1 - Deve retornar uma lista com todos os produtos disponíveis', async () => {
-    const token = 'token';
+  describe('Com pessoa autenticada', () => {
 
-    sinon
-      .stub(Product, 'findAll')
-      .resolves({ dataValues: allProducts, ...allProducts });
+    beforeEach(() => {
+      sinon
+        .stub(jwt, 'verify')
+        .callsFake(() => token);
+    });
 
-    sinon
-      .stub(jwt, 'verify')
-      .callsFake(() => token);
-    
-    response = await chai
-      .request(app)
-      .get(customerProductsRoute)
-      .set('Authorization', token);
-    
-    expect(response.status).to.be.equal(200);
+    it('1 - Deve retornar uma lista com todos os produtos disponíveis', async () => {
+      sinon
+        .stub(Product, 'findAll')
+        .resolves({ dataValues: allProducts, ...allProducts });
+      
+      response = await chai
+        .request(app)
+        .get(customerProductsRoute)
+        .set('Authorization', token);
+      
+      expect(response.status).to.be.equal(200);
+    });
+
+    it('2 - Deve retornar os dados completos do pedido com os produtos', async () => {
+      sinon
+        .stub(Sale, 'findByPk')
+        .resolves(orderWithProducts);
+
+      response = await chai
+        .request(app)
+        .get(customerOrdersRoute);
+
+      expect(response.status).to.be.equal(200);
+      expect(response.body).to.deep.equal(orderWithProducts);
+    });
   });
 
-  it('2 - Deve retornar um erro se a pessoa não estiver autenticada', async () => {
-    response = await chai
+  describe('Sem pessoa autenticada', () => {
+
+    it('1 - Deve retornar um erro', async () => {
+      response = await chai
       .request(app)
       .get(customerProductsRoute);
-
-    expect(response.status).to.be.equal(401);
+      
+      expect(response.status).to.be.equal(401);
+    });
   });
 });
