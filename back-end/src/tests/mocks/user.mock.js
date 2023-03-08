@@ -21,9 +21,15 @@ const validRegisterInput = {
   name: 'Cliente Zé Birita',
 };
 
+const validCustomerRegister = {
+  ...validRegisterInput,
+  role: 'customer'
+};
+
 module.exports = {
   customerInfo,
   validLogin,
   invalidEmailLogin,
   validRegisterInput,
+  validCustomerRegister,
 };
