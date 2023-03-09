@@ -232,7 +232,7 @@ td {
   position: fixed;
   top: 0%;
   width: 100vw;
-  z-index: 1;
+  /* z-index: 1; */
 }
 
 .navbar-button-container {
@@ -328,8 +328,8 @@ td {
   font-style: bold;
   height: 75px;
   justify-content: center;
-  margin-bottom: 5%;
-  margin-top: -5%;
+  margin-bottom: 2.5%;
+  margin-top: 2.5%;
   width: 9.8vw;
 }
 
@@ -923,7 +923,7 @@ td {
   top: 50%;
   transform: translate(-50%, -50%);
   width: 100%;
-  z-index: 1;
+  /* z-index: 1; */
 }
 
 .creator-img {
@@ -969,7 +969,7 @@ td {
   top: 50%;
   transform: translate(-50%, -50%);
   width: min-content;
-  z-index: 1;
+  /* z-index: 1; */
 }
 
 .loading-text {
@@ -1062,7 +1062,7 @@ td {
   top: 50%;
   transform: translate(-50%, -50%);
   width: fit-content;
-  z-index: 1;
+  /* z-index: 1; */
 }
 
 .notfound-code {
