@@ -1,5 +1,5 @@
 import { Route, Routes, Navigate } from 'react-router-dom';
-import './style.css';
+// import './style.css';
 import DeliveryAppProvider from './context/DeliveryAppProvider';
 import Checkout from './pages/Checkout';
 import Details from './pages/Details';

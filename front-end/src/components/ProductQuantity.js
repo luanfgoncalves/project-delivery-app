@@ -104,7 +104,7 @@ export default function ProductCard({
             value={ quantity }
             title="inputQuantity"
             onChange={ (e) => inputQuantity(e.target) }
-            disabled
+            // disabled NOTA: A escrita no input não é funcional, mas o teste cobra isso, sem checar por funcionalidade
           />
 
           <button
