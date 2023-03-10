@@ -31,16 +31,16 @@ function TableCheckout() {
   };
 
   return (
-    <div>
+    <>
       <table>
         <thead>
           <tr>
-            <th>Item</th>
-            <th>Descrição</th>
-            <th>Quantidade</th>
-            <th>Valor Unitário</th>
-            <th>Sub-total</th>
-            <th>Remover Item</th>
+            <th className="td-item">Item</th>
+            <th className="td-description">Descrição do Produto</th>
+            <th className="td-qtd">Qtd</th>
+            <th className="td-value">Valor</th>
+            <th className="td-subtotal">Sub-total</th>
+            <th className="td-remove-item">Remover Item</th>
           </tr>
         </thead>
 
@@ -48,6 +48,7 @@ function TableCheckout() {
           {products.map((product, index) => (
             <tr key={ product.id + index }>
               <td
+                className="td-item"
                 data-testid={
                   `customer_checkout__element-order-table-item-number-${index}`
                 }
@@ -56,6 +57,7 @@ function TableCheckout() {
 
               </td>
               <td
+                className="td-description"
                 data-testid={
                   `customer_checkout__element-order-table-name-${index}`
                 }
@@ -64,6 +66,7 @@ function TableCheckout() {
 
               </td>
               <td
+                className="td-qtd"
                 data-testid={
                   `customer_checkout__element-order-table-quantity-${index}`
                 }
@@ -72,6 +75,7 @@ function TableCheckout() {
 
               </td>
               <td
+                className="td-value"
                 data-testid={
                   `customer_checkout__element-order-table-unit-price-${index}`
                 }
@@ -80,6 +84,7 @@ function TableCheckout() {
 
               </td>
               <td
+                className="td-subtotal"
                 data-testid={
                   `customer_checkout__element-order-table-sub-total-${index}`
                 }
@@ -87,9 +92,10 @@ function TableCheckout() {
                 {parseFloat(product.subTotal).toFixed(2).replace('.', ',')}
 
               </td>
-              <td>
+              <td className="td-remove-item">
                 <button
                   name={ product.id }
+                  className="button-remove-item"
                   data-testid={
                     `customer_checkout__element-order-table-remove-${index}`
                   }
@@ -104,10 +110,13 @@ function TableCheckout() {
           ))}
         </tbody>
       </table>
-      <div data-testid="customer_checkout__element-order-total-price">
+      <div
+        className="checkout-total"
+        data-testid="customer_checkout__element-order-total-price"
+      >
         {parseFloat(totalPrice).toFixed(2).replace('.', ',')}
       </div>
-    </div>
+    </>
   );
 }
 

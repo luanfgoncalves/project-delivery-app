@@ -46,27 +46,24 @@ function CustomerProducts() {
 
   return (
     <main>
-      <div>
-
-        <button
-          type="button"
-          data-testid="customer_products__button-cart"
-          disabled={ isActive }
-          onClick={ () => setCheckout() }
+      <button
+        type="button"
+        className="product-total-value"
+        data-testid="customer_products__button-cart"
+        disabled={ isActive }
+        onClick={ () => setCheckout() }
+      >
+        <p>Finalizar</p>
+        <p
+          data-testid="customer_products__checkout-bottom-value"
         >
-          <p
-            data-testid="customer_products__checkout-bottom-value"
+          {total ? total.toFixed(2).replace('.', ',') : 0}
 
-          >
-            {total ? total.toFixed(2).replace('.', ',') : 0}
-
-          </p>
-        </button>
-      </div>
-
-      <div>
+        </p>
+      </button>
+      <div className="product-card-conainer">
         {products.map((item, index) => (
-          <div key={ index }>
+          <div key={ index } className="product-card">
             <ProductQuantity
               id={ item.id }
               urlImage={ item.urlImage }
@@ -82,4 +79,5 @@ function CustomerProducts() {
     </main>
   );
 }
+
 export default CustomerProducts;

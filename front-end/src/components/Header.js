@@ -14,6 +14,7 @@ function Header() {
       <Link
         to="/customer/products"
         data-testid="customer_products__element-navbar-link-products"
+        className="navbar-button"
       >
         Produtos
       </Link>
@@ -29,6 +30,7 @@ function Header() {
           <Link
             to="/customer/orders"
             data-testid="customer_products__element-navbar-link-orders"
+            className="navbar-button"
           >
             Meus Pedidos
 
@@ -39,6 +41,7 @@ function Header() {
           <Link
             to="/seller/orders"
             data-testid="customer_products__element-navbar-link-orders"
+            className="navbar-button"
           >
             Pedidos
 
@@ -49,6 +52,7 @@ function Header() {
           <Link
             to="/admin/manage"
             data-testid="customer_products__element-navbar-link-orders"
+            className="navbar-button"
           >
             Gerenciar Usuários
 
@@ -66,8 +70,11 @@ function Header() {
   // renderiza o nome do usuário
   function userName() {
     return (
-      <div data-testid="customer_products__element-navbar-user-full-name">
-        <h1>{getUserName()}</h1>
+      <div
+        data-testid="customer_products__element-navbar-user-full-name"
+        className="navbar-button"
+      >
+        {getUserName()}
       </div>
     );
   }
@@ -88,7 +95,7 @@ function Header() {
     return (
       <button
         name="logout-button"
-        class-name="logout-button"
+        className="navbar-button"
         type="button"
         data-testid="customer_products__element-navbar-link-logout"
         onClick={ handleClick }
@@ -99,14 +106,17 @@ function Header() {
   }
 
   return (
-    <header>
-      { user.role === 'customer' && customerOrders() }
+    <header className="navbar">
+      <div className="navbar-button-container">
+        { user.role === 'customer' && customerOrders() }
+        { userOptions() }
+      </div>
 
-      { userOptions() }
+      <div className="navbar-button-container">
+        { userName() }
 
-      { userName() }
-
-      { logoutButton() }
+        { logoutButton() }
+      </div>
 
     </header>
   );

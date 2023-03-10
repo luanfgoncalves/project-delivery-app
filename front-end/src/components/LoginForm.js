@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import DeliveryAppContext from '../context/DeliveryAppContext';
+import foodyLogo from '../images/foodyLogo.png';
 
 function LoginForm() {
   const { setUser } = useContext(DeliveryAppContext);
@@ -10,6 +11,8 @@ function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+
+  const ID01 = 'common_login__element-invalid-email';
 
   const validateEmail = () => {
     const check = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/gi;
@@ -84,30 +87,31 @@ function LoginForm() {
   };
 
   return (
-    <div className="login-screen">
-      <form className="login-form">
-        <h1>Login</h1>
+    <>
+      <img className="logo" src={ foodyLogo } alt="foody fody logo" />
+      <form autoComplete="off" className="form-container">
+        <h1 className="hello">Entre e peça já!</h1>
         <input
-          className="login-input"
+          className="form-input"
           type="email"
           name="email"
           value={ email }
-          placeholder="email"
+          placeholder="Email"
           data-testid="common_login__input-email"
           onChange={ handleChange }
         />
         <input
-          className="login-input"
+          className="form-input"
           type="password"
           name="password"
           value={ password }
-          placeholder="senha"
+          placeholder="Senha"
           data-testid="common_login__input-password"
           onChange={ handleChange }
         />
         <button
           name="login-button"
-          class-name="login-button"
+          className="front-button"
           type="submit"
           data-testid="common_login__button-login"
           disabled={ disabledButton }
@@ -117,19 +121,19 @@ function LoginForm() {
         </button>
 
         {!isEmailValid
-        && <h4 data-testid="common_login__element-invalid-email"> E-mail Inválido </h4>}
+        && <h4 className="invalid" data-testid={ ID01 }> E-mail Inválido </h4>}
 
         <button
           name="register-button"
-          class-name="register-button"
+          className="front-button"
           type="submit"
           data-testid="common_login__button-register"
           onClick={ handleClick }
         >
-          Register
+          Registre-se
         </button>
       </form>
-    </div>
+    </>
   );
 }
 

@@ -63,16 +63,17 @@ export default function ProductCard({
 
   return (
 
-    <div>
-      <div>
+    <>
+      <div className="product-image-container">
         <img
+          className="product-image"
           data-testid={ `customer_products__img-card-bg-image-${id}` }
           src={ urlImage }
           alt=""
         />
       </div>
 
-      <div>
+      <div className="product-info">
         <h5
           data-testid={ `customer_products__element-card-title-${id}` }
         >
@@ -88,6 +89,7 @@ export default function ProductCard({
         <div>
           <button
             type="button"
+            className="minus-button"
             data-testid={ `customer_products__button-card-rm-item-${id}` }
             title="remove"
             onClick={ () => removeQuantity() }
@@ -97,14 +99,17 @@ export default function ProductCard({
 
           <input
             type="text"
+            className="product-value-input"
             data-testid={ `customer_products__input-card-quantity-${id}` }
             value={ quantity }
             title="inputQuantity"
             onChange={ (e) => inputQuantity(e.target) }
+            // disabled NOTA: A escrita no input não é funcional, mas o teste cobra isso, sem checar por funcionalidade
           />
 
           <button
             type="button"
+            className="plus-button"
             data-testid={ `customer_products__button-card-add-item-${id}` }
             title="add"
             onClick={ () => adicionaQuantity() }
@@ -115,7 +120,7 @@ export default function ProductCard({
         </div>
 
       </div>
-    </div>
+    </>
 
   );
 }

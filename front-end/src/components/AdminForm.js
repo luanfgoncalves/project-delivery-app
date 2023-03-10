@@ -94,73 +94,76 @@ function AdminForm() {
   }
 
   return (
-    <div>
-      <form>
+    <>
+      <form autoComplete="off" className="adm-form">
         <h1>Cadastrar novo usuário</h1>
-        <input
-          className="Register-input"
-          type="text"
-          name="userName"
-          value={ userName }
-          placeholder="Nome e sobrenome"
-          data-testid="admin_manage__input-name"
-          onChange={ handleChange }
-        />
-        <input
-          className="Register-input"
-          type="email"
-          name="email"
-          value={ email }
-          placeholder="seu-email@site.com.br"
-          data-testid="admin_manage__input-email"
-          onChange={ handleChange }
-        />
-        <input
-          className="Register-input"
-          type="password"
-          name="password"
-          value={ password }
-          placeholder="********"
-          data-testid="admin_manage__input-password"
-          onChange={ handleChange }
-        />
-        <select
-          name="role"
-          data-testid="admin_manage__select-role"
-          onChange={ ({ target }) => setRole(target.value) }
-        >
-          <option value="seller">Vendedor</option>
-          <option value="customer">Cliente</option>
-        </select>
-        <button
-          name="Register-button"
-          class-name="Register-button"
-          type="submit"
-          data-testid="admin_manage__button-register"
-          disabled={ disabledButton }
-          onClick={ handleClick }
-        >
-          Cadastrar
-        </button>
+        <div className="adm-form-input-container">
+          <input
+            className="adm-form-input"
+            type="text"
+            name="userName"
+            value={ userName }
+            placeholder="Nome e sobrenome"
+            data-testid="admin_manage__input-name"
+            onChange={ handleChange }
+          />
+          <input
+            className="adm-form-input"
+            type="email"
+            name="email"
+            value={ email }
+            placeholder="seu-email@site.com.br"
+            data-testid="admin_manage__input-email"
+            onChange={ handleChange }
+          />
+          <input
+            className="adm-form-input"
+            type="password"
+            name="password"
+            value={ password }
+            placeholder="********"
+            data-testid="admin_manage__input-password"
+            onChange={ handleChange }
+          />
+          <select
+            className="adm-form-select"
+            name="role"
+            data-testid="admin_manage__select-role"
+            onChange={ ({ target }) => setRole(target.value) }
+          >
+            <option value="seller">Vendedor</option>
+            <option value="customer">Cliente</option>
+          </select>
+          <button
+            name="Register-button"
+            className="adm-add-button"
+            type="submit"
+            data-testid="admin_manage__button-register"
+            disabled={ disabledButton }
+            onClick={ handleClick }
+          >
+            Cadastrar
+          </button>
 
-        {!IsUserDataValid && renderInvalidDataMsg()}
-
+          {!IsUserDataValid && renderInvalidDataMsg()}
+        </div>
       </form>
 
       <table className="table">
         <thead className="text-center">
           <tr>
-            <th>Item</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Role</th>
-            <th>Delete</th>
+            <th className="adm-td-id">Item</th>
+            <th className="adm-td-name">Name</th>
+            <th className="adm-td-email">Email</th>
+            <th className="adm-td-role">Role</th>
+            <th className="adm-td-delete">Delete</th>
           </tr>
         </thead>
         <tbody className="text-center">
           {users.map((elem, index = 1) => (
             <tr key={ index }>
               <td
+                className="adm-td-id"
                 data-testid={
                   `admin_manage__element-user-table-item-number-${index}`
                 }
@@ -168,11 +171,13 @@ function AdminForm() {
                 {index + 1}
               </td>
               <td
+                className="adm-td-name"
                 data-testid={ `admin_manage__element-user-table-name-${index}` }
               >
                 {elem.name}
               </td>
               <td
+                className="adm-td-email"
                 data-testid={
                   `admin_manage__element-user-table-email-${index}`
                 }
@@ -180,15 +185,16 @@ function AdminForm() {
                 {elem.email}
               </td>
               <td
+                className="adm-td-role"
                 data-testid={
                   `admin_manage__element-user-table-role-${index}`
                 }
               >
                 {elem.role}
               </td>
-              <td>
+              <td className="adm-td-delete">
                 <button
-                  className="btn btn-danger"
+                  className="adm-remove-button"
                   data-testid={
                     `admin_manage__element-user-table-remove-${index}`
                   }
@@ -202,7 +208,7 @@ function AdminForm() {
           ))}
         </tbody>
       </table>
-    </div>
+    </>
   );
 }
 

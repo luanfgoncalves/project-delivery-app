@@ -1,13 +1,15 @@
 import React from 'react';
 import Header from '../components/Header';
 import AdminForm from '../components/AdminForm';
+import Footer from '../components/Footer';
 
 function Manage() {
   return (
-    <div>
+    <main>
       <Header />
       <AdminForm />
-    </div>
+      <Footer />
+    </main>
   );
 }
 
