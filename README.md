@@ -26,7 +26,7 @@ e o uso do Mocha, Sinnon e Chai para o Backend.
 * Utilizei _Sequelizer_ para gerenciar o Banco de Dados SQL permitindo o manejo de usuários, compras e produtos cadastrados. :heavy_check_mark:
 * Utilizei _hash md5_ para criptografar as senhas cadastradas dando mais segurança aos usuários. :heavy_check_mark:
 * Utilizei _Axios_ para fazer a conexão e comunicação entre o front e backend. :heavy_check_mark:
-* Utilizei _Testes Unitários_ para dar segurança e confiabilidade ao app através do RTL, Mocha, Sinnon e Chai. :heavy_check_mark:
+* Utilizei _Testes Unitários_ para dar segurança à aplicação através do RTL, Mocha, Sinnon e Chai. :heavy_check_mark:
 * Utilizei _Lint_ para organizar e dar coesão aos códgios da aplicação. :heavy_check_mark:
 * Utilizei _Trello_ para orientar o Sprint de desenvolvimento através de um Kanban. :heavy_check_mark:
 * Utilizei _Figma_ para orientar o desenvolvimento e dar coesão visual ás multiplas páginas. :heavy_check_mark:
